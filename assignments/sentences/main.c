@@ -7,10 +7,10 @@
 #define CONTINUE 1
 #define BREAK 0
 
-int inputLoop();
+int input_loop();
 int keystrokes(char input[]);
-int alphaChars(char input[]);
-int digitChars(char input[]);
+int alpha_chars(char input[]);
+int digit_chars(char input[]);
 int vowels(char input[]);
 
 int main(void) {
@@ -19,10 +19,10 @@ int main(void) {
   printf("\tWelcome to the Sentence Data Aggregator\n");
   printf("-----------------------------------------------------------------\n");
 
-  int loopControl = CONTINUE;
-  while (loopControl) {
-    loopControl = inputLoop();
-  }
+  int loop_control;
+  do {
+    loop_control = input_loop();
+  } while (loop_control);
 
   printf("-----------------------------------------------------------------\n");
   printf("\t\tThank you and goodbye.\n");
@@ -32,7 +32,7 @@ int main(void) {
 }
 
 // -----------------------------------------------------------------------------
-int inputLoop() {
+int input_loop() {
   char input[MAX_INPUT];
 
   printf("\n\nPlease input a sentence. If you want to exit, just hit enter.\n");
@@ -40,14 +40,14 @@ int inputLoop() {
   if (input[0] == SENTINEL)
     return BREAK;
 
-  const int totalKeystrokes = keystrokes(input);
-  printf("\nKeystrokes: %10i", totalKeystrokes);
-  const int totalAlphaChars = alphaChars(input);
-  printf("\nAlpha Characters: %4i", totalAlphaChars);
-  const int totalDigitChars = digitChars(input);
-  printf("\nNumeric Characters: %2i", totalDigitChars);
-  const int totalVowels = vowels(input);
-  printf("\nVowels: %14i", totalVowels);
+  const int total_keystrokes = keystrokes(input);
+  printf("\nKeystrokes: %10i", total_keystrokes);
+  const int total_alpha_chars = alpha_chars(input);
+  printf("\nAlpha Characters: %4i", total_alpha_chars);
+  const int total_digit_chars = digit_chars(input);
+  printf("\nNumeric Characters: %2i", total_digit_chars);
+  const int total_vowels = vowels(input);
+  printf("\nVowels: %14i", total_vowels);
 
   return CONTINUE;
 }
@@ -65,8 +65,8 @@ int keystrokes(char input[]) {
 }
 
 // -----------------------------------------------------------------------------
-int alphaChars(char input[]) {
-  int totalAlphaChars = 0;
+int alpha_chars(char input[]) {
+  int total_alpha_chars = 0;
 
   for (int i = 0; input[i] != SENTINEL; i++) {
     if (!isalpha(input[i]))
@@ -76,27 +76,27 @@ int alphaChars(char input[]) {
     else if (isspace(input[i]))
       continue;
 
-    totalAlphaChars++;
+    total_alpha_chars++;
   }
 
-  return totalAlphaChars;
+  return total_alpha_chars;
 }
 
 // -----------------------------------------------------------------------------
-int digitChars(char input[]) {
-  int totalDigitChars = 0;
+int digit_chars(char input[]) {
+  int total_digit_chars = 0;
 
   for (int i = 0; input[i] != SENTINEL; i++) {
     if (isdigit(input[i]))
-      totalDigitChars++;
+      total_digit_chars++;
   }
 
-  return totalDigitChars;
+  return total_digit_chars;
 }
 
 // -----------------------------------------------------------------------------
 int vowels(char input[]) {
-  int totalVowels = 0;
+  int total_vowels = 0;
 
   for (int i = 0; input[i] != SENTINEL; i++) {
     if (!isalpha(input[i]))
@@ -112,10 +112,10 @@ int vowels(char input[]) {
     case 'I':
     case 'O':
     case 'U':
-      totalVowels++;
+      total_vowels++;
       break;
     }
   }
 
-  return totalVowels;
+  return total_vowels;
 }
