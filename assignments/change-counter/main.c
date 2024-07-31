@@ -5,7 +5,7 @@
 
 typedef enum { CONTINUE, BREAK } loop_control;
 
-int input_loop();
+loop_control input_loop(void);
 void calculate_change(double *input_cost, int *num_quarters, int *num_dimes,
                       int *num_nickels, int *num_pennies);
 
@@ -15,10 +15,10 @@ int main(void) {
   puts("\t\tWelcome to the change counter!");
   puts("-----------------------------------------------------------------");
 
-  loop_control l = CONTINUE;
-  while (l == CONTINUE) {
+  loop_control l;
+  do {
     l = input_loop();
-  }
+  } while (l == CONTINUE);
 
   puts("\n-----------------------------------------------------------------");
   puts("\t\tThank you, and goodbye.");
@@ -28,7 +28,7 @@ int main(void) {
 }
 
 // -----------------------------------------------------------------------------
-loop_control input_loop() {
+loop_control input_loop(void) {
   double input_cost = 0.0;
   int num_quarters = 0;
   int num_dimes = 0;

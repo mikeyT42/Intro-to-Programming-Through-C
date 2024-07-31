@@ -1,15 +1,15 @@
 #include <stdbool.h>
 #include <stdio.h>
 
-void characterTypes();
-void integerTypes();
-void floatingPointTypes();
-void booleanType();
-void voidType();
-void pointerType();
-void arrayType();
-void enumType();
-void structType();
+void character_types();
+void integer_types();
+void floating_point_types();
+void boolean_type();
+void void_type();
+void pointer_type();
+void array_type();
+void enum_type();
+void struct_type();
 
 int main(void) {
   puts("Welcome, we are going to do some data type tests along with some"
@@ -20,132 +20,132 @@ int main(void) {
   puts(
       "\tPlease be sure that every original printf() statement create output.");
 
-  characterTypes();
-  integerTypes();
-  floatingPointTypes();
-  booleanType();
-  voidType();
-  pointerType();
-  arrayType();
-  enumType();
-  structType();
+  character_types();
+  integer_types();
+  floating_point_types();
+  boolean_type();
+  void_type();
+  pointer_type();
+  array_type();
+  enum_type();
+  struct_type();
 
   return 0;
 }
 
 // -----------------------------------------------------------------------------
-void characterTypes() {
+void character_types() {
   puts("\n----\nCharacter Types\n----");
-  unsigned long charSize = 1;
-  unsigned long unsignedCharSize = 1;
-  unsigned long signedCharSize = 1;
+  unsigned long char_size = 1;
+  unsigned long unsigned_char_size = 1;
+  unsigned long signed_char_size = 1;
 
   puts("\t* 1");
-  if (sizeof(char) == charSize)
+  if (sizeof(char) == char_size)
     printf("\t  sizeof(char) = %i\n", (int)sizeof(char));
 
   puts("\t* 2");
-  if (sizeof(unsigned char) == unsignedCharSize)
+  if (sizeof(unsigned char) == unsigned_char_size)
     printf("\t  sizeof(unsigned char) = %i\n", (int)sizeof(unsigned char));
 
   puts("\t* 3");
-  if (sizeof(signed char) == signedCharSize)
+  if (sizeof(signed char) == signed_char_size)
     printf("\t  sizeof(signed char) = %i\n", (int)sizeof(signed char));
 }
 
 // -----------------------------------------------------------------------------
-void integerTypes() {
+void integer_types() {
   puts("\n----\nInteger Types\n----");
-  unsigned long shortSize = 2;
-  unsigned long unsignedShortSize = 2;
-  unsigned long signedShortSize = 2;
-  unsigned long intSize = 4;
-  unsigned long unsignedIntSize = 4;
-  unsigned long signedIntSize = 4;
-  unsigned long longSize = 8;
-  unsigned long unsignedLongSize = 8;
-  unsigned long signedLongSize = 8;
-  unsigned long longLongSize = 8;
-  unsigned long unsignedLongLongSize = 8;
-  unsigned long signedLongLongSize = 8;
-  unsigned long myIntSize = 4;
+  unsigned long short_size = 2;
+  unsigned long unsigned_short_size = 2;
+  unsigned long signed_short_size = 2;
+  unsigned long int_size = 4;
+  unsigned long unsigned_int_size = 4;
+  unsigned long signed_int_size = 4;
+  unsigned long long_size = 8;
+  unsigned long unsigned_long_size = 8;
+  unsigned long signed_long_size = 8;
+  unsigned long long_long_size = 8;
+  unsigned long unsigned_long_long_size = 8;
+  unsigned long signed_long_long_size = 8;
+  unsigned long my_int_size = 4;
 
-  typedef int MyInt;
+  typedef int my_int;
 
   puts("\t* 1");
-  if (sizeof(short) == shortSize)
+  if (sizeof(short) == short_size)
     printf("\t  sizeof(short) = %lu\n", sizeof(short));
 
   puts("\t* 2");
-  if (sizeof(unsigned short) == unsignedShortSize)
+  if (sizeof(unsigned short) == unsigned_short_size)
     printf("\t  sizeof(unsigned short) = %lu\n", sizeof(unsigned short));
 
   puts("\t* 3");
-  if (sizeof(signed short) == signedShortSize)
+  if (sizeof(signed short) == signed_short_size)
     printf("\t  sizeof(signed short) = %lu\n", sizeof(signed short));
 
   puts("\t* 4");
-  if (sizeof(int) == intSize)
+  if (sizeof(int) == int_size)
     printf("\t  sizeof(int) = %lu\n", sizeof(int));
 
   puts("\t* 5");
-  if (sizeof(unsigned int) == unsignedIntSize)
+  if (sizeof(unsigned int) == unsigned_int_size)
     printf("\t  sizeof(unsigned int) = %lu\n", sizeof(unsigned int));
 
   puts("\t* 6");
-  if (sizeof(signed int) == signedIntSize)
+  if (sizeof(signed int) == signed_int_size)
     printf("\t  sizeof(signed int) = %lu\n", sizeof(signed int));
 
   puts("\t* 7");
-  if (sizeof(long) == longSize)
+  if (sizeof(long) == long_size)
     printf("\t  sizeof(long) = %lu\n", sizeof(long));
 
   puts("\t* 8");
-  if (sizeof(unsigned long) == unsignedLongSize)
+  if (sizeof(unsigned long) == unsigned_long_size)
     printf("\t  sizeof(unsigned long) = %lu\n", sizeof(unsigned long));
 
   puts("\t* 9");
-  if (sizeof(signed long) == signedLongSize)
+  if (sizeof(signed long) == signed_long_size)
     printf("\t  sizeof(signed long) = %lu\n", sizeof(signed long));
 
   puts("\t* 10");
-  if (sizeof(long long) == longLongSize)
+  if (sizeof(long long) == long_long_size)
     printf("\t  sizeof(long long) = %lu\n", sizeof(long long));
 
   puts("\t* 11");
-  if (sizeof(unsigned long long) == unsignedLongLongSize)
+  if (sizeof(unsigned long long) == unsigned_long_long_size)
     printf("\t  sizeof(unsigned long long) = %lu\n",
            sizeof(unsigned long long));
 
   puts("\t* 12");
-  if (sizeof(signed long long) == signedLongLongSize)
+  if (sizeof(signed long long) == signed_long_long_size)
     printf("\t  sizeof(signed long long) = %lu\n", sizeof(signed long long));
 
   /*
    * Why is the size the way it is?
    */
   puts("\t* 13");
-  if (sizeof(MyInt) == myIntSize)
-    printf("\t  sizeof(MyInt) = %lu\n", sizeof(MyInt));
+  if (sizeof(my_int) == my_int_size)
+    printf("\t  sizeof(my_int) = %lu\n", sizeof(my_int));
 }
 
 // -----------------------------------------------------------------------------
-void floatingPointTypes() {
+void floating_point_types() {
   puts("\n----\nFloating Point Types\n----");
-  unsigned long floatSize = 4;
-  unsigned long doubleSize = 8;
+  unsigned long float_size = 4;
+  unsigned long double_size = 8;
 
   puts("\t* 1");
-  if (sizeof(float) == floatSize)
+  if (sizeof(float) == float_size)
     printf("\t  sizeof(float) = %lu\n", sizeof(float));
 
   puts("\t* 2");
-  if (sizeof(double) == doubleSize)
+  if (sizeof(double) == double_size)
     printf("\t  sizeof(double) = %lu\n", sizeof(double));
 }
 
 // -----------------------------------------------------------------------------
-void booleanType() {
+void boolean_type() {
   puts("\n----\nBoolean Type\n----");
   unsigned long booleanSize = 1;
 
@@ -155,21 +155,21 @@ void booleanType() {
 }
 
 // -----------------------------------------------------------------------------
-void voidType() {
+void void_type() {
   puts("\n----\nVoid Type\n----");
-  unsigned long voidSize = 1;
+  unsigned long void_size = 1;
 
   puts("\t* 1");
-  if (sizeof(void) == voidSize)
+  if (sizeof(void) == void_size)
     printf("\t  sizeof(void) = %lu\n", sizeof(void));
 }
 
 // -----------------------------------------------------------------------------
-void pointerType() {
+void pointer_type() {
   puts("\n----\nPointer Type\n----");
-  unsigned long intPointerSize = 8;
-  unsigned long doublePointerSize = 8;
-  unsigned long voidPointerSize = 8;
+  unsigned long int_pointer_size = 8;
+  unsigned long double_pointer_size = 8;
+  unsigned long void_pointer_size = 8;
 
   /*
    * BONUS:
@@ -180,59 +180,59 @@ void pointerType() {
    * special number size.
    */
   puts("\t* 1");
-  if (sizeof(int *) == intPointerSize)
+  if (sizeof(int *) == int_pointer_size)
     printf("\t  sizeof(int*) = %lu\n", sizeof(int *));
 
   puts("\t* 2");
-  if (sizeof(double *) == doublePointerSize)
+  if (sizeof(double *) == double_pointer_size)
     printf("\t  sizeof(double*) = %lu\n", sizeof(double *));
 
   puts("\t* 3");
-  if (sizeof(void *) == voidPointerSize)
+  if (sizeof(void *) == void_pointer_size)
     printf("\t  sizeof(void*) = %lu\n", sizeof(void *));
 }
 
 // -----------------------------------------------------------------------------
-void arrayType() {
+void array_type() {
   puts("\n----\nArray Type\n----");
-  unsigned long char10ArraySize = 1 * 10;
-  unsigned long int10ArraySize = 4 * 10;
-  unsigned long int6ArraySize = 4 * 6;
-  unsigned long double10ArraySize = 8 * 10;
-  int arrayLength = 10;
-  int whatIsMyCalculatedLength[10];
+  unsigned long char_10_array_size = 1 * 10;
+  unsigned long int_10_array_size = 4 * 10;
+  unsigned long int_6_array_size = 4 * 6;
+  unsigned long double_10_array_size = 8 * 10;
+  int array_length = 10;
+  int what_is_my_calculated_length[10];
 
   puts("\t* 1");
-  if (sizeof(char[10]) == char10ArraySize)
+  if (sizeof(char[10]) == char_10_array_size)
     printf("\t  sizeof(char[10]) = %lu\n", sizeof(char[10]));
 
   puts("\t* 2");
-  if (sizeof(int[10]) == int10ArraySize)
+  if (sizeof(int[10]) == int_10_array_size)
     printf("\t  sizeof(int[10]) = %lu\n", sizeof(int[10]));
 
   puts("\t* 3");
-  if (sizeof(int[6]) == int6ArraySize)
+  if (sizeof(int[6]) == int_6_array_size)
     printf("\t  sizeof(int[6]) = %lu\n", sizeof(int[6]));
 
   puts("\t* 4");
-  if (sizeof(double[10]) == double10ArraySize)
+  if (sizeof(double[10]) == double_10_array_size)
     printf("\t  sizeof(double[10]) = %lu\n", sizeof(double[10]));
 
   puts("\t* 5");
-  if ((sizeof(whatIsMyCalculatedLength) / sizeof(int)) == arrayLength)
+  if ((sizeof(what_is_my_calculated_length) / sizeof(int)) == array_length)
     printf("\t  length of whatIsMyCalculatedLength = %lu\n",
-           sizeof(whatIsMyCalculatedLength) / sizeof(int));
+           sizeof(what_is_my_calculated_length) / sizeof(int));
 }
 
 // -----------------------------------------------------------------------------
-void enumType() {
+void enum_type() {
   puts("\n----\nEnum Type\n----");
-  unsigned long redEnumSize = 4;
+  unsigned long red_enum_size = 4;
 
-  enum Color { RED, GREEN, BLUE };
+  enum color { RED, GREEN, BLUE };
 
   puts("\t* 1");
-  if (sizeof(RED) == redEnumSize)
+  if (sizeof(RED) == red_enum_size)
     printf("\t  sizeof(Color.Red) = %lu\n", sizeof(RED));
 
   /*
@@ -244,21 +244,21 @@ void enumType() {
 }
 
 // -----------------------------------------------------------------------------
-void structType() {
+void struct_type() {
   puts("\n----\nDeveloper Designed Struct Type\n----");
-  unsigned long personStructSize = 36;
-  unsigned long colorStructSize = 8;
+  unsigned long person_struct_size = 36;
+  unsigned long color_struct_size = 8;
 
-  struct Color {
+  struct color {
     int rgb;
     int alpha;
   };
 
   puts("\t* 1");
-  if (sizeof(struct Color) == colorStructSize)
-    printf("\t  sizeof(struct Color) = %lu\n", sizeof(struct Color));
+  if (sizeof(struct color) == color_struct_size)
+    printf("\t  sizeof(struct color) = %lu\n", sizeof(struct color));
 
-  struct Person {
+  struct person {
     int age;
     char name[30];
   };
@@ -272,6 +272,6 @@ void structType() {
    * access more efficient.
    */
   puts("\t* 2");
-  if (sizeof(struct Person) == personStructSize)
-    printf("\t  sizeof(struct Person) = %lu\n", sizeof(struct Person));
+  if (sizeof(struct person) == person_struct_size)
+    printf("\t  sizeof(struct person) = %lu\n", sizeof(struct person));
 }

@@ -10,7 +10,7 @@ void passing_primitive_types_to_functions(int i);
 void passing_arrays_to_functions(double array[], const int array2[],
                                  const int LEN);
 void arrays_decay_to_pointers(int *array);
-int *can_we_return_arrays();
+int *can_we_return_arrays(void);
 
 // -----------------------------------------------------------------------------
 int main(void) {
@@ -50,6 +50,7 @@ int main(void) {
 
   int *returned_array = can_we_return_arrays();
   printf("\nreturned_array = %p\n\n", returned_array);
+  printf("\nreturned_array[0] = %i\n\n", returned_array[0]);
 
   return EXIT_SUCCESS;
 }
