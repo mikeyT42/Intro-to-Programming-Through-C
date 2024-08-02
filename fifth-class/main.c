@@ -63,6 +63,7 @@ int main(void) {
          x, y);
 
   null_pointer();
+  constants_and_pointers();
 
   const unsigned int womens_gym_size = 16;
   string womens_gym_participants[] = {
@@ -235,7 +236,72 @@ void null_pointer(void) {
 }
 
 // -----------------------------------------------------------------------------
-void constants_and_pointers(void) {}
+void constants_and_pointers(void) {
+  puts("-----------------------------------------------------");
+  puts("\t\tConstants and Pointers.");
+  puts("-----------------------------------------------------\n");
+
+  puts("Using constants with pointers is kinda weird. Let me explain. You can\n"
+       "have a constant pointer, a pointer to a constant, and a constant\n"
+       "pointer to a constant. What is the difference between all of these?\n"
+       "First, let's go over a pointer to a constant as it has the most\n"
+       "familiar syntax.\n");
+
+  int x = 10;
+  int y = 20;
+  const int *p = &x;
+  puts("Here we have defined an int pointer that points to \"x\". We have\n"
+       "also declared it to be a pointer to a constant: it has made the value\n"
+       "it points to a constant value when being referenced through \"p\". If\n"
+       "we tried to de-reference \"p\" and then reassign a value to \"*p\"\n"
+       "then we would get a compilation error. This statement below would be\n"
+       "illegal in our definition of \"p\" being a pointer to a constant:\n\n"
+       "\t*p = y;\n");
+  // *p = y; // This would give a compilation error.
+  puts("We can, though, reassign what \"p\" points to like this:\n\n"
+       "\tp = &y;\n\n"
+       "We can do this because the pointer itself is not constant.\n");
+  p = &y; // This is legal because p is a pointer TO a constant.
+
+  int *const p2 = &x;
+  puts("We now get to a contant pointer. We have defined a pointer \"p2\" as\n"
+       "a constant pointer to an int. This is the opposite of our previous\n"
+       "example. We can assign a value to what \"p2\" points to, but we\n"
+       "cannot change what \"p2\" points to. This statement below would be\n"
+       "illegal in our definition of \"p2\" because it is a constant pointer,\n"
+       "therefore the pointer can't be changed:\n\n"
+       "\tp2 = &y;\n");
+  // p2 = &y; // This would give a compilation error.
+  puts("We can, though, reassign the value that \"p2\" points to like this:\n\n"
+       "\t*p2 = y;\n\n"
+       "We can do this because we have declared the thing \"p2\" points to to\n"
+       "not be constant.\n");
+  *p2 = y;
+
+  const int *const p3 = &x;
+  puts("Now, what about our last option; a constant pointer to a constant?\n"
+       "This option does not allow us to change WHAT the pointer points to,\n"
+       "nor the VALUE that the pointer points to. A constant pointer to a\n"
+       "constant is truly a combination of the former 2 options in one!\n"
+       "Therefore, both of these would be illegal according to our definition\n"
+       "of \"p3\":\n\n"
+       "\tp3 = &y;\n"
+       "\t*p3 = y;\n");
+  // p3 = &y; // This would give a compilation error.
+  // *p3 = y; // This would give a compilation error.
+
+  puts("All of these options allow us to define how protected we want our\n"
+       "data to be from being changed, a.k.a. mutated. Enforcing immutability\n"
+       "(no change) allows our data to be safe from accidental change when\n"
+       "being used in our code. This is a good habit we want to get into. By\n"
+       "enforcing immutability we are communicating to other developers the\n"
+       "intended purpose of our variables: the more intrinsic communication\n"
+       "the better. By also being explicit in our immutability we are\n"
+       "granting the compiler to enforce this for us, which stops developers\n"
+       "from doing things that were not intended. As time goes on, and you\n"
+       "learn more about software engineering, you will come to see the\n"
+       "importance of immutability.\n");
+}
 
 // -----------------------------------------------------------------------------
 void struct_pointers(olympic_team team, olympic_team *team_pointer) {
