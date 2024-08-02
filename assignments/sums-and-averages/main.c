@@ -2,6 +2,7 @@
 #include <stdlib.h>
 
 #define MAX_INPUT 10
+#define MAX_INPUT_STRING 50
 #define SENTINEL 0
 
 typedef enum { CONTINUE, BREAK } loop_control;
@@ -51,16 +52,18 @@ int main(void) {
 
 // -----------------------------------------------------------------------------
 loop_control input_loop(void) {
-  double input[MAX_INPUT];
+  char input[MAX_INPUT_STRING];
   unsigned int input_len;
   printf("Please input up to %i floating point or integer numbers. Seperate\n"
-         "them with spaces. To signify the end of input enter a 0.\n\n",
+         "them with spaces.\n\n",
          MAX_INPUT);
   for (int i = 0, input_len = 0; i < MAX_INPUT; i++, input_len++) {
     scanf("%lg", &input[i]);
     printf("%lg\n", input[i]);
-    if (input[i] == SENTINEL)
+    if (input[i] == SENTINEL) {
+      fflush(stdin);
       break;
+    }
   }
 
   return CONTINUE;

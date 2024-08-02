@@ -12,11 +12,11 @@ typedef struct {
 
 void understanding_pointers(void);
 void pass_by_pointer(int *i, double *d);
-void struct_pointers(olympic_team team, olympic_team *team_pointer);
-int *returning_pointers_to_local_variables(void);
-void pointer_arithmetic(void);
 void null_pointer(void);
 void constants_and_pointers(void);
+int *returning_pointers_to_local_variables(void);
+void pointer_arithmetic(void);
+void struct_pointers(olympic_team team, olympic_team *team_pointer);
 
 const unsigned int mens_swim_size = 27;
 string mens_swim_participants[] = {
@@ -61,6 +61,8 @@ int main(void) {
          "will also play a pivotal role when using dynamic (heap) memory; but\n"
          "we are not quite there yet.\n\n",
          x, y);
+
+  null_pointer();
 
   const unsigned int womens_gym_size = 16;
   string womens_gym_participants[] = {
@@ -193,17 +195,72 @@ void pass_by_pointer(int *i, double *d) {
 }
 
 // -----------------------------------------------------------------------------
+void null_pointer(void) {
+  puts("-----------------------------------------------------");
+  puts("\t\tNULL Pointer.");
+  puts("-----------------------------------------------------\n");
+
+  puts("It is finally time to talk about the null pointer and what it means.\n"
+       "The null pointer is a special value defined by the hardware and C\n"
+       "language implementation. It is a zero value; or at the very least\n"
+       "according to the C11 standard, \"guaranteed to compare unequal to any\n"
+       "object or function.\" What this allows us to do is make a pointer\n"
+       "point to nothing, which at times is quite useful. One instance it is\n"
+       "useful is for returning an error case for pointers. This is used a\n"
+       "lot in dynamic memory allocation functions. So, if something\n"
+       "went wrong, a returned pointer would be NULL and we could check for\n"
+       "that. If we were to de-reference that pointer then we would get a\n"
+       "segmentation fault. We want to make sure to never do that.\n");
+
+  puts("Let's see how we can use a NULL pointer. We can initalize a pointer\n"
+       "to NULL before using it in complex code.");
+  int *p = NULL;
+
+  printf("p = %p\n\n", p);
+
+  if (p == NULL)
+    puts("Here we can see how to utilize the null pointer check.\n");
+
+  if (!p)
+    puts("Since NULL is a \"zero\" value, we can use the pointer value\n"
+         "directly in the \"if\" statement and test for \"!p\".\n");
+
+  /*
+  printf("Un-commenting this would cause a segmentation fault and the program\n"
+         "would crash. We cannot de-reference a null pointer. How can we get\n"
+         "the value of something that exists at nothing?"
+         "*p = %d\n\n",
+         *p);
+  */
+}
+
+// -----------------------------------------------------------------------------
+void constants_and_pointers(void) {}
+
+// -----------------------------------------------------------------------------
 void struct_pointers(olympic_team team, olympic_team *team_pointer) {
   puts("-----------------------------------------------------");
   puts("\t\tStruct Pointers.");
   puts("-----------------------------------------------------\n");
 
   puts("Passing structs to functions can have some strange quirks. Strings,\n"
-       "and in general arrays are a particular issue. Structs, when passed to\n"
-       "functions by-value, have all of it's data copied into the function.\n"
+       "and in general arrays, are a particular issue. Structs, when passed\n"
+       "to functions by-value, have all of its data copied into the function.\n"
        "Any arrays decay to a pointer to the first item in the array (the\n"
        "pointer value is passed-by-value), so the array is actually the\n"
-       "original array and not a copy. You can pass ");
+       "original array and not a copy. You can pass the struct by-pointer and\n"
+       "skip past this quirk, because now everything in the original struct\n"
+       "is able to be referenced. This of course leads to the potential to\n"
+       "change the values of the original struct, or point to a new struct;\n"
+       "if the calling function is not privy to this behavior then you can\n"
+       "have a bad bug. So, using const when passing structs around by\n"
+       "pointer is quite imperative when you want to guarantee the struct\n"
+       "won't be changed.\n");
+
+  puts("Let me demonstrate how the address of the string array is the same\n"
+       "in the pointer to the same struct as the one copied in by-value.\n"
+       "Notice how all of the primitive types have new addresses, but the\n"
+       "array has the same address as the original.\n");
 
   printf("&team = %li\n", (long)&team);
   printf("team.country address = %li\n", (long)team.country);
