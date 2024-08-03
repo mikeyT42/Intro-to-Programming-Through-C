@@ -64,6 +64,14 @@ int main(void) {
 
   null_pointer();
   constants_and_pointers();
+  int *p = returning_pointers_to_local_variables();
+  printf("We should see out pointer \"p\" as a NULL pointer\n\n"
+         "\tp = %p\n\n"
+         "If we do see an address, that is only because our particular\n"
+         "compiler does not nullify the stack memory once exited. The fact\n"
+         "still holds though; we should not access this memory as it is\n"
+         "undefined behavior if we were to access it.\n\n",
+         p);
 
   const unsigned int womens_gym_size = 16;
   string womens_gym_participants[] = {
@@ -301,6 +309,30 @@ void constants_and_pointers(void) {
        "from doing things that were not intended. As time goes on, and you\n"
        "learn more about software engineering, you will come to see the\n"
        "importance of immutability.\n");
+}
+
+// -----------------------------------------------------------------------------
+int *returning_pointers_to_local_variables(void) {
+  puts("-----------------------------------------------------");
+  puts("\t\tReturning Pointers to Local Variables.");
+  puts("-----------------------------------------------------\n");
+
+  puts("This excursion will be very similar--nearly identical really--to the\n"
+       "sub-lesson on returning pointers to local arrays. Long story short,\n"
+       "it can't be done; and for the same reasons at that! We can't return\n"
+       "pointers to local variables because when we exit this function, this\n"
+       "function's stack memory will become un-referable (or out of bounds,\n"
+       "we should not access \"freed\" memory). Let's try this now.\n");
+  int x = 50;
+  int *p = &x;
+  return p;
+}
+
+// -----------------------------------------------------------------------------
+void pointer_arithmetic(void) {
+  puts("-----------------------------------------------------");
+  puts("\t\tPointer Arithmetic.");
+  puts("-----------------------------------------------------\n");
 }
 
 // -----------------------------------------------------------------------------
