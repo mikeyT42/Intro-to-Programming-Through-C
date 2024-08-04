@@ -72,6 +72,7 @@ int main(void) {
          "still holds though; we should not access this memory as it is\n"
          "undefined behavior if we were to access it.\n\n",
          p);
+  pointer_arithmetic();
 
   const unsigned int womens_gym_size = 16;
   string womens_gym_participants[] = {
@@ -333,6 +334,92 @@ void pointer_arithmetic(void) {
   puts("-----------------------------------------------------");
   puts("\t\tPointer Arithmetic.");
   puts("-----------------------------------------------------\n");
+
+  puts("In this section we come to a strange--and often unused--topic,\n"
+       "pointer arithmetic. We can do basic mathematics with pointers, very\n"
+       "simple things like addition and subtraction, that allows us to simply\n"
+       "alter the address we are pointing at. Most of the examples you will\n"
+       "come across for pointer arithmetic are for array iteration--a case I\n"
+       "can imagine this idea only being useful for. I am not aware of any\n"
+       "other use cases of pointer arithmetic. So, with that being said let's\n"
+       "get to it.\n");
+  puts("Ultimately, pointer arithmetic is what facilitates array indexing. I\n"
+       "will copy from the previous lesson our calculation for array indexes\n"
+       "to demonstrate and then go over the syntax in detail. This shows how\n"
+       "both array indexing and pointer arithmetic essentially operate.\n");
+  int a[3] = {1, 2, 3};
+  long starting_address_of_a = (long)a;
+  int index = 2;
+  long element_size = sizeof(int);
+  long index_offset = (long)(element_size * index);
+  long address_at_i = starting_address_of_a + index_offset;
+  printf("\t%p -> %i\n\n", (int *)address_at_i, *(int *)(address_at_i));
+
+  puts("Ok, so first we declare an array, \"a\". It has a length of 3 items.\n"
+       "We create a variable called, \"starting_address_of_a\", that uses the\n"
+       "fact that arrays decay to pointers when just using it's name like we\n"
+       "here. No, we have the beginning memory value of \"a\" to iterate\n"
+       "over. We then decide what \"index\" we want, in this case 2. We then\n"
+       "the size of our data that is being stored in the array, in our case\n"
+       "ints, and save it into the \"element_size\". Thento calculate how far\n"
+       "into the array we need to look we need to calculate the\n"
+       "\"index_offset\". We multiply the \"element_size\" by the \"index\"\n"
+       "to get the \"index_offset\". Now that we have how for to look into\n"
+       "the array, we can then calculate the exact address of the item in the\n"
+       "array. We do this by adding the \"index_offset\" to the\n"
+       "\"starting_address_of_a\". All of this can be simplified to this\n"
+       "equation:\n\n"
+       "    address_at_i = first_address_in_array + (sizeof(type_in_a) * i)\n\n"
+       "With this \"address_at_i\", we can then cast it to an int pointer and\n"
+       "de-reference it like we would any other pointer to get its value.\n"
+       "That is where this bit comes into play:\n\n"
+       "\t*(int *)(address_at_i)\n\n"
+       "We change \"address_at_i\" into an int pointer by surrounding\n"
+       "\"address_at_i\" in parenthesis, casting, and then de-referencing the\n"
+       "whole thing with the de-reference operator (\"*\").\n\n"
+       "Now, where does pointer arithmetic play into this equation? By going\n"
+       "over this equation we have also shown pointer arithmetic's inner\n"
+       "workings. So, what would this look like using pointer arithmetic\n"
+       "syntax?\n");
+
+  int *p = a;
+  int *p_at_index_2 = p + 2;
+  printf("\t%p -> %i\n\n", p_at_index_2, *(p_at_index_2));
+
+  puts("Here we see it's syntactic simplicity. We declare an int pointer to\n"
+       "\"a\" which decays to a pointer to the first element in \"a\". Then,\n"
+       "we add 2 to our pointer, \"p\", and save our new pointer into\n"
+       "\"p_at_index_2\". Now, this variable does not simply hold the address\n"
+       "of \"p\" plus literally 2; no, it is actually adding 2 multiplied by\n"
+       "the sizeof what \"p\" is pointing to, in our case an int, and adding\n"
+       "THAT to the address that \"p\" is pointing to. This is exactly what\n"
+       "we showed above, which is already what is happening for array\n"
+       "indexing.\n");
+
+  puts("Let's see how, using pointer arithmetic, we can iterate and print\n"
+       "from an array:\n");
+  const int *const pointer = a;
+  for (int i = 0; i < 3; i++)
+    printf("\t%p -> %i\n", pointer + i, *(pointer + i));
+
+  puts("The first thing to note is that we have a constant pointer to a\n"
+       "constant. Adding to pointer in this way does not change the value\n"
+       "\"pointer\" is pointing at nor does a new address get assigned to\n"
+       "\"pointer\". We just add to it and then utilize that addition. Next,\n"
+       "we use our index counter, \"i\", to add to our \"pointer\" which then\n"
+       "does all of the aforementioned behavior to get the address of the\n"
+       "item.\n\n"
+       "Now, most of the time pointer arithmetic is not recommended. It is\n"
+       "not faster in the modern day of compiler optimizations, so therefore\n"
+       "only the most niche use case for performance would occur. Second, it\n"
+       "is an uncommon way to get access to items in an array. Most use array\n"
+       "index syntax for this job. There could be an argument to utilize when\n"
+       "working with multi-dimensional arrays, but I am not very familiar\n"
+       "with those arguments; plus, we won't be covering multi-dimensional\n"
+       "arrays anyway. Therefore, I don't want you to actually use pointer\n"
+       "arithmetic in this course. I simply showed it here because it is a\n"
+       "feature of the language that is very much a part of C and helps to\n"
+       "demonstrate and reinforce what is going on with arrays.\n");
 }
 
 // -----------------------------------------------------------------------------
