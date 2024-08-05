@@ -18,21 +18,6 @@ int *returning_pointers_to_local_variables(void);
 void pointer_arithmetic(void);
 void struct_pointers(olympic_team team, olympic_team *team_pointer);
 
-const unsigned int mens_swim_size = 27;
-string mens_swim_participants[] = {
-    "Jack Alexy",      "Hunter Armstrong", "Shaine Casas",   "Brooks Curry",
-    "Caeleb Dressel",  "Matthew Fallon",   "Nic Fink",       "Bobby Finke",
-    "Carson Foster",   "Chris Guiliano",   "Thomas Heilman", "Ryan Held",
-    "Luke Hobson",     "David Johnston",   "Keaton Jones",   "Chase Kalisz",
-    "Drew Kibler",     "Matt King",        "Josh Matheny",   "Ryan Murphy",
-    "Blake Pieroni",   "Ivan Puskovitch",  "Aaron Shackell", "Kieran Smith",
-    "Charlie Swanson", "Luca Urlando",     "Luke Whitlock"};
-olympic_team mens_swim_team = {.year = 2024,
-                               .country = "United States",
-                               .sport = "Men's Swimming",
-                               .team_members = mens_swim_participants,
-                               .how_many_members = mens_swim_size};
-
 // -----------------------------------------------------------------------------
 int main(void) {
   system("clear");
@@ -65,13 +50,20 @@ int main(void) {
   null_pointer();
   constants_and_pointers();
   int *p = returning_pointers_to_local_variables();
-  printf("We should see out pointer \"p\" as a NULL pointer\n\n"
-         "\tp = %p\n\n"
-         "If we do see an address, that is only because our particular\n"
-         "compiler does not nullify the stack memory once exited. The fact\n"
-         "still holds though; we should not access this memory as it is\n"
-         "undefined behavior if we were to access it.\n\n",
-         p);
+  printf("We would expect \"p\" to be a NULL pointer:\n\n"
+         "\tp = %p -> %i\n\n"
+         "This could--and VERY likely will--be an address. We run into\n"
+         "undefined behavior because while the memory is \"freed\", we can\n"
+         "still reference the address; but, there can be ANYTHING in this\n"
+         "address after the function returns because the program can\n"
+         "overwrite this memory later on. This memory address can be\n"
+         "overwritten when a new stack frame is made, or it could be\n"
+         "overwritten by the current function: we simply have no idea what\n"
+         "will happen with this address because it is \"freed\" when the\n"
+         "function returns. We don't own the memory anymore, even though we\n"
+         "can reference it. The fact still holds though; we should not return\n"
+         "this memory as it is undefined behavior if we were to access it.\n\n",
+         p, *p);
   pointer_arithmetic();
 
   const unsigned int womens_gym_size = 16;
@@ -315,15 +307,15 @@ void constants_and_pointers(void) {
 // -----------------------------------------------------------------------------
 int *returning_pointers_to_local_variables(void) {
   puts("-----------------------------------------------------");
-  puts("\t\tReturning Pointers to Local Variables.");
+  puts("\tReturning Pointers to Local Variables.");
   puts("-----------------------------------------------------\n");
 
   puts("This excursion will be very similar--nearly identical really--to the\n"
        "sub-lesson on returning pointers to local arrays. Long story short,\n"
-       "it can't be done; and for the same reasons at that! We can't return\n"
+       "we shouldn't do it; and for the same reasons at that! We can't return\n"
        "pointers to local variables because when we exit this function, this\n"
-       "function's stack memory will become un-referable (or out of bounds,\n"
-       "we should not access \"freed\" memory). Let's try this now.\n");
+       "function's stack memory will become un-referable (we should not\n"
+       "access \"freed\" memory). Let's try this now.\n");
   int x = 50;
   int *p = &x;
   return p;
@@ -402,7 +394,7 @@ void pointer_arithmetic(void) {
   for (int i = 0; i < 3; i++)
     printf("\t%p -> %i\n", pointer + i, *(pointer + i));
 
-  puts("The first thing to note is that we have a constant pointer to a\n"
+  puts("\nThe first thing to note is that we have a constant pointer to a\n"
        "constant. Adding to pointer in this way does not change the value\n"
        "\"pointer\" is pointing at nor does a new address get assigned to\n"
        "\"pointer\". We just add to it and then utilize that addition. Next,\n"
@@ -457,9 +449,11 @@ void struct_pointers(olympic_team team, olympic_team *team_pointer) {
   printf("team.how_many_members address = %li\n", (long)&team.how_many_members);
   printf("team.how_many_members = %i\n", team.how_many_members);
   printf("team.team_members address = %li\n", (long)team.team_members);
+  /*
   printf("team.team_members:\n");
   for (int i = 0; i < team.how_many_members; i++)
     printf("\tteam.team_members[%i] = %s\n", i, team.team_members[i]);
+  */
   puts("");
 
   printf("team_pointer = %li\n", (long)team_pointer);
@@ -475,9 +469,15 @@ void struct_pointers(olympic_team team, olympic_team *team_pointer) {
          team_pointer->how_many_members);
   printf("team_pointer->team_members address = %li\n",
          (long)team_pointer->team_members);
+  /*
   printf("team_pointer->team_members:\n");
   for (int i = 0; i < team_pointer->how_many_members; i++)
     printf("\tteam_pointer->team_members[%i] = %s\n", i,
            team_pointer->team_members[i]);
+  */
   puts("");
+
+  puts("For completion's sake, let's also see the orignal variable,\n"
+       "womens_gymnastics_team. This way, we can see all of the original\n"
+       "addresses.\n");
 }
