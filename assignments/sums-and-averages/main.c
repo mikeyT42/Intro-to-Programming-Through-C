@@ -1,17 +1,19 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
-#define MAX_INPUT 10
+#define MAX_NUMBERS 10
 #define MAX_INPUT_STRING 50
 #define SENTINEL 0
 
 typedef enum { CONTINUE, BREAK } loop_control;
-typedef enum { GOOD, NAN } validation_codes;
+typedef enum { GOOD, NAN, MORE_THAN_MAX } validation_codes;
 
 loop_control input_loop(void);
-validation_codes validate(const double input[]);
+void clean_input(char input[]);
+validation_codes validate(const char input[]);
 
-void sums(const double input[], const unsigned int input_len,
+void sums(const double numbers[], const unsigned int numbers_len,
           double *const sum_positive, double *const sum_negative,
           double *const sum_overall, unsigned int *const count_positive,
           unsigned int *const count_negative,
@@ -23,7 +25,7 @@ void average(const double sum_positive, const double sum_negative,
              const unsigned int count_overall, double *const average_positive,
              double *const average_negative, double *const average_overall);
 
-void print_table(const double input[], const unsigned int input_len,
+void print_table(const double numbers[], const unsigned int numbers_len,
                  const double sum_positive, const double sum_negative,
                  const double sum_overall, const double average_positive,
                  const double average_negative, const double average_overall,
@@ -52,19 +54,23 @@ int main(void) {
 
 // -----------------------------------------------------------------------------
 loop_control input_loop(void) {
-  char input[MAX_INPUT_STRING];
+  double numbers[MAX_INPUT_STRING];
+  char input[MAX_NUMBERS];
   unsigned int input_len;
   printf("Please input up to %i floating point or integer numbers. Seperate\n"
          "them with spaces.\n\n",
-         MAX_INPUT);
-  for (int i = 0, input_len = 0; i < MAX_INPUT; i++, input_len++) {
-    scanf("%lg", &input[i]);
-    printf("%lg\n", input[i]);
-    if (input[i] == SENTINEL) {
-      fflush(stdin);
-      break;
-    }
-  }
+         MAX_NUMBERS);
+  fgets(input, MAX_INPUT_STRING, stdin);
+  if (input[0] == SENTINEL)
+    return BREAK;
+  validate(input);
+  clean_input(input);
 
   return CONTINUE;
 }
+
+// -----------------------------------------------------------------------------
+validation_codes validate(const char input[]) {return GOOD;}
+
+// -----------------------------------------------------------------------------
+void clean_input(char input[]) { input[strlen(input) - 1] = '\0'; }
