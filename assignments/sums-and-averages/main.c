@@ -110,8 +110,16 @@ void average(const double sum_positive, const double sum_negative,
              const unsigned int count_negative,
              const unsigned int count_overall, double *const average_positive,
              double *const average_negative, double *const average_overall) {
-  *average_positive = sum_positive / count_positive;
-  *average_negative = sum_negative / count_negative;
+  if (count_positive == 0)
+    *average_positive = 0;
+  else
+    *average_positive = sum_positive / count_positive;
+
+  if (count_negative == 0)
+    *average_negative = 0;
+  else
+    *average_negative = sum_negative / count_negative;
+
   *average_overall = sum_overall / count_overall;
 }
 
