@@ -2,7 +2,7 @@
 #include <stdlib.h>
 
 #define MAX_NUMBERS 10
-#define MAX_INPUT_STRING 50
+#define MAX_INPUT_STRING 256
 #define SENTINEL '\n'
 
 typedef enum { CONTINUE, BREAK } loop_control;
@@ -47,8 +47,8 @@ int main(void) {
 
 // -----------------------------------------------------------------------------
 loop_control input_loop(void) {
-  double numbers[MAX_INPUT_STRING];
-  char input[MAX_NUMBERS];
+  double numbers[MAX_NUMBERS];
+  char input[MAX_INPUT_STRING];
   printf("Please input up to %i floating point or integer numbers. Seperate\n"
          "them with spaces. Simply enter a newline character to exit.\n\n",
          MAX_NUMBERS);
@@ -67,8 +67,11 @@ loop_control input_loop(void) {
   }
 
   double sum_positive, sum_negative, sum_overall;
+  sum_positive = sum_negative = sum_overall = 0.0;
   unsigned int count_positive, count_negative, count_overall;
+  count_positive = count_negative = count_overall = 0;
   double average_positive, average_negative, average_overall;
+  average_positive = average_negative = average_overall = 0.0;
 
   sums(numbers, num_matches, &sum_positive, &sum_negative, &sum_overall,
        &count_positive, &count_negative, &count_overall);
@@ -120,17 +123,12 @@ void print_table(const double numbers[], const unsigned int numbers_len,
                  const unsigned int count_positive,
                  const unsigned int count_negative,
                  const unsigned int count_overall) {
-
-  printf("Input Read\n");
-  for (int i = 0; i < numbers_len; i++)
-    printf("%4.4f\n", numbers[i]);
-
   printf("\nStatistics:\n");
-  printf("Desc\t\tNumber\t\tTotal:\t\tAverage:\n");
-  printf("Positive\t%2i\t\t %4.4f\t\t%4.4f\n", count_positive, sum_positive,
+  printf("%18s%16s%14s\n", "Number:", "Total:", "Average:");
+  printf("Positive:%9u%16.3f%14.3f\n", count_positive, sum_positive,
          average_positive);
-  printf("Negative\t%2i\t\t %4.4f\t\t%4.4f\n", count_negative, sum_negative,
+  printf("Negative:%9u%16.3f%14.3f\n", count_negative, sum_negative,
          average_negative);
-  printf("Overall\t\t%2i\t\t %4.4f\t\t%4.4f\n", count_overall, sum_overall,
+  printf("Overall:%10u%16.3f%14.3f\n\n", count_overall, sum_overall,
          average_overall);
 }
