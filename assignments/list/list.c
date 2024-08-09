@@ -60,9 +60,9 @@ int pop(list *l) {
   int i = l->data[l->size - 1];
   l->size--;
 
-  int diff = l->capacity - l->size;
+  size_t diff = l->capacity - l->size;
   bool can_reduce_size = diff == GROWTH_FACTOR;
-  printf("diff = %d\n", diff);
+  printf("diff = %zu\n", diff);
   printf("can_reduce_size = %d\n", can_reduce_size);
   printf("length = %zu ; capacity = %zu\n", l->size, l->capacity);
 
