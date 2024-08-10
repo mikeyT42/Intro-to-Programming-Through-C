@@ -6,8 +6,9 @@
 typedef enum { CONTINUE, BREAK } loop_control;
 
 loop_control input_loop(void);
-void calculate_change(double *input_cost, int *num_quarters, int *num_dimes,
-                      int *num_nickels, int *num_pennies);
+void calculate_change(double *const input_cost, int *const num_quarters,
+                      int *const num_dimes, int *const num_nickels,
+                      int *const num_pennies);
 
 int main(void) {
   system("clear");
@@ -58,28 +59,19 @@ loop_control input_loop(void) {
 }
 
 // -----------------------------------------------------------------------------
-void calculate_change(double *input_cost, int *num_quarters, int *num_dimes,
-                      int *num_nickels, int *num_pennies) {
+void calculate_change(double *const input_cost, int *const num_quarters,
+                      int *const num_dimes, int *const num_nickels,
+                      int *const num_pennies) {
   int cost_cents = 0;
   int change = 0;
 
-  cost_cents =
-      *input_cost * 100; // + 0.5 fix truncation error; I wonder if I need this?
-  printf("cost_cents = %i\n", cost_cents);
+  cost_cents = *input_cost * 100;
   change = cost_cents;
-  printf("change = %i\n", change);
   *num_quarters = change / 25;
-  printf("num_quarters = %i\n", *num_quarters);
-  change %= 25; // The change remainder.
-  printf("change remainder = %i\n", change);
+  change %= 25;
   *num_dimes = change / 10;
-  printf("num_dimes = %i\n", *num_dimes);
   change %= 10;
-  printf("change remainder = %i\n", change);
   *num_nickels = change / 5;
-  printf("num_nickels = %i\n", *num_nickels);
   change %= 5;
-  printf("change remainder = %i\n", change);
-  *num_pennies = change; // and finally what's left!.
-  printf("num_pennies = %i\n", *num_pennies);
+  *num_pennies = change;
 }
