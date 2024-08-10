@@ -120,7 +120,10 @@ void average(const double sum_positive, const double sum_negative,
   else
     *average_negative = sum_negative / count_negative;
 
-  *average_overall = sum_overall / count_overall;
+  if (sum_overall == 0 || count_overall == 0)
+    *average_overall = 0;
+  else
+    *average_overall = sum_overall / count_overall;
 }
 
 // -----------------------------------------------------------------------------
