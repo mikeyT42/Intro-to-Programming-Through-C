@@ -12,7 +12,6 @@ typedef struct {
 typedef enum { CONTINUE, STOP } loop_control;
 
 point *create_point(const int x, const long y);
-void print(const point *const point);
 char *to_string(const point *const point);
 loop_control input_loop(void);
 
@@ -51,8 +50,13 @@ loop_control input_loop(void) {
   }
 
   point *point = create_point(x, y);
-  // print(point);
   char *point_string = to_string(point);
+
+  if (!point_string) {
+    fprintf(stderr, "Could not allocate a string to print the point.");
+    free(point);
+    return CONTINUE;
+  }
   printf("\n%s\n\n", point_string);
 
   free(point_string);
@@ -76,23 +80,17 @@ point *create_point(const int x, const long y) {
 }
 
 // -----------------------------------------------------------------------------
-void print(const point *const point) {
-  printf("point {\n"
-         "%4c = %i\n"
-         "%4c = %i\n"
-         "}\n",
-         'x', point->x, 'y', point->y);
-}
-
-// -----------------------------------------------------------------------------
 char *to_string(const point *const point) {
   char *string_point;
 
-  asprintf(&string_point, "point {\n"
-           "%4c = %i\n"
-           "%4c = %i\n"
-           "}",
-           'x', point->x, 'y', point->y);
+  int was_successful = asprintf(&string_point,
+                                "point {\n"
+                                "%4c = %i\n"
+                                "%4c = %i\n"
+                                "}",
+                                'x', point->x, 'y', point->y);
+  if (was_successful == -1)
+    string_point = NULL;
 
   return string_point;
 }
