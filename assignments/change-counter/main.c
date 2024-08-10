@@ -1,3 +1,4 @@
+#include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -6,6 +7,7 @@
 typedef enum { CONTINUE, BREAK } loop_control;
 
 loop_control input_loop(void);
+bool validate(const double input_cost);
 void calculate_change(double *const input_cost, int *const num_quarters,
                       int *const num_dimes, int *const num_nickels,
                       int *const num_pennies);
@@ -42,9 +44,10 @@ loop_control input_loop(void) {
   scanf("%lf", &input_cost);
   if (input_cost == SENTINEL)
     return BREAK;
-  if (input_cost < 0 || input_cost > 1) {
-    printf("\n%s%s\n\n", "You entered a number greater than 1 or less than",
-           " zero that is not\n-1; please try again.");
+
+  if (validate(input_cost)) {
+    puts("You entered a number greater than 1 or less than zero that is not\n"
+         "-1; please try again.\n");
     return CONTINUE;
   }
 
@@ -56,6 +59,11 @@ loop_control input_loop(void) {
          input_cost, num_quarters, num_dimes, num_nickels, num_pennies);
 
   return CONTINUE;
+}
+
+// -----------------------------------------------------------------------------
+bool validate(const double input_cost) {
+  return input_cost < 0 || input_cost > 1;
 }
 
 // -----------------------------------------------------------------------------
