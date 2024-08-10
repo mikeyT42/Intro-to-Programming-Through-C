@@ -29,6 +29,7 @@ int main(void) {
   for (int i = 0; i < list->size; i++) {
     printf("item at %d = %d\n", i, list->data[i]);
   }
+  shrink_to_fit(list);
 
   put(list, 11);
   printf("List size = %zu\n", list->size);
@@ -68,12 +69,9 @@ int main(void) {
   pop(list);
   pop(list);
 
-  destroy(list);
+  shrink_to_fit(list);
 
-  // This line causes garbage output from random memory.
-  // printf("List size = %zu\n", list->size);
-  // This line will cause a segmentation fault.
-  // printf("item at %d = %d\n", 0, list->data[0]);
+  destroy(list);
 
   return EXIT_SUCCESS;
 }

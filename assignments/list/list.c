@@ -32,7 +32,7 @@ void destroy(list *l) {
 }
 
 // -----------------------------------------------------------------------------
-void put(list *l, int i) {
+void put(list *l, const int i) {
   printf("length = %zu ; capacity = %zu\n", l->size, l->capacity);
 
   if (l->size >= l->capacity) {
@@ -60,14 +60,19 @@ int pop(list *l) {
   int i = l->data[l->size - 1];
   l->size--;
 
+  return i;
+}
+
+// -----------------------------------------------------------------------------
+void shrink_to_fit(list *l) {
   size_t diff = l->capacity - l->size;
-  bool can_reduce_size = diff == GROWTH_FACTOR;
+  bool can_reduce_size = diff > 0;
   printf("diff = %zu\n", diff);
   printf("can_reduce_size = %d\n", can_reduce_size);
   printf("length = %zu ; capacity = %zu\n", l->size, l->capacity);
 
   if (can_reduce_size) {
-    size_t new_array_size = (l->capacity - GROWTH_FACTOR) * sizeof(int);
+    size_t new_array_size = l->size * sizeof(int);
     printf("new_array_size = %ld\n", new_array_size);
     int *tmp = l->data;
     l->data = realloc(l->data, new_array_size);
@@ -77,9 +82,7 @@ int pop(list *l) {
       destroy(l);
       exit(EXIT_FAILURE);
     }
-    l->capacity -= GROWTH_FACTOR;
+    l->capacity = l->size;
     printf("length = %zu ; capacity = %zu\n", l->size, l->capacity);
   }
-
-  return i;
 }
