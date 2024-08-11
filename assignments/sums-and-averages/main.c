@@ -7,24 +7,30 @@
 
 typedef enum { CONTINUE, BREAK } loop_control;
 
+typedef struct {
+  double positive;
+  double negative;
+  double overall;
+} sums;
+
+typedef struct {
+  unsigned int positive;
+  unsigned int negative;
+  unsigned int overall;
+} counts;
+
+typedef struct {
+  double positive;
+  double negative;
+  double overall;
+} averages;
+
 loop_control input_loop(void);
-void sums(const double numbers[], const unsigned int numbers_len,
-          double *const sum_positive, double *const sum_negative,
-          double *const sum_overall, unsigned int *const count_positive,
-          unsigned int *const count_negative,
-          unsigned int *const count_overall);
-void average(const double sum_positive, const double sum_negative,
-             const double sum_overall, const unsigned int count_positive,
-             const unsigned int count_negative,
-             const unsigned int count_overall, double *const average_positive,
-             double *const average_negative, double *const average_overall);
+void sum_and_count(const double numbers[], const unsigned int numbers_len,
+                   sums *const sums, counts *const counts);
+void average(const sums sums, const counts counts, averages *const averages);
 void print_table(const double numbers[], const unsigned int numbers_len,
-                 const double sum_positive, const double sum_negative,
-                 const double sum_overall, const double average_positive,
-                 const double average_negative, const double average_overall,
-                 const unsigned int count_positive,
-                 const unsigned int count_negative,
-                 const unsigned int count_overall);
+                 const sums sums, const counts counts, const averages averages);
 
 // -----------------------------------------------------------------------------
 int main(void) {
@@ -57,6 +63,7 @@ loop_control input_loop(void) {
   if (input[0] == SENTINEL)
     return BREAK;
 
+  // TODO: Bug with the first input not being a number skips the rest of numbers
   const int num_matches =
       sscanf(input, "%lf %lf %lf %lf %lf %lf %lf %lf %lf %lf", &numbers[0],
              &numbers[1], &numbers[2], &numbers[3], &numbers[4], &numbers[5],
@@ -66,80 +73,61 @@ loop_control input_loop(void) {
     return CONTINUE;
   }
 
-  double sum_positive, sum_negative, sum_overall;
-  sum_positive = sum_negative = sum_overall = 0.0;
-  unsigned int count_positive, count_negative, count_overall;
-  count_positive = count_negative = count_overall = 0;
-  double average_positive, average_negative, average_overall;
-  average_positive = average_negative = average_overall = 0.0;
+  sums sums = {.positive = 0, .negative = 0, .overall = 0};
+  counts counts = {.positive = 0, .negative = 0, .overall = 0};
+  averages averages = {.positive = 0, .negative = 0, .overall = 0};
 
-  sums(numbers, num_matches, &sum_positive, &sum_negative, &sum_overall,
-       &count_positive, &count_negative, &count_overall);
-  average(sum_positive, sum_negative, sum_overall, count_positive,
-          count_negative, count_overall, &average_positive, &average_negative,
-          &average_overall);
-  print_table(numbers, num_matches, sum_positive, sum_negative, sum_overall,
-              average_positive, average_negative, average_overall,
-              count_positive, count_negative, count_overall);
+  sum_and_count(numbers, num_matches, &sums, &counts);
+  average(sums, counts, &averages);
+  print_table(numbers, num_matches, sums, counts, averages);
 
   return CONTINUE;
 }
 
 // -----------------------------------------------------------------------------
-void sums(const double numbers[], const unsigned int numbers_len,
-          double *const sum_positive, double *const sum_negative,
-          double *const sum_overall, unsigned int *const count_positive,
-          unsigned int *const count_negative,
-          unsigned int *const count_overall) {
+void sum_and_count(const double numbers[], const unsigned int numbers_len,
+                   sums *const sums, counts *const counts) {
   for (int i = 0; i < numbers_len; i++) {
     if (numbers[i] >= 0) {
-      *sum_positive += numbers[i];
-      (*count_positive)++;
+      sums->positive += numbers[i];
+      counts->positive++;
     } else {
-      *sum_negative += numbers[i];
-      (*count_negative)++;
+      sums->negative += numbers[i];
+      counts->negative++;
     }
-    *sum_overall += numbers[i];
-    (*count_overall)++;
+    sums->overall += numbers[i];
+    counts->overall++;
   }
 }
 
 // -----------------------------------------------------------------------------
-void average(const double sum_positive, const double sum_negative,
-             const double sum_overall, const unsigned int count_positive,
-             const unsigned int count_negative,
-             const unsigned int count_overall, double *const average_positive,
-             double *const average_negative, double *const average_overall) {
-  if (count_positive == 0)
-    *average_positive = 0;
+void average(const sums sums, const counts counts, averages *const averages) {
+  if (counts.positive == 0)
+    averages->positive = 0;
   else
-    *average_positive = sum_positive / count_positive;
+    averages->positive = sums.positive / counts.positive;
 
-  if (count_negative == 0)
-    *average_negative = 0;
+  if (counts.negative == 0)
+    averages->negative = 0;
   else
-    *average_negative = sum_negative / count_negative;
+    averages->negative = sums.negative / counts.negative;
 
-  if (sum_overall == 0 || count_overall == 0)
-    *average_overall = 0;
+  if (sums.overall == 0 || counts.overall == 0)
+    averages->overall = 0;
   else
-    *average_overall = sum_overall / count_overall;
+    averages->overall = sums.overall / counts.overall;
 }
 
 // -----------------------------------------------------------------------------
 void print_table(const double numbers[], const unsigned int numbers_len,
-                 const double sum_positive, const double sum_negative,
-                 const double sum_overall, const double average_positive,
-                 const double average_negative, const double average_overall,
-                 const unsigned int count_positive,
-                 const unsigned int count_negative,
-                 const unsigned int count_overall) {
+                 const sums sums, const counts counts,
+                 const averages averages) {
   printf("\nStatistics:\n");
   printf("%18s%16s%14s\n", "Number:", "Total:", "Average:");
-  printf("Positive:%9u%16.3f%14.3f\n", count_positive, sum_positive,
-         average_positive);
-  printf("Negative:%9u%16.3f%14.3f\n", count_negative, sum_negative,
-         average_negative);
-  printf("Overall:%10u%16.3f%14.3f\n\n", count_overall, sum_overall,
-         average_overall);
+  printf("Positive:%9u%16.3f%14.3f\n", counts.positive, sums.positive,
+         averages.positive);
+  printf("Negative:%9u%16.3f%14.3f\n", counts.negative, sums.negative,
+         averages.negative);
+  printf("Overall:%10u%16.3f%14.3f\n\n", counts.overall, sums.overall,
+         averages.overall);
 }
