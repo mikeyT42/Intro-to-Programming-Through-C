@@ -3,7 +3,7 @@
 #include <string.h>
 
 #define SENTINEL '\n'
-#define INPUT_LEN 10
+#define INPUT_LEN 256
 
 typedef struct {
   int x;
