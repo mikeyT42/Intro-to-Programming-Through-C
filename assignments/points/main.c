@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 #define SENTINEL '\n'
 #define INPUT_LEN 10
@@ -81,16 +82,22 @@ point *create_point(const int x, const long y) {
 
 // -----------------------------------------------------------------------------
 char *to_string(const point *const point) {
-  char *string_point;
+  const int buffer_size = 512;
+  char buffer[buffer_size];
 
-  int was_successful = asprintf(&string_point,
+  int was_successful = snprintf(buffer, buffer_size,
                                 "point {\n"
                                 "%4c = %i\n"
                                 "%4c = %i\n"
                                 "}",
                                 'x', point->x, 'y', point->y);
+  char *string_point;
   if (was_successful == -1)
-    string_point = NULL;
+    return NULL;
+
+  const int string_len = was_successful + 1;
+  string_point = (char *)malloc(sizeof(char) * string_len);
+  strcpy(string_point, buffer);
 
   return string_point;
 }
