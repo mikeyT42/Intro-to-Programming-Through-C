@@ -12,7 +12,7 @@ typedef struct {
 
 typedef enum { CONTINUE, STOP } loop_control;
 
-point *create_point(const int x, const long y);
+point *create_point(const int x, const int y);
 char *to_string(const point *const point);
 loop_control input_loop(void);
 
@@ -67,7 +67,7 @@ loop_control input_loop(void) {
 }
 
 // -----------------------------------------------------------------------------
-point *create_point(const int x, const long y) {
+point *create_point(const int x, const int y) {
   point *new_point = (point *)malloc(sizeof(point));
   if (!new_point) {
     fprintf(stderr, "Could not malloc a point.");
