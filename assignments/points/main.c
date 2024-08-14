@@ -91,12 +91,12 @@ char *to_string(const point *const point) {
                                 "%4c = %i\n"
                                 "}",
                                 'x', point->x, 'y', point->y);
-  char *string_point;
   if (was_successful == -1)
     return NULL;
 
+  char *string_point;
   const int string_len = was_successful + 1;
-  string_point = (char *)malloc(sizeof(char) * string_len);
+  string_point = (char *)calloc(string_len, sizeof(char));
   strcpy(string_point, buffer);
 
   return string_point;
