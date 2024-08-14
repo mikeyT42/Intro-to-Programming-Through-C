@@ -10,6 +10,7 @@ int *returning_a_local_array(void);
 char *returning_a_built_string(void);
 
 void security_vulnerability_with_realloc(void);
+void memory_leak(void);
 
 // -----------------------------------------------------------------------------
 int main(void) {
