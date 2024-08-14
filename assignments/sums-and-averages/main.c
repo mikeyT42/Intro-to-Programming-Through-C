@@ -29,8 +29,7 @@ loop_control input_loop(void);
 void sum_and_count(const double numbers[], const unsigned int numbers_len,
                    sums *const sums, counts *const counts);
 void average(const sums sums, const counts counts, averages *const averages);
-void print_table(const double numbers[], const unsigned int numbers_len,
-                 const sums sums, const counts counts, const averages averages);
+void print_table(const sums sums, const counts counts, const averages averages);
 
 // -----------------------------------------------------------------------------
 int main(void) {
@@ -79,7 +78,7 @@ loop_control input_loop(void) {
 
   sum_and_count(numbers, num_matches, &sums, &counts);
   average(sums, counts, &averages);
-  print_table(numbers, num_matches, sums, counts, averages);
+  print_table(sums, counts, averages);
 
   return CONTINUE;
 }
@@ -119,8 +118,7 @@ void average(const sums sums, const counts counts, averages *const averages) {
 }
 
 // -----------------------------------------------------------------------------
-void print_table(const double numbers[], const unsigned int numbers_len,
-                 const sums sums, const counts counts,
+void print_table(const sums sums, const counts counts,
                  const averages averages) {
   printf("\nStatistics:\n");
   printf("%18s%16s%14s\n", "Number:", "Total:", "Average:");
