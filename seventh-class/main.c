@@ -13,6 +13,7 @@ void security_vulnerability_with_realloc(void);
 void memory_leak_no_free(void);
 void memory_leak_lost_pointer(void);
 void dangling_pointer(void);
+void allocating_structs(void);
 
 // -----------------------------------------------------------------------------
 int main(void) {
