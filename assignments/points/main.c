@@ -94,9 +94,8 @@ char *to_string(const point *const point) {
   if (was_successful == -1)
     return NULL;
 
-  char *string_point;
   const int string_len = was_successful + 1;
-  string_point = (char *)calloc(string_len, sizeof(char));
+  char *string_point = (char *)malloc(sizeof(char) * string_len);
   strcpy(string_point, buffer);
 
   return string_point;
