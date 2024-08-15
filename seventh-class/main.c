@@ -12,6 +12,7 @@ char *returning_a_built_string(void);
 void security_vulnerability_with_realloc(void);
 void memory_leak_no_free(void);
 void memory_leak_lost_pointer(void);
+void dangling_pointer(void);
 
 // -----------------------------------------------------------------------------
 int main(void) {
