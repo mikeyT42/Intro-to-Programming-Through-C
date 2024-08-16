@@ -10,8 +10,10 @@ int *returning_a_local_array(void);
 char *returning_a_built_string(void);
 
 void security_vulnerability_with_realloc(void);
+void memory_leak(void);
 void memory_leak_no_free(void);
 void memory_leak_lost_pointer(void);
+void memory_leak_realloc_failure(void);
 void dangling_pointer(void);
 void allocating_structs(void);
 
