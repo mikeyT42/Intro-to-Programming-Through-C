@@ -89,6 +89,30 @@ void understanding_malloc() {
        "it in the coming section.\n");
 
   free(integer);
+
+  puts("What about allocating a dynamically allocated array: what would that\n"
+       "look like? We still use malloc(), but this time we multiply the size\n"
+       "of the things we want to store by the amount of things we want to\n"
+       "store (the array length).\n");
+
+  const unsigned int len = 10;
+  int *integers = (int *)malloc(sizeof(int) * len);
+
+  puts("We have now allocated a block of contiguos memory on the heap that\n"
+       "can store 10 integers. Let's use this block of memory by filling it\n"
+       "data and then printing that data out.\n");
+
+  for (int i = 0; i < len; i++)
+    integers[i] = i + 1;
+  for (int i = 0; i < len; i++)
+    printf("\tintegers[%i] = %i\n", i, integers[i]);
+  puts("");
+
+  puts("Pretty great that we can allocate and then use this memory just like\n"
+       "we have been using it in the past. Nothing different here other than\n"
+       "how we manage the memory itself.");
+
+  free(integers);
 }
 
 // -----------------------------------------------------------------------------
@@ -98,4 +122,22 @@ void understanding_free() {
   puts("-----------------------------------------------------\n");
 
   double *number = (double *)malloc(sizeof(double));
+  puts("The free() function takes a pointer to dynamically allocated memory\n"
+       "and de-allocates it. Why is this important to do? We need to de-\n"
+       "allocate the memory we allocate because if we don't we will eat up\n"
+       "programs memory through memory leaks. Let's see what this looks like\n"
+       "in our code.\n");
+
+  *number = 1.0;
+  free(number);
+
+  puts("We give the address to the block of memory we have allocated, and\n"
+       "then our program de-allocates that memory. What does that really mean\n"
+       "though? The memory is not zeroed out when we free our memory. Really\n"
+       "all that happens is that that memory we allocated is now able to be\n"
+       "used by the system again for our program's purposes; either for the\n"
+       "stack or heap. Nothing else is done. Later in this lesson, we'll see\n"
+       "what kinds of issues this creates for us as the developer.\n");
+  puts("Now though, how would we de-allocate an array we have dynamically\n"
+       "allocated?");
 }
