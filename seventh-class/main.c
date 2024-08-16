@@ -100,7 +100,7 @@ void understanding_malloc() {
 
   puts("We have now allocated a block of contiguos memory on the heap that\n"
        "can store 10 integers. Let's use this block of memory by filling it\n"
-       "data and then printing that data out.\n");
+       "with data and then printing that data out.\n");
 
   for (int i = 0; i < len; i++)
     integers[i] = i + 1;
@@ -110,7 +110,7 @@ void understanding_malloc() {
 
   puts("Pretty great that we can allocate and then use this memory just like\n"
        "we have been using it in the past. Nothing different here other than\n"
-       "how we manage the memory itself.");
+       "how we manage the memory itself.\n");
 
   free(integers);
 }
@@ -121,13 +121,19 @@ void understanding_free() {
   puts("\t\tUnderstanding free.");
   puts("-----------------------------------------------------\n");
 
-  double *number = (double *)malloc(sizeof(double));
   puts("The free() function takes a pointer to dynamically allocated memory\n"
        "and de-allocates it. Why is this important to do? We need to de-\n"
-       "allocate the memory we allocate because if we don't we will eat up\n"
-       "programs memory through memory leaks. Let's see what this looks like\n"
-       "in our code.\n");
+       "allocate the memory we allocate because, if we don't, we will eat up\n"
+       "our program's memory through memory leaks. We will go over memory\n"
+       "in more detail in a second, but just know a memory leak is data on\n"
+       "the heap that is still allocated, and therefore not able to be\n"
+       "allocated by another call to one of the allocation function, but is\n"
+       "not freed up when we are done with it for whatever reason. So, always\n"
+       "be careful to FREE YOUR MEMORY when it is done being used. Anyway,\n"
+       "what does it look like to actually free some dynamically allocated\n"
+       "memory? Let's see that in action.\n");
 
+  double *number = (double *)malloc(sizeof(double));
   *number = 1.0;
   free(number);
 
@@ -140,4 +146,17 @@ void understanding_free() {
        "what kinds of issues this creates for us as the developer.\n");
   puts("Now though, how would we de-allocate an array we have dynamically\n"
        "allocated?");
+
+  double *numbers = (double *)malloc(sizeof(double) * 20);
+  free(numbers);
+
+  puts("As you can see here, the call to free is the same. We simply pass the\n"
+       "pointer to the first address of the array and then free() de-\n"
+       "allocates the whole array. How is that possible though if the only\n"
+       "data we give it is the pointer? The pointer does have the length of\n"
+       "array available to it? The system knows how many bytes is allocated\n"
+       "for this block of memory in the heap. So, there is some meta-data\n"
+       "that is stored and when free() is called that data is utilized to de-\n"
+       "allocate the entire block of memory, freeing it for future\n"
+       "allocations.\n");
 }
