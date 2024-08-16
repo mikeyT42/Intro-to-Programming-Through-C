@@ -37,6 +37,7 @@ int main(void) {
 
   understanding_malloc();
   understanding_free();
+  undertanding_calloc();
 
   return EXIT_SUCCESS;
 }
@@ -52,6 +53,10 @@ void understanding_malloc() {
        "size of type size_t. Let's try this out by allocating a single int.\n");
 
   int *integer = (int *)malloc(sizeof(int));
+  if (!integer) {
+      puts("Was not able to allocate memory for integer.");
+      exit(EXIT_FAILURE);
+  }
 
   puts("Pretty straightforward, right? We give malloc the size of data we\n"
        "need, and then cast the return value of a void* to an int*. The\n"
@@ -97,6 +102,10 @@ void understanding_malloc() {
 
   const unsigned int len = 10;
   int *integers = (int *)malloc(sizeof(int) * len);
+  if (!integers) {
+      puts("Was not able to allocate memory for integers.");
+      exit(EXIT_FAILURE);
+  }
 
   puts("We have now allocated a block of contiguos memory on the heap that\n"
        "can store 10 integers. Let's use this block of memory by filling it\n"
@@ -134,6 +143,10 @@ void understanding_free() {
        "memory? Let's see that in action.\n");
 
   double *number = (double *)malloc(sizeof(double));
+  if (!number) {
+    puts("Was not able to allocate memory for number.");
+    exit(EXIT_FAILURE);
+  }
   *number = 1.0;
   free(number);
 
@@ -148,6 +161,10 @@ void understanding_free() {
        "allocated?");
 
   double *numbers = (double *)malloc(sizeof(double) * 20);
+  if (!numbers) {
+    puts("Was not able to allocate memory for numbers.");
+    exit(EXIT_FAILURE);
+  }
   free(numbers);
 
   puts("As you can see here, the call to free is the same. We simply pass the\n"
@@ -159,4 +176,65 @@ void understanding_free() {
        "that is stored and when free() is called that data is utilized to de-\n"
        "allocate the entire block of memory, freeing it for future\n"
        "allocations.\n");
+}
+
+// -----------------------------------------------------------------------------
+void undertanding_calloc() {
+  puts("-----------------------------------------------------");
+  puts("\t\tUnderstanding calloc.");
+  puts("-----------------------------------------------------\n");
+
+  puts("The calloc() function is another function in the memory allocation\n"
+       "family. What makes it different than malloc? After allocating the\n"
+       "block of memory that was requested, it then zeroes the memory it\n"
+       "allocated for you. This guarantees that there is no junk data already\n"
+       "there; but, why is there junk data in the first place? This is\n"
+       "because free() doesn't zero the data it is freeing; it simply makes\n"
+       "that block of addresses available again for further allocation. Let's\n"
+       "see how we would use calloc() to make some memory for ourselves.\n");
+
+  float *number = (float *)calloc(1, sizeof(float));
+  if (!number) {
+    puts("Was not able to allocate memory for number.");
+    exit(EXIT_FAILURE);
+  }
+  printf("\tnumber before = %f\n", *number);
+  *number = 2.0;
+  printf("\tnumber after = %f\n\n", *number);
+
+  puts(
+      "As you can see, this guarantees that the value at the address we have\n"
+      "allocated is going to be a zero value. This function, just like malloc\n"
+      "can fail if the memory we asked for in the call to calloc() is not\n"
+      "able to be allocated: in this case we get NULL. We need to make sure\n"
+      "to check for that with every call. Now, we can also use this function\n"
+      "to allocate arrays, which is what it is usually used for.\n");
+
+  float *numbers = (float *)calloc(10, sizeof(float));
+  if (!numbers) {
+    puts("Was not able to allocate memory for numbers.");
+    exit(EXIT_FAILURE);
+  }
+  for (int i = 0; i < 10; i++)
+    printf("\tnumbers[%i] = %f\n", i, numbers[i]);
+  puts("\t--------");
+  for (int i = 0; i < 10; i++)
+    numbers[i] = i + 1;
+  for (int i = 0; i < 10; i++)
+    printf("\tnumbers[%i] = %f\n", i, numbers[i]);
+  puts("");
+
+  free(number);
+  free(numbers);
+
+  puts("This function is only useful if you need to guarantee, for whatever\n"
+       "reason, that the new memory will be all zeroes; that it will be\n"
+       "clear. This could be useful for security functionality where\n"
+       "sensitive data is going to be written and you need to guarantee\n"
+       "nothing is there: it can also be used for avoiding undefined behavior\n"
+       "if you try to access memory that already has values in it right after\n"
+       "new memory was allocated without first zeroing it. There are a myriad\n"
+       "of reasons. Just know, that zeroing the memory does take time. This\n"
+       "method can be much slower than malloc() because it needs to set each\n"
+       "address to zero before giving it to you.\n");
 }
