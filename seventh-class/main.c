@@ -54,8 +54,8 @@ void understanding_malloc() {
 
   int *integer = (int *)malloc(sizeof(int));
   if (!integer) {
-      puts("Was not able to allocate memory for integer.");
-      exit(EXIT_FAILURE);
+    puts("Was not able to allocate memory for integer.");
+    exit(EXIT_FAILURE);
   }
 
   puts("Pretty straightforward, right? We give malloc the size of data we\n"
@@ -103,8 +103,8 @@ void understanding_malloc() {
   const unsigned int len = 10;
   int *integers = (int *)malloc(sizeof(int) * len);
   if (!integers) {
-      puts("Was not able to allocate memory for integers.");
-      exit(EXIT_FAILURE);
+    puts("Was not able to allocate memory for integers.");
+    exit(EXIT_FAILURE);
   }
 
   puts("We have now allocated a block of contiguos memory on the heap that\n"
@@ -184,14 +184,15 @@ void undertanding_calloc() {
   puts("\t\tUnderstanding calloc.");
   puts("-----------------------------------------------------\n");
 
-  puts("The calloc() function is another function in the memory allocation\n"
-       "family. What makes it different than malloc? After allocating the\n"
-       "block of memory that was requested, it then zeroes the memory it\n"
-       "allocated for you. This guarantees that there is no junk data already\n"
-       "there; but, why is there junk data in the first place? This is\n"
-       "because free() doesn't zero the data it is freeing; it simply makes\n"
-       "that block of addresses available again for further allocation. Let's\n"
-       "see how we would use calloc() to make some memory for ourselves.\n");
+  puts("The calloc() function (clear allocate) is another function in the\n"
+       "memory allocation family. What makes it different than malloc? After\n"
+       "allocating the block of memory that was requested, it then zeroes the\n"
+       "memory it allocated for you. This guarantees that there is no junk\n"
+       "data already there; but, why is there junk data in the first place?\n"
+       "This is because free() doesn't zero the data it is freeing; it simply\n"
+       "makes that block of addresses available again for further allocation.\n"
+       "Let's see how we would use calloc() to make some memory for\n"
+       "ourselves.\n");
 
   float *number = (float *)calloc(1, sizeof(float));
   if (!number) {
