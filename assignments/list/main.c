@@ -2,12 +2,22 @@
 #include <stdio.h>
 
 int main(void) {
+  printf("-----------------------------------------------------------------\n");
+  printf("\tWelcome to List Program.\n");
+  printf("-----------------------------------------------------------------\n");
+
+  puts("-----------------------------------------------------");
+  puts("\t\tCreating the List.");
+  puts("-----------------------------------------------------\n");
+
   list *list = create_list();
   if (!list)
     return EXIT_FAILURE;
-
   printf("List size = %zu\n", list->size);
-  printf("sizeof int = %ld\n", sizeof(int));
+
+  puts("-----------------------------------------------------");
+  puts("\t\tFilling the List.");
+  puts("-----------------------------------------------------\n");
 
   put(list, 1);
   put(list, 2);
@@ -31,6 +41,9 @@ int main(void) {
   }
   shrink_to_fit(list);
 
+  puts("-----------------------------------------------------");
+  puts("\t\tFirst Reallocation.");
+  puts("-----------------------------------------------------\n");
   put(list, 11);
   printf("List size = %zu\n", list->size);
   for (int i = 0; i < list->size; i++) {
@@ -46,6 +59,11 @@ int main(void) {
   put(list, 18);
   put(list, 19);
   put(list, 20);
+
+  puts("-----------------------------------------------------");
+  puts("\t\tSecond Reallocation.");
+  puts("-----------------------------------------------------\n");
+
   put(list, 21);
   put(list, 22);
   put(list, 23);
@@ -56,6 +74,11 @@ int main(void) {
   put(list, 28);
   put(list, 29);
   put(list, 30);
+
+  puts("-----------------------------------------------------");
+  puts("\t\tThird Reallocation.");
+  puts("-----------------------------------------------------\n");
+
   put(list, 31);
   put(list, 32);
   put(list, 33);
@@ -65,13 +88,24 @@ int main(void) {
     printf("item at %d = %d\n", i, list->data[i]);
   }
 
-  pop(list);
-  pop(list);
-  pop(list);
+  puts("-----------------------------------------------------");
+  puts("\t\tRemoving and Shrinking.");
+  puts("-----------------------------------------------------\n");
 
+  pop(list);
+  pop(list);
+  pop(list);
   shrink_to_fit(list);
 
+  puts("-----------------------------------------------------");
+  puts("\t\tDestroying.");
+  puts("-----------------------------------------------------\n");
+
   destroy(list);
+
+  printf("-----------------------------------------------------------------\n");
+  printf("\t\tThank you, come again.\n");
+  printf("-----------------------------------------------------------------\n");
 
   return EXIT_SUCCESS;
 }
