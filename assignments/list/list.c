@@ -36,6 +36,9 @@ void put(list *l, const int i) {
   printf("length = %zu ; capacity = %zu\n", l->length, l->capacity);
 
   if (l->length >= l->capacity) {
+    // TODO: Maybe, I could make this body into a function to share with
+    // shrink_to_fit() and give it a function pointer to calculate the
+    // new_array_size.
     printf("Reallocationg.\n");
     const size_t new_array_size = (GROWTH_FACTOR + l->capacity) * sizeof(int);
     printf("new_array_size = %ld\n", new_array_size);
