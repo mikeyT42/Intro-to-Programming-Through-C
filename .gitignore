@@ -1,2 +1,5 @@
 # Exclude main executables
 main
+
+# Exclude the finished assignments, graded and not graded
+finished-assignments/
