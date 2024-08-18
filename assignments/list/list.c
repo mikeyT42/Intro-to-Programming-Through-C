@@ -56,7 +56,7 @@ void put(list *l, const int i) {
 }
 
 // -----------------------------------------------------------------------------
-int pop(list *l) {
+int pop(list *const l) {
   int i = l->data[l->length - 1];
   l->length--;
 
