@@ -16,7 +16,7 @@ list *create_list() {
   }
 
   printf("List created.\n");
-  l->size = 0;
+  l->length = 0;
   l->capacity = GROWTH_FACTOR;
 
   return l;
@@ -26,16 +26,16 @@ list *create_list() {
 void destroy(list *l) {
   free(l->data);
   l->data = NULL;
-  l->size = 0;
+  l->length = 0;
   l->capacity = 0;
   free(l);
 }
 
 // -----------------------------------------------------------------------------
 void put(list *l, const int i) {
-  printf("length = %zu ; capacity = %zu\n", l->size, l->capacity);
+  printf("length = %zu ; capacity = %zu\n", l->length, l->capacity);
 
-  if (l->size >= l->capacity) {
+  if (l->length >= l->capacity) {
     printf("Reallocationg.\n");
     const size_t new_array_size = (GROWTH_FACTOR + l->capacity) * sizeof(int);
     printf("new_array_size = %ld\n", new_array_size);
@@ -51,28 +51,28 @@ void put(list *l, const int i) {
     l->capacity += GROWTH_FACTOR;
   }
 
-  l->size++;
-  l->data[l->size - 1] = i;
+  l->length++;
+  l->data[l->length - 1] = i;
 }
 
 // -----------------------------------------------------------------------------
 int pop(list *l) {
-  int i = l->data[l->size - 1];
-  l->size--;
+  int i = l->data[l->length - 1];
+  l->length--;
 
   return i;
 }
 
 // -----------------------------------------------------------------------------
 void shrink_to_fit(list *l) {
-  const size_t diff = l->capacity - l->size;
+  const size_t diff = l->capacity - l->length;
   const bool can_reduce_size = diff > 0;
   printf("diff = %zu\n", diff);
   printf("can_reduce_size = %d\n", can_reduce_size);
-  printf("length = %zu ; capacity = %zu\n", l->size, l->capacity);
+  printf("length = %zu ; capacity = %zu\n", l->length, l->capacity);
 
   if (can_reduce_size) {
-    const size_t new_array_size = l->size * sizeof(int);
+    const size_t new_array_size = l->length * sizeof(int);
     printf("new_array_size = %ld\n", new_array_size);
     int *tmp = realloc(l->data, new_array_size);
     if (tmp == NULL) {
@@ -82,7 +82,7 @@ void shrink_to_fit(list *l) {
     }
 
     l->data = tmp;
-    l->capacity = l->size;
-    printf("length = %zu ; capacity = %zu\n", l->size, l->capacity);
+    l->capacity = l->length;
+    printf("length = %zu ; capacity = %zu\n", l->length, l->capacity);
   }
 }

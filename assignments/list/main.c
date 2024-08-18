@@ -13,7 +13,7 @@ int main(void) {
   list *list = create_list();
   if (!list)
     return EXIT_FAILURE;
-  printf("List size = %zu\n", list->size);
+  printf("List length = %zu\n", list->length);
 
   puts("-----------------------------------------------------");
   puts("\t\tFilling the List.");
@@ -29,14 +29,14 @@ int main(void) {
   put(list, 8);
   put(list, 9);
 
-  printf("List size = %zu\n", list->size);
-  for (int i = 0; i < list->size; i++) {
+  printf("List length = %zu\n", list->length);
+  for (int i = 0; i < list->length; i++) {
     printf("item at %d = %d\n", i, list->data[i]);
   }
 
   put(list, 10);
-  printf("List size = %zu\n", list->size);
-  for (int i = 0; i < list->size; i++) {
+  printf("List length = %zu\n", list->length);
+  for (int i = 0; i < list->length; i++) {
     printf("item at %d = %d\n", i, list->data[i]);
   }
   shrink_to_fit(list);
@@ -45,8 +45,8 @@ int main(void) {
   puts("\t\tFirst Reallocation.");
   puts("-----------------------------------------------------\n");
   put(list, 11);
-  printf("List size = %zu\n", list->size);
-  for (int i = 0; i < list->size; i++) {
+  printf("List length = %zu\n", list->length);
+  for (int i = 0; i < list->length; i++) {
     printf("item at %d = %d\n", i, list->data[i]);
   }
 
@@ -83,8 +83,8 @@ int main(void) {
   put(list, 32);
   put(list, 33);
 
-  printf("List size = %zu\n", list->size);
-  for (int i = 0; i < list->size; i++) {
+  printf("List length = %zu\n", list->length);
+  for (int i = 0; i < list->length; i++) {
     printf("item at %d = %d\n", i, list->data[i]);
   }
 
