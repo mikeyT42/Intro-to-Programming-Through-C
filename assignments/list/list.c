@@ -37,17 +37,17 @@ void put(list *l, const int i) {
 
   if (l->size >= l->capacity) {
     printf("Reallocationg.\n");
-    size_t new_array_size = (GROWTH_FACTOR + l->capacity) * sizeof(int);
+    const size_t new_array_size = (GROWTH_FACTOR + l->capacity) * sizeof(int);
     printf("new_array_size = %ld\n", new_array_size);
-    int *tmp = l->data;
-    l->data = realloc(l->data, new_array_size);
-    if (l->data == NULL) {
+
+    int *tmp = realloc(l->data, new_array_size);
+    if (tmp == NULL) {
       fprintf(stderr, "Could not realloc data in List.");
-      l->data = tmp;
       destroy(l);
       exit(EXIT_FAILURE);
     }
 
+    l->data = tmp;
     l->capacity += GROWTH_FACTOR;
   }
 
@@ -65,23 +65,23 @@ int pop(list *l) {
 
 // -----------------------------------------------------------------------------
 void shrink_to_fit(list *l) {
-  size_t diff = l->capacity - l->size;
-  bool can_reduce_size = diff > 0;
+  const size_t diff = l->capacity - l->size;
+  const bool can_reduce_size = diff > 0;
   printf("diff = %zu\n", diff);
   printf("can_reduce_size = %d\n", can_reduce_size);
   printf("length = %zu ; capacity = %zu\n", l->size, l->capacity);
 
   if (can_reduce_size) {
-    size_t new_array_size = l->size * sizeof(int);
+    const size_t new_array_size = l->size * sizeof(int);
     printf("new_array_size = %ld\n", new_array_size);
-    int *tmp = l->data;
-    l->data = realloc(l->data, new_array_size);
-    if (l->data == NULL) {
+    int *tmp = realloc(l->data, new_array_size);
+    if (tmp == NULL) {
       fprintf(stderr, "Could not realloc data in List.");
-      l->data = tmp;
       destroy(l);
       exit(EXIT_FAILURE);
     }
+
+    l->data = tmp;
     l->capacity = l->size;
     printf("length = %zu ; capacity = %zu\n", l->size, l->capacity);
   }
