@@ -39,6 +39,21 @@ int main(void) {
   understanding_free();
   undertanding_calloc();
   understanding_realloc();
+  int *array = returning_a_local_array();
+  puts("We now have ownership of this array and can iterate over it just like\n"
+       "any other array. Let's see that:\n");
+  for (int i = 0; i < 3; i++)
+    printf("\tarray[%i] = %i\n", i, array[i]);
+  puts("");
+  puts("One thing to note is how to manage the length of the array. One way\n"
+       "we could do this is by making a struct with a length of our array and\n"
+       "a pointer to the array. We could declare out here a length and then\n"
+       "pass it to our array creation function. We could even use constants\n"
+       "to define a heap allocated array that wouldn't ever change. These are\n"
+       "a potential few strategies on array length saving. Another thing to\n"
+       "keep in mind is the neccessity to free this array now that this\n"
+       "function is the owner of the data.\n");
+  free(array);
 
   return EXIT_SUCCESS;
 }
@@ -327,7 +342,46 @@ void understanding_realloc() {
   }
   printf("\tarray[%i] = %i\n", 2, array[2]);
   printf("\tarray[%i] = %i\n", new_len2 - 1, array[new_len2 - 1]);
+  puts("");
 
   free(array);
   free(array2);
+
+  puts("The function realloc() does not zero old memory if it has to move the\n"
+       "memory to a new location. It basically frees the memory after the\n"
+       "copy. This can lead to some serious issues in certain cases that\n"
+       "we'll get to in another sub-lesson.\n");
+}
+
+// -----------------------------------------------------------------------------
+int *returning_a_local_array() {
+  puts("-----------------------------------------------------");
+  puts("\t\tReturning A Local Array.");
+  puts("-----------------------------------------------------\n");
+
+  puts("Recall how in the lesson on arrays we found that it wasn't possible\n"
+       "to return an array out of a function; and how we found out the heart\n"
+       "the reason being how the stack is automatically managed for us? Well,\n"
+       "we now finally get to overcome this limitation! We can use a heap\n"
+       "(dynamically allocated) array whos lifetime we get to manage\n"
+       "ourselves. This allows us to return a pointer not to stack allocated\n"
+       "memory but heap allocated memory. Let's define an array and fill it\n"
+       "with some data.\n");
+
+  const int len = 3;
+  int *array = (int *)malloc(sizeof(int) * len);
+  for (int i = 0; i < len; i++)
+    array[i] = i + 1;
+
+  printf("Here we have defined an int array and allocated it on the heap with\n"
+         "a length of %i. We then initialized each element in the array. We\n"
+         "can now return this array because it will not be freed when we exit\n"
+         "the function like in stack (automatic) memory; but, now that we\n"
+         "will return the pointer to this array, we are actually giving\n"
+         "ownership of this array to the calling function. That now means the\n"
+         "calling function is responsible to free this data, not this\n"
+         "function.\n\n",
+         len);
+
+  return array;
 }
