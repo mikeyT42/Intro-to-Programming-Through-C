@@ -38,6 +38,7 @@ int main(void) {
   understanding_malloc();
   understanding_free();
   undertanding_calloc();
+  understanding_realloc();
 
   return EXIT_SUCCESS;
 }
@@ -246,5 +247,87 @@ void understanding_realloc() {
   puts("\t\tUnderstanding realloc.");
   puts("-----------------------------------------------------\n");
 
-  puts("The realloc() function is for re-allocating already existing memory.");
+  puts("The realloc() function is for re-allocating already existing memory.\n"
+       "It takes an existing pointer to allocated data on the heap, and then\n"
+       "re-allocates that space with a new size. That size is the second\n"
+       "argument provided to the function. It then returns a pointer to the\n"
+       "re-allocated memory: it could either be a new memory location, or the\n"
+       "same memory location. It all depends on the available space right\n"
+       "next to the currently allocated block of memory. Let's first go over\n"
+       "the simple case and move on from there.\n");
+
+  int len = 3;
+  printf("Let's say we have allocated an array of length %i into the heap.\n\n",
+         len);
+  int *array = (int *)malloc(sizeof(int) * len);
+  for (int i = 0; i < len; i++) {
+    array[i] = i + 1;
+    printf("\tarray[%i] = %i\n", i, array[i]);
+  }
+  puts("");
+
+  int new_len = len + 3;
+  printf("We then give that array to realloc() and ask for that array to be\n"
+         "resized into an array of length %i. What would that look like?\n\n",
+         new_len);
+  array = (int *)realloc(array, sizeof(int) * new_len);
+  for (int i = len; i < new_len; i++) {
+    array[i] = i + 1;
+    printf("\tarray[%i] = %i\n", i, array[i]);
+  }
+  puts("");
+
+  puts("What happened here? When we called realloc(), the block of memory\n"
+       "that we already owned was extended by our call to realloc(). This\n"
+       "function puts the new memory asked for contiguosly against our\n"
+       "already allocated memory. So, nothing has happened with our values in\n"
+       "array that we already assigned to, we just tacked-on the additional\n"
+       "bytes that we have asked for. Let's see our dynamically grown array\n"
+       "in its totality.\n");
+
+  for (int i = 0; i < new_len; i++)
+    printf("\tarray[%i] = %i\n", i, array[i]);
+  puts("");
+
+  puts("Incredible, right! This is an extremely useful ability; but, what\n"
+       "were to happen if we tried to re-allocate a block of memory, but the\n"
+       "block couldn't grow in the previous was because there was other\n"
+       "allocated memory right next to it? Well, since there isn't free\n"
+       "memory right next to our allocated memory, realloc() will find a\n"
+       "contiguous block of memory somewhere else and then copy the previous\n"
+       "memory into the new location before returning the pointer to that new\n"
+       "block of memory. As you can imagine, this is much slower than the\n"
+       "previous way because of the data copy; but, it is neccessary in this\n"
+       "case. This is the reason why realloc() returns a pointer. In the\n"
+       "first case, the pointer that is returned is the same as the pointer\n"
+       "supplied in the first argument; in this second case, the pointer\n"
+       "returned is a new pointer and therefore differs from the pointer\n"
+       "supplied to it in the first argument. It is therefore very important\n"
+       "to always take the assign the pointer returned from realloc() to a\n"
+       "variable. This function can also return NULL if the re-allocation\n"
+       "could not be performed. We will go over this particular error case\n"
+       "later as certain steps need to be accomplished in order to guard\n"
+       "against memory leaks. Now, let's see how we can make realloc() give\n"
+       "us a new pointer. I will allocated a block of memory: this memory\n"
+       "will be allocated very close to our array. Then, I will grow the\n"
+       "first array: since there there won't be enough space right next to\n"
+       "the first array, realloc() will copy our data to a new location and\n"
+       "give us a new pointer.\n");
+
+  int *array2 = (int *)malloc(10 * sizeof(int));
+  printf("array2 = %li\n", (long)array2);
+
+  int new_len2 = new_len + 100;
+  printf("array before = %li\n", (long)array);
+  array = (int *)realloc(array, new_len2 * sizeof(int));
+  printf("array after  = %li\n", (long)array);
+
+  for (int i = new_len; i < new_len2; i++) {
+    array[i] = i + 1;
+  }
+  printf("\tarray[%i] = %i\n", 2, array[2]);
+  printf("\tarray[%i] = %i\n", new_len2 - 1, array[new_len2 - 1]);
+
+  free(array);
+  free(array2);
 }
