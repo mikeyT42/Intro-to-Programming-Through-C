@@ -239,3 +239,12 @@ void undertanding_calloc() {
        "method can be much slower than malloc() because it needs to set each\n"
        "address to zero before giving it to you.\n");
 }
+
+// -----------------------------------------------------------------------------
+void understanding_realloc() {
+  puts("-----------------------------------------------------");
+  puts("\t\tUnderstanding realloc.");
+  puts("-----------------------------------------------------\n");
+
+  puts("The realloc() function is for re-allocating already existing memory.");
+}
