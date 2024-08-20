@@ -14,6 +14,7 @@ void understanding_memory_leaks(void);
 void memory_leak_no_free(void);
 void memory_leak_lost_pointer(void);
 void memory_leak_realloc_failure(void);
+void memory_leak_nested_malloc_failure(void);
 void dangling_pointer(void);
 void security_vulnerability_with_realloc(void);
 void allocating_structs(void);
@@ -482,6 +483,7 @@ void understanding_memory_leaks() {
   memory_leak_no_free();
   memory_leak_lost_pointer();
   memory_leak_realloc_failure();
+  memory_leak_nested_malloc_failure();
 }
 
 // -----------------------------------------------------------------------------
@@ -490,7 +492,38 @@ void memory_leak_no_free() {
   puts("    Memory Leak From Not Freeing.");
   puts("----------------------------------------\n");
 
-  puts("");
+  puts("The first way to leak memory is to quite simply not free memory\n"
+       "that was allocated on the heap. Let's make this happen in a few ways,\n"
+       "starting with the simplest way.\n");
+
+  double *i_will_not_be_freed = (double *)malloc(sizeof(double));
+  *i_will_not_be_freed = 1.0;
+  // i_will_not_be_freed should be freed sometime before this function returns.
+
+  puts("Here I have allocated some memory. Let's say I don't free this memory\n"
+       "in this function, and I don't return the pointer to this memory out\n"
+       "of this function, thereby transferring ownership of this data. What\n"
+       "would happen? Well, we won't have access to this pointer anymore\n"
+       "because we have returned, and therefore we won't have a pointer to\n"
+       "free. Also, since we didn't free this variable before we returned, it\n"
+       "will never be freed. This block of memory then stays in the heap\n"
+       "until our program crashes or until the program is exited. A worse\n"
+       "memory leak is when we forget to free memory inside of a loop: let's\n"
+       "see what that looks like.\n");
+
+  for (int i = 0; i < 20; i++) {
+    int *not_freed = (int *)malloc(sizeof(int));
+    *not_freed = i;
+    // not_freed should be freed by the end of EACH loop iteration.
+  }
+
+  puts("Having a memory leak inside of a loop is particularly bad. As long as\n"
+       "the loop runs, new memory will be leaked for each iteration. Leaking\n"
+       "memory like this will crash your program much faster. Also, if you\n"
+       "have have a function call with a memory leak inside of a loop, the\n"
+       "affect is the same. What is also particularly bad is that you can't\n"
+       "free all of the allocated data during each iteration after the loop\n"
+       "exits because each pointer was lost.\n");
 }
 
 // -----------------------------------------------------------------------------
@@ -498,6 +531,13 @@ void memory_leak_lost_pointer() {
   puts("----------------------------------------");
   puts("  Memory Leak From Losing a Pointer.");
   puts("----------------------------------------\n");
+
+  puts("You may notice from the previous sub-lesson that losing pointers is\n"
+       "the heart of the \"forgetting to free\" issue. This issue though can\n"
+       "be more broad. The previous issue had to do with forgetting to free\n"
+       "before the scope of the function was exited, while the issue we are\n"
+       "going to go over here is losing the pointer to our memory before we\n"
+       "even exit the function. Let's make this bug occur.");
 }
 
 // -----------------------------------------------------------------------------
@@ -505,4 +545,11 @@ void memory_leak_realloc_failure() {
   puts("----------------------------------------");
   puts("  Memory Leak From realloc() Failure.");
   puts("----------------------------------------\n");
+}
+
+// -----------------------------------------------------------------------------
+void memory_leak_nested_malloc_failure() {
+  puts("-----------------------------------------");
+  puts("Memory Leak From Nested malloc() Failure.");
+  puts("-----------------------------------------\n");
 }
