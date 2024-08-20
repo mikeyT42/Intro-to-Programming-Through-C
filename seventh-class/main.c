@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 void understanding_malloc(void);
 void understanding_free(void);
@@ -39,6 +40,7 @@ int main(void) {
   understanding_free();
   undertanding_calloc();
   understanding_realloc();
+
   int *array = returning_a_local_array();
   puts("We now have ownership of this array and can iterate over it just like\n"
        "any other array. Let's see that:\n");
@@ -54,6 +56,17 @@ int main(void) {
        "keep in mind is the neccessity to free this array now that this\n"
        "function is the owner of the data.\n");
   free(array);
+
+  char *string = returning_a_built_string();
+  printf("This function is now the owner of the string. Let's check out the\n"
+         "string to see what its value is and show that we have really\n"
+         "returned our string from inside the function.\n\n"
+         "\tstring = %s\n\n"
+         "As you can see, we have actually returned our string and can use it\n"
+         "like any other string. Just make sure to free the string once done\n"
+         "with it.\n\n",
+         string);
+  free(string);
 
   return EXIT_SUCCESS;
 }
@@ -116,8 +129,8 @@ void understanding_malloc() {
        "of the things we want to store by the amount of things we want to\n"
        "store (the array length).\n");
 
-  const unsigned int len = 10;
-  int *integers = (int *)malloc(sizeof(int) * len);
+  const unsigned int LEN = 10;
+  int *integers = (int *)malloc(sizeof(int) * LEN);
   if (!integers) {
     puts("Was not able to allocate memory for integers.");
     exit(EXIT_FAILURE);
@@ -127,9 +140,9 @@ void understanding_malloc() {
        "can store 10 integers. Let's use this block of memory by filling it\n"
        "with data and then printing that data out.\n");
 
-  for (int i = 0; i < len; i++)
+  for (int i = 0; i < LEN; i++)
     integers[i] = i + 1;
-  for (int i = 0; i < len; i++)
+  for (int i = 0; i < LEN; i++)
     printf("\tintegers[%i] = %i\n", i, integers[i]);
   puts("");
 
@@ -271,22 +284,22 @@ void understanding_realloc() {
        "next to the currently allocated block of memory. Let's first go over\n"
        "the simple case and move on from there.\n");
 
-  int len = 3;
+  const int LEN = 3;
   printf("Let's say we have allocated an array of length %i into the heap.\n\n",
-         len);
-  int *array = (int *)malloc(sizeof(int) * len);
-  for (int i = 0; i < len; i++) {
+         LEN);
+  int *array = (int *)malloc(sizeof(int) * LEN);
+  for (int i = 0; i < LEN; i++) {
     array[i] = i + 1;
     printf("\tarray[%i] = %i\n", i, array[i]);
   }
   puts("");
 
-  int new_len = len + 3;
+  const int NEW_LEN = LEN + 3;
   printf("We then give that array to realloc() and ask for that array to be\n"
          "resized into an array of length %i. What would that look like?\n\n",
-         new_len);
-  array = (int *)realloc(array, sizeof(int) * new_len);
-  for (int i = len; i < new_len; i++) {
+         NEW_LEN);
+  array = (int *)realloc(array, sizeof(int) * NEW_LEN);
+  for (int i = LEN; i < NEW_LEN; i++) {
     array[i] = i + 1;
     printf("\tarray[%i] = %i\n", i, array[i]);
   }
@@ -300,7 +313,7 @@ void understanding_realloc() {
        "bytes that we have asked for. Let's see our dynamically grown array\n"
        "in its totality.\n");
 
-  for (int i = 0; i < new_len; i++)
+  for (int i = 0; i < NEW_LEN; i++)
     printf("\tarray[%i] = %i\n", i, array[i]);
   puts("");
 
@@ -332,16 +345,16 @@ void understanding_realloc() {
   int *array2 = (int *)malloc(10 * sizeof(int));
   printf("array2 = %li\n", (long)array2);
 
-  int new_len2 = new_len + 100;
+  const int NEW_LEN2 = NEW_LEN + 100;
   printf("array before = %li\n", (long)array);
-  array = (int *)realloc(array, new_len2 * sizeof(int));
+  array = (int *)realloc(array, NEW_LEN2 * sizeof(int));
   printf("array after  = %li\n", (long)array);
 
-  for (int i = new_len; i < new_len2; i++) {
+  for (int i = NEW_LEN; i < NEW_LEN2; i++) {
     array[i] = i + 1;
   }
   printf("\tarray[%i] = %i\n", 2, array[2]);
-  printf("\tarray[%i] = %i\n", new_len2 - 1, array[new_len2 - 1]);
+  printf("\tarray[%i] = %i\n", NEW_LEN2 - 1, array[NEW_LEN2 - 1]);
   puts("");
 
   free(array);
@@ -363,14 +376,14 @@ int *returning_a_local_array() {
        "to return an array out of a function; and how we found out the heart\n"
        "the reason being how the stack is automatically managed for us? Well,\n"
        "we now finally get to overcome this limitation! We can use a heap\n"
-       "(dynamically allocated) array whos lifetime we get to manage\n"
+       "(dynamically allocated) array whose lifetime we get to manage\n"
        "ourselves. This allows us to return a pointer not to stack allocated\n"
        "memory but heap allocated memory. Let's define an array and fill it\n"
        "with some data.\n");
 
-  const int len = 3;
-  int *array = (int *)malloc(sizeof(int) * len);
-  for (int i = 0; i < len; i++)
+  const int LEN = 3;
+  int *array = (int *)malloc(sizeof(int) * LEN);
+  for (int i = 0; i < LEN; i++)
     array[i] = i + 1;
 
   printf("Here we have defined an int array and allocated it on the heap with\n"
@@ -381,7 +394,69 @@ int *returning_a_local_array() {
          "ownership of this array to the calling function. That now means the\n"
          "calling function is responsible to free this data, not this\n"
          "function.\n\n",
-         len);
+         LEN);
 
   return array;
+}
+
+// -----------------------------------------------------------------------------
+char *returning_a_built_string() {
+  puts("-----------------------------------------------------");
+  puts("\t\tReturning A Locally Built String.");
+  puts("-----------------------------------------------------\n");
+
+  puts("Returning strings is basically the same problem as with arrays,\n"
+       "though there are some caveats with strings. We have to use string\n"
+       "manipulation functions to achieve our goals. We'll go over only one\n"
+       "of these functions: strncpy() and strcpy(). One thing to note is that\n"
+       "these function will work on any kind of string, even stack allocated\n"
+       "strings.\n");
+  puts("Let's first go over a simple way of creating a string using a string\n"
+       "literal. The first function we will go over is strcpy().\n");
+
+  const int STRING_LEN = 8;
+  char *string = (char *)malloc(sizeof(char) * STRING_LEN);
+  strcpy(string, "Michael");
+  printf("\tstring = %s\n\n", string);
+
+  printf(
+      "As you can see, we define a char pointer called string which points\n"
+      "to %i characters. %s is %i characters long, which includes the null-\n"
+      "terminator. The null-terminator needs to be included in the string\n"
+      "length when allocating the string: otherwise you will have obvious\n"
+      "problems. The function strcpy(), takes a source pointer to a string\n"
+      "and a destination pointer to write to. Our source is a string literal\n"
+      "which is not assigned to a variable, which is nice for this particular\n"
+      "function. It is really only useful for such a simple case as there are\n"
+      "not protections for a source string length that is bigger than the\n"
+      "destination string's length. The source string must always be less\n"
+      "than or equal to the destination string--including the null-\n"
+      "terminator. So, even in such a simple case you must still make sure\n"
+      "the string literal will fit into the allocated string. Like all heap\n"
+      "allocated memory, we must free it once we're done with it. Let's now\n"
+      "move on to the safer strncpy().\n\n",
+      STRING_LEN, string, STRING_LEN);
+  free(string);
+
+  puts("Let's allocate another string onto the heap.\n");
+
+  const unsigned int STRING2_LEN = 7;
+  char *string2 = (char *)malloc(sizeof(char) * STRING2_LEN);
+  char darien[7] = "Darien";
+  strncpy(string2, darien, STRING2_LEN);
+  printf("\tstring2 = %s\n\n", string2);
+
+  puts("In this function we provide the source and destination strings like\n"
+       "before, but this time with an added bonus argument. This final\n"
+       "argument is used to copy characters up to the given length. If that\n"
+       "is reached without writing the null-terminator--for example the\n"
+       "allocated length being small--then the null-terminator is not writen\n"
+       "and you have a non-null-terminated string; which is an invalid\n"
+       "string. Now, while this still isn't great, it is better than the\n"
+       "previous functions outcome that overwrites memory it doesn't own! So,\n"
+       "still make sure that the length provided is still greater than or\n"
+       "to the destination string's size. Now that we have a string, let's\n"
+       "return it.\n");
+
+  return string2;
 }
