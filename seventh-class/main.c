@@ -10,12 +10,12 @@ void understanding_realloc(void);
 int *returning_a_local_array(void);
 char *returning_a_built_string(void);
 
-void security_vulnerability_with_realloc(void);
-void memory_leak(void);
+void understanding_memory_leaks(void);
 void memory_leak_no_free(void);
 void memory_leak_lost_pointer(void);
 void memory_leak_realloc_failure(void);
 void dangling_pointer(void);
+void security_vulnerability_with_realloc(void);
 void allocating_structs(void);
 
 // -----------------------------------------------------------------------------
@@ -67,6 +67,8 @@ int main(void) {
          "with it.\n\n",
          string);
   free(string);
+
+  understanding_memory_leaks();
 
   return EXIT_SUCCESS;
 }
@@ -459,4 +461,36 @@ char *returning_a_built_string() {
        "return it.\n");
 
   return string2;
+}
+
+// -----------------------------------------------------------------------------
+void understanding_memory_leaks() {
+  puts("-----------------------------------------------------");
+  puts("\t\tUnderstanding Memory Leaks.");
+  puts("-----------------------------------------------------\n");
+
+  memory_leak_no_free();
+  memory_leak_lost_pointer();
+  memory_leak_realloc_failure();
+}
+
+// -----------------------------------------------------------------------------
+void memory_leak_no_free() {
+  puts("----------------------------------------");
+  puts("    Memory Leak From Not Freeing.");
+  puts("----------------------------------------\n");
+}
+
+// -----------------------------------------------------------------------------
+void memory_leak_lost_pointer() {
+  puts("----------------------------------------");
+  puts("  Memory Leak From Losing a Pointer.");
+  puts("----------------------------------------\n");
+}
+
+// -----------------------------------------------------------------------------
+void memory_leak_realloc_failure() {
+  puts("----------------------------------------");
+  puts("  Memory Leak From realloc() Failure.");
+  puts("----------------------------------------\n");
 }
