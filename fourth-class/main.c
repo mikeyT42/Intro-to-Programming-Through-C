@@ -164,13 +164,13 @@ void out_of_bounds_array_access() {
        "they are declared one after the other, and will therefore be\n"
        "allocated by your program one after the other.\n");
 
-  const int iteration_len = 20;
+  const int ITERATION_LEN = 20;
   int a[] = {1, 2, 3, 4, 5};
   int b[] = {6, 7, 8, 9, 10};
-  for (int i = 0; i < iteration_len; i++)
+  for (int i = 0; i < ITERATION_LEN; i++)
     printf("a[%i] = %i\n", i, a[i]);
   puts("------------");
-  for (int i = 0; i < iteration_len; i++)
+  for (int i = 0; i < ITERATION_LEN; i++)
     printf("b[%i] = %i\n", i, b[i]);
 
   puts("\nAs you can see, we eventually hit memory that is out of bounds of\n"
