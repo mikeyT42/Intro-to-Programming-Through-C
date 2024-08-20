@@ -469,6 +469,16 @@ void understanding_memory_leaks() {
   puts("\t\tUnderstanding Memory Leaks.");
   puts("-----------------------------------------------------\n");
 
+  puts("In this sub-lesson we are going to talk about a class of bugs called\n"
+       "\"memory leaks.\" This bug class is when we allocate memory onto the\n"
+       "heap, but don't free that memory when we are done with it. The leaked\n"
+       "memory then sits in the heap for the life of the program, unable to\n"
+       "be de-allocated. This eats up our available memory; and if the leak\n"
+       "is great enough, and the program runs long enough, then our program\n"
+       "leaks all of its available memory and crashes. This bug class is\n"
+       "incredibly difficult to find once it occurs. In this bug class,\n"
+       "prevention is the best cure.\n");
+
   memory_leak_no_free();
   memory_leak_lost_pointer();
   memory_leak_realloc_failure();
@@ -479,6 +489,8 @@ void memory_leak_no_free() {
   puts("----------------------------------------");
   puts("    Memory Leak From Not Freeing.");
   puts("----------------------------------------\n");
+
+  puts("");
 }
 
 // -----------------------------------------------------------------------------
