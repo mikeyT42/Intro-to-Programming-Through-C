@@ -541,6 +541,7 @@ void memory_leak_lost_pointer() {
 
   int *lost = (int *)malloc(sizeof(int));
   *lost = 10;
+  // lost should be freed before another allocation.
   lost = (int *)malloc(sizeof(int));
   *lost = 20;
   free(lost);
