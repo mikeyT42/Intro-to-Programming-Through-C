@@ -537,7 +537,21 @@ void memory_leak_lost_pointer() {
        "be more broad. The previous issue had to do with forgetting to free\n"
        "before the scope of the function was exited, while the issue we are\n"
        "going to go over here is losing the pointer to our memory before we\n"
-       "even exit the function. Let's make this bug occur.");
+       "even exit the function. Let's make this bug occur.\n");
+
+  int *lost = (int *)malloc(sizeof(int));
+  *lost = 10;
+  lost = (int *)malloc(sizeof(int));
+  *lost = 20;
+  free(lost);
+
+  puts("The code above looks pretty innocent, but a grave error has occurred:\n"
+       "our memory has been leaked by losing a pointer to our allocated\n"
+       "memory. How did we lose our pointer? We have freed our memory after\n"
+       "it like good a developer; so, we aren't leaking our memory in that\n"
+       "way. The problem is that we call malloc() a second time and save the\n"
+       "new address malloc() returns to the same variable we have already\n"
+       "allocated to before freeing that memory.\n");
 }
 
 // -----------------------------------------------------------------------------
