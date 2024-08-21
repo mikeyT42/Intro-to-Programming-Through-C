@@ -652,11 +652,11 @@ void memory_leak_realloc_failure() {
   int *tmp = (int *)realloc(numbers2, sizeof(int) * len);
   if (!tmp) {
     fprintf(stderr, "Could not re-allocate numbers2.\n\n");
-    free(numbers2);
   } else {
     // This won't ever execute in our case.
     numbers2 = tmp;
   }
+  free(numbers2);
   /*
    * We could also write it like this if we can return a NULL pointer.
    *
@@ -666,9 +666,14 @@ void memory_leak_realloc_failure() {
    *   return NULL;
    * }
    * numbers2 = tmp;
+   * free(numbers2);
    */
 
-  puts("");
+  puts("By not overwriting our original pointer, we get to free later using\n"
+       "the numbers2 pointer. If it was successful, then numbers2 would be\n"
+       "overwritten with the new address that is stored in the tmp pointer.\n"
+       "By saving into a temporary pointer like this, we get to guard against\n"
+       "a failed re-allocation.\n");
 }
 
 // -----------------------------------------------------------------------------
