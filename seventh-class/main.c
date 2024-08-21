@@ -290,7 +290,13 @@ void understanding_realloc() {
   const int LEN = 3;
   printf("Let's say we have allocated an array of length %i into the heap.\n\n",
          LEN);
+  
   int *array = (int *)malloc(sizeof(int) * LEN);
+  if (!array) {
+    fprintf(stderr, "Could not malloc array.");
+    exit(EXIT_FAILURE);
+  }
+
   for (int i = 0; i < LEN; i++) {
     array[i] = i + 1;
     printf("\tarray[%i] = %i\n", i, array[i]);
@@ -301,6 +307,8 @@ void understanding_realloc() {
   printf("We then give that array to realloc() and ask for that array to be\n"
          "resized into an array of length %i. What would that look like?\n\n",
          NEW_LEN);
+  // Incorrectly handling realloc return value on purpose. Will get to this in
+  // later section.
   array = (int *)realloc(array, sizeof(int) * NEW_LEN);
   for (int i = LEN; i < NEW_LEN; i++) {
     array[i] = i + 1;
@@ -346,10 +354,16 @@ void understanding_realloc() {
        "copy our data to a new location and give us a new pointer.\n");
 
   int *array2 = (int *)malloc(10 * sizeof(int));
+  if (!array2) {
+    fprintf(stderr, "Could not allocate array2.");
+    exit(EXIT_FAILURE);
+  }
   printf("array2 = %li\n", (long)array2);
 
   const int NEW_LEN2 = NEW_LEN + 100;
   printf("array before = %li\n", (long)array);
+  // Incorrectly handling realloc return value on purpose. Will get to this in
+  // later section.
   array = (int *)realloc(array, NEW_LEN2 * sizeof(int));
   printf("array after  = %li\n", (long)array);
 
@@ -386,6 +400,11 @@ int *returning_a_local_array() {
 
   const int LEN = 3;
   int *array = (int *)malloc(sizeof(int) * LEN);
+  if (!array) {
+    fprintf(stderr, "Could not allocate array.");
+    exit(EXIT_FAILURE);
+  }
+
   for (int i = 0; i < LEN; i++)
     array[i] = i + 1;
 
@@ -419,6 +438,11 @@ char *returning_a_built_string() {
 
   const int STRING_LEN = 8;
   char *string = (char *)malloc(sizeof(char) * STRING_LEN);
+  if (!string) {
+    fprintf(stderr, "Could not allocate string.");
+    exit(EXIT_FAILURE);
+  }
+  
   strcpy(string, "Michael");
   printf("\tstring = %s\n\n", string);
 
@@ -445,6 +469,11 @@ char *returning_a_built_string() {
 
   const unsigned int STRING2_LEN = 7;
   char *string2 = (char *)malloc(sizeof(char) * STRING2_LEN);
+  if (!string2) {
+    fprintf(stderr, "Could not allocate string2");
+    exit(EXIT_FAILURE);
+  }
+
   char darien[7] = "Darien";
   strncpy(string2, darien, STRING2_LEN);
   printf("\tstring2 = %s\n\n", string2);
