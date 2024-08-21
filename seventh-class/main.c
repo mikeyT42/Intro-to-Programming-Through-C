@@ -85,7 +85,7 @@ void understanding_malloc() {
 
   int *integer = (int *)malloc(sizeof(int));
   if (!integer) {
-    puts("Was not able to allocate memory for integer.");
+    puts("Was not able to allocate memory for integer.\n\n");
     exit(EXIT_FAILURE);
   }
 
@@ -134,7 +134,7 @@ void understanding_malloc() {
   const unsigned int LEN = 10;
   int *integers = (int *)malloc(sizeof(int) * LEN);
   if (!integers) {
-    puts("Was not able to allocate memory for integers.");
+    puts("Was not able to allocate memory for integers.\n\n");
     exit(EXIT_FAILURE);
   }
 
@@ -175,7 +175,7 @@ void understanding_free() {
 
   double *number = (double *)malloc(sizeof(double));
   if (!number) {
-    puts("Was not able to allocate memory for number.");
+    puts("Was not able to allocate memory for number.\n\n");
     exit(EXIT_FAILURE);
   }
 
@@ -194,7 +194,7 @@ void understanding_free() {
 
   double *numbers = (double *)malloc(sizeof(double) * 20);
   if (!numbers) {
-    puts("Was not able to allocate memory for numbers.");
+    puts("Was not able to allocate memory for numbers.\n\n");
     exit(EXIT_FAILURE);
   }
   free(numbers);
@@ -228,7 +228,7 @@ void undertanding_calloc() {
 
   float *number = (float *)calloc(1, sizeof(float));
   if (!number) {
-    puts("Was not able to allocate memory for number.");
+    puts("Was not able to allocate memory for number.\n\n");
     exit(EXIT_FAILURE);
   }
 
@@ -248,7 +248,7 @@ void undertanding_calloc() {
 
   float *numbers = (float *)calloc(10, sizeof(float));
   if (!numbers) {
-    puts("Was not able to allocate memory for numbers.");
+    puts("Was not able to allocate memory for numbers.\n\n");
     exit(EXIT_FAILURE);
   }
 
@@ -296,7 +296,7 @@ void understanding_realloc() {
 
   int *array = (int *)malloc(sizeof(int) * LEN);
   if (!array) {
-    fprintf(stderr, "Could not malloc array.");
+    fprintf(stderr, "Could not malloc array.\n\n");
     exit(EXIT_FAILURE);
   }
 
@@ -358,7 +358,7 @@ void understanding_realloc() {
 
   int *array2 = (int *)malloc(10 * sizeof(int));
   if (!array2) {
-    fprintf(stderr, "Could not allocate array2.");
+    fprintf(stderr, "Could not allocate array2.\n\n");
     free(array);
     exit(EXIT_FAILURE);
   }
@@ -405,7 +405,7 @@ int *returning_a_local_array() {
   const int LEN = 3;
   int *array = (int *)malloc(sizeof(int) * LEN);
   if (!array) {
-    fprintf(stderr, "Could not allocate array.");
+    fprintf(stderr, "Could not allocate array.\n\n");
     exit(EXIT_FAILURE);
   }
 
@@ -443,7 +443,7 @@ char *returning_a_built_string() {
   const int STRING_LEN = 8;
   char *string = (char *)malloc(sizeof(char) * STRING_LEN);
   if (!string) {
-    fprintf(stderr, "Could not allocate string.");
+    fprintf(stderr, "Could not allocate string.\n\n");
     exit(EXIT_FAILURE);
   }
 
@@ -474,7 +474,7 @@ char *returning_a_built_string() {
   const unsigned int STRING2_LEN = 7;
   char *string2 = (char *)malloc(sizeof(char) * STRING2_LEN);
   if (!string2) {
-    fprintf(stderr, "Could not allocate string2");
+    fprintf(stderr, "Could not allocate string2.\n\n");
     exit(EXIT_FAILURE);
   }
 
@@ -516,7 +516,6 @@ void understanding_memory_leaks() {
   memory_leak_no_free();
   memory_leak_lost_pointer();
   memory_leak_realloc_failure();
-  memory_leak_nested_malloc_failure();
 }
 
 // -----------------------------------------------------------------------------
@@ -531,7 +530,7 @@ void memory_leak_no_free() {
 
   double *i_will_not_be_freed = (double *)malloc(sizeof(double));
   if (!i_will_not_be_freed) {
-    fprintf(stderr, "Could not allocate i_will_not_be_freed.");
+    fprintf(stderr, "Could not allocate i_will_not_be_freed.\n\n");
     exit(EXIT_FAILURE);
   }
   *i_will_not_be_freed = 1.0;
@@ -551,7 +550,7 @@ void memory_leak_no_free() {
   for (int i = 0; i < 20; i++) {
     int *not_freed = (int *)malloc(sizeof(int));
     if (!not_freed) {
-      fprintf(stderr, "Could not allocate not_freed.");
+      fprintf(stderr, "Could not allocate not_freed.\n\n");
       exit(EXIT_FAILURE);
     }
     *not_freed = i;
@@ -582,7 +581,7 @@ void memory_leak_lost_pointer() {
 
   int *lost = (int *)malloc(sizeof(int));
   if (!lost) {
-    fprintf(stderr, "Could not allocate lost.");
+    fprintf(stderr, "Could not allocate lost.\n\n");
     exit(EXIT_FAILURE);
   }
   *lost = 10;
@@ -590,7 +589,7 @@ void memory_leak_lost_pointer() {
   // lost should be freed before another allocation.
   lost = (int *)malloc(sizeof(int));
   if (!lost) {
-    fprintf(stderr, "Could not allocate lost.");
+    fprintf(stderr, "Could not allocate lost.\n\n");
     exit(EXIT_FAILURE);
   }
   *lost = 20;
@@ -622,14 +621,14 @@ void memory_leak_realloc_failure() {
   unsigned long len = 3;
   int *numbers = (int *)malloc(sizeof(int) * len);
   if (!numbers) {
-    fprintf(stderr, "Could not allocate numbers.");
+    fprintf(stderr, "Could not allocate numbers.\n\n");
     exit(EXIT_FAILURE);
   }
 
   len = 999999999999999;
   numbers = (int *)realloc(numbers, sizeof(int) * len);
   if (!numbers) {
-    fprintf(stderr, "Could not realloc numbers. I have introduced a leak.");
+    fprintf(stderr, "Could not realloc numbers. I have introduced a leak.\n\n");
   }
   // Can't free as numbers points to nothing; hence, the leak.
 
@@ -645,20 +644,31 @@ void memory_leak_realloc_failure() {
   len = 3;
   int *numbers2 = (int *)malloc(sizeof(int) * len);
   if (!numbers) {
-    fprintf(stderr, "Could not allocate numbers2.");
+    fprintf(stderr, "Could not allocate numbers2.\n\n");
     exit(EXIT_FAILURE);
   }
 
   len = 999999999999999;
   int *tmp = (int *)realloc(numbers2, sizeof(int) * len);
   if (!tmp) {
-    fprintf(stderr, "Could not re-allocate numbers2");
+    fprintf(stderr, "Could not re-allocate numbers2.\n\n");
     free(numbers2);
   } else {
     // This won't ever execute in our case.
     numbers2 = tmp;
   }
-  // TODO: Can I write this better?
+  /*
+   * We could also write it like this if we can return a NULL pointer.
+   *
+   * if (!tmp) {
+   *   fprintf(stderr, "Could not re-allocate numbers2.\n\n");
+   *   free(numbers2);
+   *   return NULL;
+   * }
+   * numbers2 = tmp;
+   */
+
+  puts("");
 }
 
 // -----------------------------------------------------------------------------
