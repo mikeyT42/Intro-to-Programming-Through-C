@@ -17,7 +17,6 @@ void memory_leak_realloc_failure(void);
 void memory_leak_nested_malloc_failure(void);
 void dangling_pointer(void);
 void security_vulnerability_with_realloc(void);
-void allocating_structs(void);
 
 // -----------------------------------------------------------------------------
 int main(void) {
@@ -179,6 +178,7 @@ void understanding_free() {
     puts("Was not able to allocate memory for number.");
     exit(EXIT_FAILURE);
   }
+
   *number = 1.0;
   free(number);
 
@@ -231,9 +231,12 @@ void undertanding_calloc() {
     puts("Was not able to allocate memory for number.");
     exit(EXIT_FAILURE);
   }
+
   printf("\tnumber before = %f\n", *number);
   *number = 2.0;
   printf("\tnumber after = %f\n\n", *number);
+
+  free(number);
 
   puts(
       "As you can see, this guarantees that the value at the address we have\n"
@@ -248,6 +251,7 @@ void undertanding_calloc() {
     puts("Was not able to allocate memory for numbers.");
     exit(EXIT_FAILURE);
   }
+
   for (int i = 0; i < 10; i++)
     printf("\tnumbers[%i] = %f\n", i, numbers[i]);
   puts("\t--------");
@@ -257,7 +261,6 @@ void undertanding_calloc() {
     printf("\tnumbers[%i] = %f\n", i, numbers[i]);
   puts("");
 
-  free(number);
   free(numbers);
 
   puts("This function is only useful if you need to guarantee, for whatever\n"
@@ -290,7 +293,7 @@ void understanding_realloc() {
   const int LEN = 3;
   printf("Let's say we have allocated an array of length %i into the heap.\n\n",
          LEN);
-  
+
   int *array = (int *)malloc(sizeof(int) * LEN);
   if (!array) {
     fprintf(stderr, "Could not malloc array.");
@@ -356,6 +359,7 @@ void understanding_realloc() {
   int *array2 = (int *)malloc(10 * sizeof(int));
   if (!array2) {
     fprintf(stderr, "Could not allocate array2.");
+    free(array);
     exit(EXIT_FAILURE);
   }
   printf("array2 = %li\n", (long)array2);
@@ -442,7 +446,7 @@ char *returning_a_built_string() {
     fprintf(stderr, "Could not allocate string.");
     exit(EXIT_FAILURE);
   }
-  
+
   strcpy(string, "Michael");
   printf("\tstring = %s\n\n", string);
 
@@ -526,6 +530,10 @@ void memory_leak_no_free() {
        "starting with the simplest way.\n");
 
   double *i_will_not_be_freed = (double *)malloc(sizeof(double));
+  if (!i_will_not_be_freed) {
+    fprintf(stderr, "Could not allocate i_will_not_be_freed.");
+    exit(EXIT_FAILURE);
+  }
   *i_will_not_be_freed = 1.0;
   // i_will_not_be_freed should be freed sometime before this function returns.
 
@@ -542,6 +550,10 @@ void memory_leak_no_free() {
 
   for (int i = 0; i < 20; i++) {
     int *not_freed = (int *)malloc(sizeof(int));
+    if (!not_freed) {
+      fprintf(stderr, "Could not allocate not_freed.");
+      exit(EXIT_FAILURE);
+    }
     *not_freed = i;
     // not_freed should be freed by the end of EACH loop iteration.
   }
@@ -569,9 +581,18 @@ void memory_leak_lost_pointer() {
        "even exit the function. Let's make this bug occur.\n");
 
   int *lost = (int *)malloc(sizeof(int));
+  if (!lost) {
+    fprintf(stderr, "Could not allocate lost.");
+    exit(EXIT_FAILURE);
+  }
   *lost = 10;
+
   // lost should be freed before another allocation.
   lost = (int *)malloc(sizeof(int));
+  if (!lost) {
+    fprintf(stderr, "Could not allocate lost.");
+    exit(EXIT_FAILURE);
+  }
   *lost = 20;
   free(lost);
 
