@@ -610,6 +610,55 @@ void memory_leak_realloc_failure() {
   puts("----------------------------------------");
   puts("  Memory Leak From realloc() Failure.");
   puts("----------------------------------------\n");
+
+  puts("We will see yet again that the heart of a memory leak is the loss of\n"
+       "a pointer to that memory. This is what can occur when a call to\n"
+       "realloc() fails to allocate the requested memory. As we know, when\n"
+       "realloc() fails it returns a NULL pointer. It doesn't though, free\n"
+       "the old memory in this case. If we overwrite our original pointer\n"
+       "with NULL, then we have lost the address to the original memory and\n"
+       "can't free it. Let's see what this looks like in practice.\n");
+
+  unsigned long len = 3;
+  int *numbers = (int *)malloc(sizeof(int) * len);
+  if (!numbers) {
+    fprintf(stderr, "Could not allocate numbers.");
+    exit(EXIT_FAILURE);
+  }
+
+  len = 999999999999999;
+  numbers = (int *)realloc(numbers, sizeof(int) * len);
+  if (!numbers) {
+    fprintf(stderr, "Could not realloc numbers. I have introduced a leak.");
+  }
+  // Can't free as numbers points to nothing; hence, the leak.
+
+  puts("One would think that handling a realloc() failure like this would be\n"
+       "alright, but it's not. We have assigned the address of numbers NULL.\n"
+       "Therefore, we have lost the original address of numbers! How would we\n"
+       "properly handle this? We need to save the return value of realloc()\n"
+       "into a temporary pointer. Then, we check if that pointer is NULL; and\n"
+       "if it is then we handle that. If it is a valid address, then we\n"
+       "assign our temporary pointer to our heap allocated memory pointer.\n"
+       "Let's see what that looks like.\n");
+
+  len = 3;
+  int *numbers2 = (int *)malloc(sizeof(int) * len);
+  if (!numbers) {
+    fprintf(stderr, "Could not allocate numbers2.");
+    exit(EXIT_FAILURE);
+  }
+
+  len = 999999999999999;
+  int *tmp = (int *)realloc(numbers2, sizeof(int) * len);
+  if (!tmp) {
+    fprintf(stderr, "Could not re-allocate numbers2");
+    free(numbers2);
+  } else {
+    // This won't ever execute in our case.
+    numbers2 = tmp;
+  }
+  // TODO: Can I write this better?
 }
 
 // -----------------------------------------------------------------------------
