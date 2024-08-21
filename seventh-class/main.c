@@ -516,6 +516,7 @@ void understanding_memory_leaks() {
   memory_leak_no_free();
   memory_leak_lost_pointer();
   memory_leak_realloc_failure();
+  memory_leak_nested_malloc_failure();
 }
 
 // -----------------------------------------------------------------------------
@@ -681,4 +682,13 @@ void memory_leak_nested_malloc_failure() {
   puts("-----------------------------------------");
   puts("Memory Leak From Nested malloc() Failure.");
   puts("-----------------------------------------\n");
+
+  puts("This is an issue when allocating structs on the heap; but, not all\n"
+       "structs only structs that have pointer data members. All pointer data\n"
+       "members in a struct need to be allocated on the heap, whether or not\n"
+       "these pointers are to arrays, other structs, or a single thing. So,\n"
+       "when I say nested I mean the struct itself is heap allocated, and n\m"
+       "members are allocated on the heap. What kinds of errors can occur\n"
+       "when we have data heap allocated inside of a strcut that is itself\n"
+       "heap allocated?");
 }
