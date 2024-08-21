@@ -51,10 +51,12 @@ loop_control input_loop(void) {
   }
 
   point *point = create_point(x, y);
-  char *point_string = to_string(point);
+  if (!point) {
+    return CONTINUE;
+  }
 
+  char *point_string = to_string(point);
   if (!point_string) {
-    fprintf(stderr, "Could not allocate a string to print the point.");
     free(point);
     return CONTINUE;
   }
@@ -71,7 +73,7 @@ point *create_point(const int x, const int y) {
   point *new_point = (point *)malloc(sizeof(point));
   if (!new_point) {
     fprintf(stderr, "Could not malloc a point.");
-    exit(EXIT_FAILURE);
+    return NULL;
   }
 
   new_point->x = x;
@@ -91,12 +93,20 @@ char *to_string(const point *const point) {
                                 "%4c = %i\n"
                                 "}",
                                 'x', point->x, 'y', point->y);
-  if (was_successful == -1)
+  if (was_successful == -1) {
+    fprintf(stderr, "Could not write into the point buffer.");
     return NULL;
+  }
 
   const int string_len = was_successful + 1;
   char *string_point = (char *)malloc(sizeof(char) * string_len);
-  strcpy(string_point, buffer);
+
+  if (!string_point) {
+    fprintf(stderr, "Could not malloc a string point.");
+    return NULL;
+  }
+
+  strncpy(string_point, buffer, string_len);
 
   return string_point;
 }
