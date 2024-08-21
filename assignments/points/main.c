@@ -100,7 +100,6 @@ char *to_string(const point *const point) {
 
   const int string_len = was_successful + 1;
   char *string_point = (char *)malloc(sizeof(char) * string_len);
-
   if (!string_point) {
     fprintf(stderr, "Could not malloc a string point.");
     return NULL;
