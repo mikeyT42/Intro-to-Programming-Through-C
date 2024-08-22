@@ -16,7 +16,7 @@ void memory_leak_lost_pointer(void);
 void memory_leak_realloc_failure(void);
 void memory_leak_nested_malloc_failure(void);
 void understanding_dangling_pointers(void);
-void security_vulnerability_with_realloc(void);
+void understanding_realloc_security_vulnerability(void);
 
 // -----------------------------------------------------------------------------
 int main(void) {
@@ -70,6 +70,7 @@ int main(void) {
 
   understanding_memory_leaks();
   understanding_dangling_pointers();
+  understanding_realloc_security_vulnerability();
 
   return EXIT_SUCCESS;
 }
@@ -877,4 +878,11 @@ void understanding_dangling_pointers() {
        "need to assign NULL in this case because when we return our stack\n"
        "frame will be destroyed: so, the pointer to freed memory will be\n"
        "lost along with everything else in the stack frame.\n");
+}
+
+// -----------------------------------------------------------------------------
+void understanding_realloc_security_vulnerability() {
+  puts("-----------------------------------------------------");
+  puts("    Understanding realloc() Security Vulnerabilty.");
+  puts("-----------------------------------------------------\n");
 }
