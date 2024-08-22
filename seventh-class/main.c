@@ -620,6 +620,31 @@ void memory_leak_realloc_failure() {
        "can't free it. Let's see what this looks like in practice.\n");
 
   unsigned long len = 3;
+  int *numbers_leaked = (int *)malloc(sizeof(int) * len);
+  if (!numbers_leaked) {
+    fprintf(stderr, "Could not allocate numbers_leaked.\n\n");
+    exit(EXIT_FAILURE);
+  }
+
+  len = 999999999999999;
+  numbers_leaked = (int *)realloc(numbers_leaked, sizeof(int) * len);
+  if (!numbers_leaked) {
+    fprintf(stderr,
+            "Could not realloc numbers_leaked. I have introduced a leak.\n\n");
+  }
+  // Can't free numbers as numbers points to nothing; hence, the leak.
+  printf("\tnumbers_leaked = %p\n\n", numbers_leaked);
+
+  puts("One would think that handling a realloc() failure like this would be\n"
+       "alright, but it's not. We have assigned the address of numbers_leaked\n"
+       "a value of NULL. Therefore, we have lost the original address of\n"
+       "numbers_leaked! How would we properly handle this? We need to save\n"
+       "the return value of realloc() into a temporary pointer. Then, we\n"
+       "check if that pointer is NULL; and if it is then we handle that. If\n"
+       "it is a valid address, then we assign our temporary pointer to our\n"
+       "heap allocated memory pointer. Let's see what that looks like.\n");
+
+  len = 3;
   int *numbers = (int *)malloc(sizeof(int) * len);
   if (!numbers) {
     fprintf(stderr, "Could not allocate numbers.\n\n");
@@ -627,54 +652,35 @@ void memory_leak_realloc_failure() {
   }
 
   len = 999999999999999;
-  numbers = (int *)realloc(numbers, sizeof(int) * len);
-  if (!numbers) {
-    fprintf(stderr, "Could not realloc numbers. I have introduced a leak.\n\n");
-  }
-  // Can't free as numbers points to nothing; hence, the leak.
-
-  puts("One would think that handling a realloc() failure like this would be\n"
-       "alright, but it's not. We have assigned the address of numbers NULL.\n"
-       "Therefore, we have lost the original address of numbers! How would we\n"
-       "properly handle this? We need to save the return value of realloc()\n"
-       "into a temporary pointer. Then, we check if that pointer is NULL; and\n"
-       "if it is then we handle that. If it is a valid address, then we\n"
-       "assign our temporary pointer to our heap allocated memory pointer.\n"
-       "Let's see what that looks like.\n");
-
-  len = 3;
-  int *numbers2 = (int *)malloc(sizeof(int) * len);
-  if (!numbers) {
-    fprintf(stderr, "Could not allocate numbers2.\n\n");
-    exit(EXIT_FAILURE);
-  }
-
-  len = 999999999999999;
-  int *tmp = (int *)realloc(numbers2, sizeof(int) * len);
+  int *tmp = (int *)realloc(numbers, sizeof(int) * len);
   if (!tmp) {
-    fprintf(stderr, "Could not re-allocate numbers2.\n\n");
+    fprintf(stderr, "Could not re-allocate numbers.\n\n");
   } else {
     // This won't ever execute in our case.
-    numbers2 = tmp;
+    numbers = tmp;
   }
-  free(numbers2);
+  printf("\tnumbers = %p\n"
+         "\ttmp     = %p\n\n",
+         numbers, tmp);
+  free(numbers);
   /*
    * We could also write it like this if we can return a NULL pointer.
    *
    * if (!tmp) {
-   *   fprintf(stderr, "Could not re-allocate numbers2.\n\n");
-   *   free(numbers2);
+   *   fprintf(stderr, "Could not re-allocate numbers.\n\n");
+   *   free(numbers);
    *   return NULL;
    * }
-   * numbers2 = tmp;
-   * free(numbers2);
+   * numbers = tmp;
+   * free(numbers);
    */
 
   puts("By not overwriting our original pointer, we get to free later using\n"
-       "the numbers2 pointer. If it was successful, then numbers2 would be\n"
+       "the numbers pointer. If it was successful, then numbers would be\n"
        "overwritten with the new address that is stored in the tmp pointer.\n"
        "By saving into a temporary pointer like this, we get to guard against\n"
-       "a failed re-allocation.\n");
+       "a failed re-allocation. So that we can still free our memory before\n"
+       "the attempted re-allocation.\n");
 }
 
 // -----------------------------------------------------------------------------
@@ -684,11 +690,103 @@ void memory_leak_nested_malloc_failure() {
   puts("-----------------------------------------\n");
 
   puts("This is an issue when allocating structs on the heap; but, not all\n"
-       "structs only structs that have pointer data members. All pointer data\n"
-       "members in a struct need to be allocated on the heap, whether or not\n"
-       "these pointers are to arrays, other structs, or a single thing. So,\n"
-       "when I say nested I mean the struct itself is heap allocated, and n\n"
-       "members are allocated on the heap. What kinds of errors can occur\n"
-       "when we have data heap allocated inside of a strcut that is itself\n"
-       "heap allocated?");
+       "structs, only structs that have pointer data members. All pointer\n"
+       "data members in a struct need to be allocated on the heap, whether or\n"
+       "not these pointers are to arrays, other structs, or a single thing.\n"
+       "So, when I say, \"nested,\" I mean the struct itself is heap\n"
+       "allocated, and n members are allocated on the heap. What kinds of\n"
+       "errors can occur when we have data heap allocated inside of a struct\n"
+       "that is itself heap allocated? Well, the errors we will have specific\n"
+       "to these nested allocations is going to be with freeing this data.\n");
+  puts("When we free a struct pointer we need to first free any heap\n"
+       "allocated memory. So, first we free a data member that is a pointer\n"
+       "to heap allocated memory; and then we free the pointer to the heap\n"
+       "allocated struct. Let's see what this looks like.\n");
+
+  typedef struct {
+    size_t length;
+    int *data;
+  } list_t;
+
+  list_t *list = (list_t *)malloc(sizeof(list_t));
+  if (!list) {
+    fprintf(stderr, "Could not allocate list.\n\n");
+    exit(EXIT_FAILURE);
+  }
+
+  list->length = 3;
+  list->data = (int *)malloc(sizeof(int) * list->length);
+  if (!list->data) {
+    fprintf(stderr, "Could not allocate list->data.\n\n");
+    exit(EXIT_FAILURE);
+  }
+
+  for (int i = 0; i < list->length; i++)
+    list->data[i] = i + 1;
+
+  for (int i = 0; i < list->length; i++)
+    printf("\t\tlist->data[%i] = %i\n", i, list->data[i]);
+  puts("");
+
+  puts("We have defined a new type of a struct called list_t (list type),\n"
+       "which contains 2 members, a size_t length and an int pointer called\n"
+       "data. We first allocate the list_t, and then we assign 3 to our\n"
+       "list's length and then allocate an array of integers of a length from\n"
+       "our list. Let's purposefully create a memory leak.\n");
+
+  free(list);
+
+  puts("There we go, we now have a memory leak: we leaked the data pointer.\n"
+       "The data pointer wasn't first freed and now we have a serious\n"
+       "problem. The pointer to our data resides in the freed block of memory\n"
+       "in list. We could try and free that block since we still have a\n"
+       "pointer to it--which is a separate bug if we reference it--but the\n"
+       "address isn't guaranteed to be overwritten by another allocation. The\n"
+       "data block is still an in-use block of memory--according to the\n"
+       "system--because it was never de-allocated. So, what would it look\n"
+       "like to handle this correctly? Let's see.\n");
+
+  list_t *list2 = (list_t *)malloc(sizeof(list_t));
+  if (!list2) {
+    fprintf(stderr, "Could not allocate list.\n\n");
+    exit(EXIT_FAILURE);
+  }
+
+  list2->length = 3;
+  list2->data = (int *)malloc(sizeof(int) * list2->length);
+  if (!list2->data) {
+    fprintf(stderr, "Could not allocate list->data.\n\n");
+    exit(EXIT_FAILURE);
+  }
+
+  for (int i = 0; i < list2->length; i++)
+    list2->data[i] = i * 2;
+
+  for (int i = 0; i < list2->length; i++)
+    printf("\t\tlist2->data[%i] = %i\n", i, list2->data[i]);
+  puts("");
+
+  free(list2->data);
+  free(list2);
+
+  puts("Here we have correctly freed our heap allocated data. We de-allocated\n"
+       "data in the correct order that we needed to in order to not leak our\n"
+       "data. So, always be sure to be careful when allocating and de-\n"
+       "allocating structs. A good way to handle allocating and de-allocating\n"
+       "structs is to have constructor and destructor functions. A\n"
+       "constructor function would take in any parameters it needed in order\n"
+       "to construct the struct, and would then return a pointer to the\n"
+       "struct it allocated. In our case the function signature would look\n"
+       "something like this:\n\n"
+       "\t\tlist_t *create_list_t(void);\n\n"
+       "A destructor function is a function that is responsible for taking a\n"
+       "pointer to a heap allocated struct and then freeing any of the heap\n"
+       "allocated memory that is a part of that struct, and then freeing the\n"
+       "struct itself. In our case the function signature would look\n"
+       "something like this:\n\n"
+       "\t\tvoid destroy_list_t(list_t *list);\n\n"
+       "Now you know how you would handle this in a real program. You change\n"
+       "ownership of these pointers and delegate tasks to these functions in\n"
+       "order to keep certain ideas together; and so you don't have to keep\n"
+       "the exact same code over and over again.\n");
 }
