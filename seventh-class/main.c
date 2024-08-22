@@ -885,4 +885,25 @@ void understanding_realloc_security_vulnerability() {
   puts("-----------------------------------------------------");
   puts("    Understanding realloc() Security Vulnerabilty.");
   puts("-----------------------------------------------------\n");
+
+  puts("This bug is really only a bug in certain cases. We will only have a\n"
+       "security vulnerability if we are storing sensitive data--like a\n"
+       "password--on the heap. This bug can occur if we simply freed this\n"
+       "data as well; but it is most prevalant and obvious with realloc().\n"
+       "To reiterate though, this bug CAN occur by simply freeing sensitive\n"
+       "data on the heap. Now, with that being said, we will go over this bug\n"
+       "for re-allocating sensitive data.\n");
+
+  size_t LEN = 7;
+  char *password = (char *)malloc(sizeof(char) * LEN);
+  if (!password) {
+    fprintf(stderr, "Could not allocate password.\n\n");
+    exit(EXIT_FAILURE);
+  }
+
+  strncpy(password, "abc123", LEN);
+  printf("\t\tpassword = %s\n\n", password);
+
+  puts("We have allocated onto the heap a string and we then store our super\n"
+       "secure password--no one could possibly guess it.");
 }
