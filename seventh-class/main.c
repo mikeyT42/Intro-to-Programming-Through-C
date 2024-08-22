@@ -687,7 +687,7 @@ void memory_leak_nested_malloc_failure() {
        "structs only structs that have pointer data members. All pointer data\n"
        "members in a struct need to be allocated on the heap, whether or not\n"
        "these pointers are to arrays, other structs, or a single thing. So,\n"
-       "when I say nested I mean the struct itself is heap allocated, and n\m"
+       "when I say nested I mean the struct itself is heap allocated, and n\n"
        "members are allocated on the heap. What kinds of errors can occur\n"
        "when we have data heap allocated inside of a strcut that is itself\n"
        "heap allocated?");
