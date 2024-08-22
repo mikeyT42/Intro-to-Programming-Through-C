@@ -805,4 +805,76 @@ void understanding_dangling_pointers() {
   puts("-----------------------------------------------------");
   puts("\t\tUnderstanding Dangling Pointers.");
   puts("-----------------------------------------------------\n");
+
+  puts("This is yet another potential bug that can occur when dealing with\n"
+       "heap allocated memory. This bug is related to the other free bugs,\n"
+       "but is not about losing data: it is about keeping data! A dangling\n"
+       "pointer is a pointer to memory that has been freed. Remember, the\n"
+       "free function does not clear the memory that it is freeing, nor does\n"
+       "it set the de-allocated pointer to NULL to invalidate the pointer.\n"
+       "These 2 things are the heart of the issue. A dangling pointer is a\n"
+       "de-allocated memory address that we can still reference between we\n"
+       "have the memory address: the bug REALLY starts to show itself when\n"
+       "when start reading or writing to this address. If we were to read\n"
+       "from this address, it is not guaranteed to be any kind of data that\n"
+       "we care about because the address(es) can be written to by allocated\n"
+       "memory from some other allocation: we would be reading garbage data\n"
+       "leading to undefined behavior. If we wrote to this address(es) then\n"
+       "we would potentially be overwriting data owned by some other\n"
+       "allocated pointer: doing this would corrupt the data at that\n"
+       "address(es). Let's see what this looks like in practice.\n");
+
+  int *dangling_pointer = (int *)malloc(sizeof(int));
+  if (!dangling_pointer) {
+    fprintf(stderr, "Could not allocate dangling_pointer.\n\n");
+    exit(EXIT_FAILURE);
+  }
+
+  *dangling_pointer = 200;
+  printf("\t\tdangling_pointer before free\n"
+         "\t\t| %p | %i\n\n",
+         dangling_pointer, *dangling_pointer);
+  free(dangling_pointer);
+  printf("\t\tdangling_pointer after free\n"
+         "\t\t| %p | %i\n\n",
+         dangling_pointer, *dangling_pointer);
+
+  puts("There we go, we now have a dangling pointer. This pointer gives us\n"
+       "access to memory that is no longer owned by that pointer. The\n"
+       "question is; how do we prevent a dangling pointer from occuring? Well\n"
+       "after a free call we need to make sure to set our pointer to NULL.\n"
+       "Let's do this correctly now.\n");
+
+  int *pointer = (int *)malloc(sizeof(int));
+  if (!pointer) {
+    fprintf(stderr, "Could not allocate pointer.\n\n");
+    exit(EXIT_FAILURE);
+  }
+
+  *pointer = 1000;
+  printf("\t\tpointer before free\n"
+         "\t\t| %p | %i\n\n",
+         pointer, *pointer);
+  free(pointer);
+  pointer = NULL;
+  printf("\t\tpointer after free\n"
+         "\t\t| %p | N/A\n\n",
+         pointer);
+
+  puts("As you can see, we have now invalidated our pointer by pointing to\n"
+       "NULL. This is a great pro because now we can't reference data that we\n"
+       "don't own by accident; but, there is a con: we can not dereference\n"
+       "that pointer without creating a segmentation fault and crashing the\n"
+       "entire program. While this is bad, it is much better than reading\n"
+       "garbage data or corrupting unowned data: so, a pick your poison kind\n"
+       "of a deal. This is also a good practice because most functions will\n"
+       "defensively check for a NULL pointer before trying to do work: you\n"
+       "should also try to do this. Another thing to note is that you don't\n"
+       "neccessarily need to assign NULL to a pointer after freeing if you\n"
+       "are de-allocating heap allocated memory at the end of a function and\n"
+       "NOT returning that pointer--which would be erroneous anyway because\n"
+       "you'd be returning a dangling pointer since it is freed. We don't\n"
+       "need to assign NULL in this case because when we return our stack\n"
+       "frame will be destroyed: so, the pointer to freed memory will be\n"
+       "lost along with everything else in the stack frame.\n");
 }
