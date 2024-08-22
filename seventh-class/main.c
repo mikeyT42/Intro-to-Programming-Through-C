@@ -15,7 +15,7 @@ void memory_leak_no_free(void);
 void memory_leak_lost_pointer(void);
 void memory_leak_realloc_failure(void);
 void memory_leak_nested_malloc_failure(void);
-void dangling_pointer(void);
+void understanding_dangling_pointers(void);
 void security_vulnerability_with_realloc(void);
 
 // -----------------------------------------------------------------------------
@@ -69,6 +69,7 @@ int main(void) {
   free(string);
 
   understanding_memory_leaks();
+  understanding_dangling_pointers();
 
   return EXIT_SUCCESS;
 }
@@ -797,4 +798,11 @@ void memory_leak_nested_malloc_failure() {
        "ownership of these pointers and delegate tasks to these functions in\n"
        "order to keep certain ideas together; and so you don't have to keep\n"
        "writing the exact same code over and over again.\n");
+}
+
+// -----------------------------------------------------------------------------
+void understanding_dangling_pointers() {
+  puts("-----------------------------------------------------");
+  puts("\t\tUnderstanding Dangling Pointers.");
+  puts("-----------------------------------------------------\n");
 }
