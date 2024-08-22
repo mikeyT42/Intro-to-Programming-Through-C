@@ -517,6 +517,10 @@ void understanding_memory_leaks() {
   memory_leak_lost_pointer();
   memory_leak_realloc_failure();
   memory_leak_nested_malloc_failure();
+
+  puts("-----------------------------------------------------");
+  puts("\tEnd of Understanding Memory Leaks.");
+  puts("-----------------------------------------------------\n");
 }
 
 // -----------------------------------------------------------------------------
@@ -701,7 +705,9 @@ void memory_leak_nested_malloc_failure() {
   puts("When we free a struct pointer we need to first free any heap\n"
        "allocated memory. So, first we free a data member that is a pointer\n"
        "to heap allocated memory; and then we free the pointer to the heap\n"
-       "allocated struct. Let's see what this looks like.\n");
+       "allocated struct. Let's first see what it looks like to define a\n"
+       "struct with pointer data and to then allocate that struct and its\n"
+       "members.\n");
 
   typedef struct {
     size_t length;
@@ -724,6 +730,7 @@ void memory_leak_nested_malloc_failure() {
   for (int i = 0; i < list->length; i++)
     list->data[i] = i + 1;
 
+  printf("\t\tlist->length = %li\n", list->length);
   for (int i = 0; i < list->length; i++)
     printf("\t\tlist->data[%i] = %i\n", i, list->data[i]);
   puts("");
@@ -731,8 +738,8 @@ void memory_leak_nested_malloc_failure() {
   puts("We have defined a new type of a struct called list_t (list type),\n"
        "which contains 2 members, a size_t length and an int pointer called\n"
        "data. We first allocate the list_t, and then we assign 3 to our\n"
-       "list's length and then allocate an array of integers of a length from\n"
-       "our list. Let's purposefully create a memory leak.\n");
+       "list's length and then allocate an array of integers of our defined\n"
+       "length. Let's purposefully create a memory leak.\n");
 
   free(list);
 
@@ -741,10 +748,10 @@ void memory_leak_nested_malloc_failure() {
        "problem. The pointer to our data resides in the freed block of memory\n"
        "in list. We could try and free that block since we still have a\n"
        "pointer to it--which is a separate bug if we reference it--but the\n"
-       "address isn't guaranteed to be overwritten by another allocation. The\n"
-       "data block is still an in-use block of memory--according to the\n"
-       "system--because it was never de-allocated. So, what would it look\n"
-       "like to handle this correctly? Let's see.\n");
+       "address of data isn't guaranteed to be overwritten by another\n"
+       "allocation. The data block is still an in-use block of memory--\n"
+       "according to the system--because it was never de-allocated. So, what\n"
+       "would it look like to handle this correctly? Let's see.\n");
 
   list_t *list2 = (list_t *)malloc(sizeof(list_t));
   if (!list2) {
@@ -762,6 +769,7 @@ void memory_leak_nested_malloc_failure() {
   for (int i = 0; i < list2->length; i++)
     list2->data[i] = i * 2;
 
+  printf("\t\tlist2->length = %li\n", list2->length);
   for (int i = 0; i < list2->length; i++)
     printf("\t\tlist2->data[%i] = %i\n", i, list2->data[i]);
   puts("");
@@ -770,7 +778,7 @@ void memory_leak_nested_malloc_failure() {
   free(list2);
 
   puts("Here we have correctly freed our heap allocated data. We de-allocated\n"
-       "data in the correct order that we needed to in order to not leak our\n"
+       "data in the correct order that we needed so that we did not leak our\n"
        "data. So, always be sure to be careful when allocating and de-\n"
        "allocating structs. A good way to handle allocating and de-allocating\n"
        "structs is to have constructor and destructor functions. A\n"
@@ -788,5 +796,5 @@ void memory_leak_nested_malloc_failure() {
        "Now you know how you would handle this in a real program. You change\n"
        "ownership of these pointers and delegate tasks to these functions in\n"
        "order to keep certain ideas together; and so you don't have to keep\n"
-       "the exact same code over and over again.\n");
+       "writing the exact same code over and over again.\n");
 }
