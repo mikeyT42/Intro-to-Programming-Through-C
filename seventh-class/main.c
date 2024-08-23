@@ -959,7 +959,11 @@ void understanding_realloc_security_vulnerability() {
        "If an attacker created a memory dump of our program, the attacker\n"
        "would see the password: it's just hanging out there. That is\n"
        "obviously not great. This makes our program less secure.\n");
-  puts("");
+  puts("Solving this problem with realloc() is not ideal, nor exactly\n"
+       "trivial, when storing sensitive data on the heap.");
+  puts("Reference to the solution:");
+  puts("https://wiki.sei.cmu.edu/confluence/display/c/"
+       "MEM03-C.+Clear+sensitive+information+stored+in+reusable+resources\n");
 
   free(password1);
   free(password2);
