@@ -1001,7 +1001,7 @@ void understanding_realloc_security_vulnerability() {
 
   memcpy(temp_buff, secret, secret_size);
 
-  memset((volatile char*)secret, '\0', secret_size);
+  memset((void*)(volatile char*)secret, '\0', secret_size);
 
   free(secret);
   secret = temp_buff;
