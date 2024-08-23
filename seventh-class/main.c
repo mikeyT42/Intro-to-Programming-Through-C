@@ -998,6 +998,7 @@ void understanding_realloc_security_vulnerability() {
   size_t secret_size = strlen(secret);
   if (secret_size > SIZE_MAX / 2) {
     fprintf(stderr, "The secret is way too long.\n\n");
+    free(secret);
     free(password1);
     free(password2);
     exit(EXIT_FAILURE);
@@ -1006,6 +1007,7 @@ void understanding_realloc_security_vulnerability() {
   char *temp_buff = (char *)calloc(secret_size * 2, sizeof(char));
   if (!temp_buff) {
     fprintf(stderr, "Could not allocate temp_buff.\n\n");
+    free(secret);
     free(password1);
     free(password2);
     exit(EXIT_FAILURE);
@@ -1051,6 +1053,7 @@ void understanding_realloc_security_vulnerability() {
        "one. It cannot be handled very simply and the ultimate fix is to\n"
        "essentially make a secure implementation of a new realloc().\n");
 
+  free(secret);
   free(password1);
   free(password2);
 }
