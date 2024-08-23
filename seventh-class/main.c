@@ -1000,8 +1000,6 @@ void understanding_realloc_security_vulnerability() {
 
   memcpy(temp_buff, secret, secret_size);
 
-  // Ask ChatGPT if the cast from volatile to void* keeps what volatile was
-  // trying to accomplish.
   memset((void*)(volatile char*)secret, '\0', secret_size);
 
   free(secret);
