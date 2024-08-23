@@ -985,7 +985,7 @@ void understanding_realloc_security_vulnerability() {
   puts("Here a block of memory has been allocated for a secret char*. We then\n"
        "check the returned pointer and handle any error that was encountered.\n"
        "Then, we initialize our block of memory with our password. Next, we\n"
-       "start getting ready to re-allocate our memory.");
+       "start getting ready to re-allocate our memory.\n");
 
   size_t secret_size = strlen(secret);
   if (secret_size > SIZE_MAX / 2) {
@@ -1009,7 +1009,8 @@ void understanding_realloc_security_vulnerability() {
        "temporary buffer that is twice as big as our old secret's length. We\n"
        "create this pointer so that we can zero the old memory. We also use\n"
        "calloc() in this case in order to guarantee zeroed memory. Next,\n"
-       "let's get to the memory copy, zeroing, and freeing.\n");
+       "let's get to the memory copy, zeroing, and freeing of our old\n"
+       "memory.\n");
 
   memcpy(temp_buff, secret, secret_size);
 
@@ -1026,11 +1027,13 @@ void understanding_realloc_security_vulnerability() {
        "mean? The volatile keyword tells the compiler that this block of\n"
        "memory can be changed at any time and forces the compiler to not\n"
        "optimize the line. In this case, that is what we want. The line could\n"
-       "be moved by compiler optimizations. Next, after zeroeing the memory\n"
-       "we free the old block of memory held by secret. Now, the only memory\n"
-       "is the temporary buffer. We assign that addess to secret for later\n"
-       "and assign NULL to the temporary buffer pointer so that we don't have\n"
-       "2 pointers to the same block of memory.\n");
+       "be moved by compiler optimizations. We then cast to void in order to\n"
+       "not get any compiler warnings when passing to memset. Next, after\n"
+       "zeroeing the memory we free the old block of memory held by secret.\n"
+       "Now, the only memory is the temporary buffer. We assign that address\n"
+       "to secret for later use and assign NULL to the temporary buffer\n"
+       "pointer so that we don't have 2 pointers to the same block of\n"
+       "memory.\n");
 
   puts("Reference to the solution:");
   puts("https://wiki.sei.cmu.edu/confluence/display/c/"
