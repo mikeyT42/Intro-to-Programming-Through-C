@@ -1,6 +1,8 @@
+#include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <sys/_types/_size_t.h>
 
 void understanding_malloc(void);
 void understanding_free(void);
@@ -904,6 +906,7 @@ void understanding_realloc_security_vulnerability() {
   char *password2 = (char *)malloc(sizeof(char) * LEN);
   if (!password2) {
     fprintf(stderr, "Could not allocate password2.\n\n");
+    free(password1);
     exit(EXIT_FAILURE);
   }
 
@@ -930,6 +933,8 @@ void understanding_realloc_security_vulnerability() {
   char *tmp = (char *)realloc(password1, sizeof(char) * LEN * 3);
   if (!tmp) {
     fprintf(stderr, "Could not realloc password1.\n\n");
+    free(password1);
+    free(password2);
     exit(EXIT_FAILURE);
   } else {
     password1 = tmp;
@@ -960,7 +965,48 @@ void understanding_realloc_security_vulnerability() {
        "would see the password: it's just hanging out there. That is\n"
        "obviously not great. This makes our program less secure.\n");
   puts("Solving this problem with realloc() is not ideal, nor exactly\n"
-       "trivial, when storing sensitive data on the heap.");
+       "trivial, when storing sensitive data on the heap. The solution, funny\n"
+       "enough is to not use realloc() when managing sensitive data. We can\n"
+       "use stack memory--which has it's limitations and I still think we\n"
+       "need to zero the memory anyway--or we make our own sensitive data\n"
+       "realloc() function. There are probably many ways to go about this,\n"
+       "and I'm not a security expert so I defer to a page I found from a\n"
+       "University: I have referenced it below. I will demonstrate and\n"
+       "explain their solution here.\n");
+
+  char *secret = (char *)malloc(sizeof(char) * LEN);
+  if (!secret) {
+    fprintf(stderr, "Could not allocate secret.\n\n");
+    free(password1);
+    free(password2);
+    exit(EXIT_FAILURE);
+  }
+  strncpy(secret, "def456", LEN);
+
+  size_t secret_size = strlen(secret);
+  if (secret_size > SIZE_MAX / 2) {
+    fprintf(stderr, "The secret is way too long.\n\n");
+    free(password1);
+    free(password2);
+    exit(EXIT_FAILURE);
+  }
+
+  char *temp_buff = (char *)calloc(secret_size * 2, sizeof(char));
+  if (!temp_buff) {
+    fprintf(stderr, "Could not allocate temp_buff.\n\n");
+    free(password1);
+    free(password2);
+    exit(EXIT_FAILURE);
+  }
+
+  memcpy(temp_buff, secret, secret_size);
+
+  memset((volatile char*)secret, '\0', secret_size);
+
+  free(secret);
+  secret = temp_buff;
+  temp_buff = NULL;
+
   puts("Reference to the solution:");
   puts("https://wiki.sei.cmu.edu/confluence/display/c/"
        "MEM03-C.+Clear+sensitive+information+stored+in+reusable+resources\n");
