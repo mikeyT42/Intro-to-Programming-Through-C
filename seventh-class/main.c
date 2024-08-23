@@ -16,6 +16,7 @@ void memory_leak_lost_pointer(void);
 void memory_leak_realloc_failure(void);
 void memory_leak_nested_malloc_failure(void);
 void understanding_dangling_pointers(void);
+void understanding_freeing_freed_memory(void);
 void understanding_realloc_security_vulnerability(void);
 
 // -----------------------------------------------------------------------------
@@ -888,22 +889,78 @@ void understanding_realloc_security_vulnerability() {
 
   puts("This bug is really only a bug in certain cases. We will only have a\n"
        "security vulnerability if we are storing sensitive data--like a\n"
-       "password--on the heap. This bug can occur if we simply freed this\n"
-       "data as well; but it is most prevalant and obvious with realloc().\n"
-       "To reiterate though, this bug CAN occur by simply freeing sensitive\n"
-       "data on the heap. Now, with that being said, we will go over this bug\n"
-       "for re-allocating sensitive data.\n");
+       "password--on the heap; and only if realloc() frees our data in order\n"
+       "to copy it into a new region. This bug can occur if we simply freed\n"
+       "the data as well; but it is more problematic with realloc(). Now,\n"
+       "with that being said, we will go over this bug for re-allocating\n"
+       "sensitive data.\n");
 
-  size_t LEN = 7;
-  char *password = (char *)malloc(sizeof(char) * LEN);
-  if (!password) {
-    fprintf(stderr, "Could not allocate password.\n\n");
+  const size_t LEN = 7;
+  char *password1 = (char *)malloc(sizeof(char) * LEN);
+  if (!password1) {
+    fprintf(stderr, "Could not allocate password1.\n\n");
+    exit(EXIT_FAILURE);
+  }
+  char *password2 = (char *)malloc(sizeof(char) * LEN);
+  if (!password2) {
+    fprintf(stderr, "Could not allocate password2.\n\n");
     exit(EXIT_FAILURE);
   }
 
-  strncpy(password, "abc123", LEN);
-  printf("\t\tpassword = %s\n\n", password);
+  strncpy(password1, "abc123", LEN);
+  strncpy(password2, "xyz789", LEN);
+  printf("\t\tpassword1 @ %li\n", (long)password1);
+  printf("\t\tpassword2 @ %li\n\n", (long)password2);
+  printf("\t\tpassword1 = %s\n", password1);
+  printf("\t\tpassword2 = %s\n\n", password2);
 
   puts("We have allocated onto the heap a string and we then store our super\n"
-       "secure password--no one could possibly guess it.");
+       "secure passwords--no one could possibly guess them. Let's see how\n"
+       "close these 2 pieces of data are in memory by printing out 100\n"
+       "characters starting at password1.\n");
+
+  for (int i = 0; i < 100; i++)
+    printf("%c", password1[i]);
+  puts("\n");
+
+  puts("Let's now get the bug to occur by having realloc() move our data to a\n"
+       "new region in memory.\n");
+
+  char *save = password1;
+  char *tmp = (char *)realloc(password1, sizeof(char) * LEN * 3);
+  if (!tmp) {
+    fprintf(stderr, "Could not realloc password1.\n\n");
+    exit(EXIT_FAILURE);
+  } else {
+    password1 = tmp;
+  }
+
+  printf("\t\tpassword1 @ %li\n", (long)password1);
+  printf("\t\tpassword2 @ %li\n\n", (long)password2);
+  printf("\t\tpassword1 = %s\n", password1);
+  printf("\t\tpassword2 = %s\n\n", password2);
+
+  puts("Our data is in a new memory region--at least it should be; if not re-\n"
+       "execute the program--and as you can see the password was copied into\n"
+       "the new memory location. What's up with the old block of memory\n"
+       "though? We saved the pointer to it, so let's see.\n");
+
+  printf("\t\tsave @ %li\n", (long)save);
+  printf("\t\tsave = %s\n\n", save);
+
+  for (int i = 0; i < 100; i++)
+    printf("%c", save[i]);
+  puts("\n");
+
+  puts("You may notice that save is a dangling pointer as that memory address\n"
+       "is not owned by the program anymore. That isn't the issue though: I\n"
+       "simply using this dangling pointer to demonstrate that our password\n"
+       "is still in the old block of memory. This is the crux of the issue!\n"
+       "If an attacker created a memory dump of our program, the attacker\n"
+       "would see the password: it's just hanging out there. That is\n"
+       "obviously not great. This makes our program less secure.\n");
+  puts("");
+
+  free(password1);
+  free(password2);
 }
