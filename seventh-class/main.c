@@ -72,6 +72,7 @@ int main(void) {
 
   understanding_memory_leaks();
   understanding_dangling_pointers();
+  understanding_freeing_freed_memory();
   understanding_realloc_security_vulnerability();
 
   return EXIT_SUCCESS;
@@ -880,6 +881,13 @@ void understanding_dangling_pointers() {
        "need to assign NULL in this case because when we return our stack\n"
        "frame will be destroyed: so, the pointer to freed memory will be\n"
        "lost along with everything else in the stack frame.\n");
+}
+
+// -----------------------------------------------------------------------------
+void understanding_freeing_freed_memory() {
+  puts("-----------------------------------------------------");
+  puts("\tUnderstanding Freeing Freed Memory.");
+  puts("-----------------------------------------------------\n");
 }
 
 // -----------------------------------------------------------------------------
