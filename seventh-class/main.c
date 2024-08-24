@@ -17,7 +17,7 @@ void memory_leak_lost_pointer(void);
 void memory_leak_realloc_failure(void);
 void memory_leak_nested_malloc_failure(void);
 void understanding_dangling_pointers(void);
-void understanding_freeing_freed_memory(void); // TODO
+void understanding_freeing_freed_memory(void);
 void understanding_realloc_security_vulnerability(void);
 
 // -----------------------------------------------------------------------------
@@ -888,6 +888,31 @@ void understanding_freeing_freed_memory() {
   puts("-----------------------------------------------------");
   puts("\tUnderstanding Freeing Freed Memory.");
   puts("-----------------------------------------------------\n");
+
+  puts("This bug has to do with the free function. If we pass the free\n"
+       "function a pointer to freed memory--a dangling pointer--then we will\n"
+       "have some issues. Let's see what this looks like.\n");
+
+  int *integer = (int *)malloc(sizeof(int));
+  if (!integer) {
+    fprintf(stderr, "Could not allocate integer.\n\n");
+    exit(EXIT_FAILURE);
+  }
+  free(integer);
+  // free(integer);
+
+  puts("If we were to free integer again then our program would crash.\n"
+       "Obviously not great. This is why it is so important to set our freed\n"
+       "memory to NULL so that we don't have a dangling pointer. Let's see\n"
+       "what that looks like.\n");
+
+  integer = NULL;
+  free(integer);
+
+  puts("As you can see here, our program doesn't crash. Yet another reason to\n"
+       "set our pointers to NULL when they are freed. Why is this? According\n"
+       "to the documentation for free(), the function does nothing when\n"
+       "passed a NULL pointer.\n");
 }
 
 // -----------------------------------------------------------------------------
