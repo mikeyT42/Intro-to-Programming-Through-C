@@ -98,13 +98,16 @@ void understanding_malloc() {
        "need, and then cast the return value of a void* to an int*. The\n"
        "function, malloc(), returns to us an address to the data that was\n"
        "allocated on the heap. If it fails to do so, then we get a NULL\n"
-       "pointer. Now, why does malloc return a void*? A void pointer is a\n"
-       "generic pointer: it is a pointer to any kind of data. It returns that\n"
-       "type because malloc has no idea what you are allocating, only that\n"
-       "you give it a particular size. Plus, when the function is written,\n"
-       "there is no way to know what the exact pointer will be pointing to,\n"
-       "so malloc returns a void* to point to any kind of data--hence the\n"
-       "void. How, though, can we even have a pointer to some unknown data?\n"
+       "pointer. We must be sure to check for NULL after every call to\n"
+       "malloc() just in case this happened: we can't use a NULL pointer.\n"
+       "Plus, that means no memory was even allocated!\n\n"
+       "Now, why does malloc() return a void*? A void pointer is a generic\n"
+       "pointer: it is a pointer to any kind of data. It returns that type\n"
+       "because malloc() has no idea what you are allocating, only that you\n"
+       "give it a particular size. Plus, when the function was written there\n"
+       "was no way to know what the exact pointer will be pointing to, so\n"
+       "malloc() returns a void* to point to any kind of data--hence the void\n"
+       "part. How, though, can we even have a pointer to some unknown data?\n"
        "Remember, all pointers have the same byte size, so that way we can\n"
        "point to any kind of data and the compiler can still tell our program\n"
        "the exact size data to allocate onto the stack. This stack memory\n"
@@ -170,13 +173,12 @@ void understanding_free() {
        "and de-allocates it. Why is this important to do? We need to de-\n"
        "allocate the memory we allocate because, if we don't, we will eat up\n"
        "our program's memory through memory leaks. We will go over memory\n"
-       "in more detail in a second, but just know a memory leak is data on\n"
-       "the heap that is still allocated, and therefore not able to be\n"
-       "allocated by another call to one of the allocation function, but is\n"
-       "not freed up when we are done with it for whatever reason. So, always\n"
-       "be careful to FREE YOUR MEMORY when it is done being used. Anyway,\n"
-       "what does it look like to actually free some dynamically allocated\n"
-       "memory? Let's see that in action.\n");
+       "leaks in more detail in another section; but just know a memory leak\n"
+       "is data on the heap that is still allocated and therefore not able\n"
+       "to be allocated by another call to one of the allocation functions.\n"
+       "So, always be careful to FREE YOUR MEMORY when it is done being used.\n"
+       "Anyway, what does it look like to actually free some dynamically\n"
+       "allocated memory? Let's see that in action.\n");
 
   double *number = (double *)malloc(sizeof(double));
   if (!number) {
@@ -191,11 +193,11 @@ void understanding_free() {
        "then our program de-allocates that memory. What does that really mean\n"
        "though? The memory is not zeroed out when we free our memory. Really\n"
        "all that happens is that that memory we allocated is now able to be\n"
-       "used by the system again for our program's purposes; either for the\n"
+       "used by the system again for our program's purposes, either for the\n"
        "stack or heap. Nothing else is done. Later in this lesson, we'll see\n"
        "what kinds of issues this creates for us as the developer.\n");
-  puts("Now though, how would we de-allocate an array we have dynamically\n"
-       "allocated?");
+  puts("Next, how would we de-allocate an array we have dynamically\n"
+       "allocated?\n");
 
   double *numbers = (double *)malloc(sizeof(double) * 20);
   if (!numbers) {
@@ -207,10 +209,11 @@ void understanding_free() {
   puts("As you can see here, the call to free is the same. We simply pass the\n"
        "pointer to the first address of the array and then free() de-\n"
        "allocates the whole array. How is that possible though if the only\n"
-       "data we give it is the pointer? The pointer does have the length of\n"
-       "array available to it? The system knows how many bytes is allocated\n"
-       "for this block of memory in the heap. So, there is some meta-data\n"
-       "that is stored and when free() is called that data is utilized to de-\n"
+       "data we give it is the pointer? Does the pointer have the length of\n"
+       "the array available to it? The system knows how many bytes is\n"
+       "allocated for this block of memory in the heap--we did provide that\n"
+       "size when we allocated it. So, there is some meta-data that is\n"
+       "stored; and when free() is called that data is utilized to de-\n"
        "allocate the entire block of memory, freeing it for future\n"
        "allocations.\n");
 }
@@ -245,11 +248,11 @@ void undertanding_calloc() {
 
   puts(
       "As you can see, this guarantees that the value at the address we have\n"
-      "allocated is going to be a zero value. This function, just like malloc\n"
-      "can fail if the memory we asked for in the call to calloc() is not\n"
-      "able to be allocated: in this case we get NULL. We need to make sure\n"
-      "to check for that with every call. Now, we can also use this function\n"
-      "to allocate arrays, which is what it is usually used for.\n");
+      "allocated is going to be a zero value. This function, just like\n"
+      "malloc(), can fail if the memory we asked for in the call to calloc()\n"
+      "is not able to be allocated: in this case we get NULL. We need to make\n"
+      "sure to check for that with every call. Now, we can also use this\n"
+      "function to allocate arrays, which is what it is usually used for.\n");
 
   float *numbers = (float *)calloc(10, sizeof(float));
   if (!numbers) {
@@ -369,7 +372,7 @@ void understanding_realloc() {
   }
   printf("array2 = %li\n", (long)array2);
 
-  const int NEW_LEN2 = NEW_LEN + 100;
+  const int NEW_LEN2 = NEW_LEN + 1000;
   printf("array before = %li\n", (long)array);
   // Incorrectly handling realloc return value on purpose. Will get to this in
   // later section.
@@ -400,11 +403,11 @@ int *returning_a_local_array() {
 
   puts("Recall how in the lesson on arrays we found that it wasn't possible\n"
        "to return an array out of a function; and how we found out the heart\n"
-       "the reason being how the stack is automatically managed for us? Well,\n"
-       "we now finally get to overcome this limitation! We can use a heap\n"
+       "of the reason being how the stack is automatically managed for us?\n"
+       "Well, we can now finally overcome this limitation! We can use a heap\n"
        "(dynamically allocated) array whose lifetime we get to manage\n"
        "ourselves. This allows us to return a pointer not to stack allocated\n"
-       "memory but heap allocated memory. Let's define an array and fill it\n"
+       "memory, but heap allocated memory. Let's define an array and fill it\n"
        "with some data.\n");
 
   const int LEN = 3;
@@ -420,9 +423,9 @@ int *returning_a_local_array() {
   printf("Here we have defined an int array and allocated it on the heap with\n"
          "a length of %i. We then initialized each element in the array. We\n"
          "can now return this array because it will not be freed when we exit\n"
-         "the function like in stack (automatic) memory; but, now that we\n"
-         "will return the pointer to this array, we are actually giving\n"
-         "ownership of this array to the calling function. That now means the\n"
+         "the function like in stack (automatic) memory. Because we are\n"
+         "returning the pointer to this array, we are actually giving\n"
+         "ownership of this array to the calling function. That means the\n"
          "calling function is responsible to free this data, not this\n"
          "function.\n\n",
          LEN);
@@ -433,15 +436,15 @@ int *returning_a_local_array() {
 // -----------------------------------------------------------------------------
 char *returning_a_built_string() {
   puts("-----------------------------------------------------");
-  puts("\t\tReturning A Locally Built String.");
+  puts("\tReturning A Locally Built String.");
   puts("-----------------------------------------------------\n");
 
   puts("Returning strings is basically the same problem as with arrays,\n"
        "though there are some caveats with strings. We have to use string\n"
-       "manipulation functions to achieve our goals. We'll go over only one\n"
-       "of these functions: strncpy() and strcpy(). One thing to note is that\n"
-       "these function will work on any kind of string, even stack allocated\n"
-       "strings.\n");
+       "manipulation functions to achieve our goals. We'll go over only a\n"
+       "couple of these functions: strncpy() and strcpy(). One thing to note\n"
+       "is that these function will work on any kind of string, even stack\n"
+       "allocated strings.\n");
   puts("Let's first go over a simple way of creating a string using a string\n"
        "literal. The first function we will go over is strcpy().\n");
 
@@ -464,7 +467,7 @@ char *returning_a_built_string() {
       "and a destination pointer to write to. Our source is a string literal\n"
       "which is not assigned to a variable, which is nice for this particular\n"
       "function. It is really only useful for such a simple case as there are\n"
-      "not protections for a source string length that is bigger than the\n"
+      "no protections for a source string length that is bigger than the\n"
       "destination string's length. The source string must always be less\n"
       "than or equal to the destination string--including the null-\n"
       "terminator. So, even in such a simple case you must still make sure\n"
@@ -494,8 +497,8 @@ char *returning_a_built_string() {
        "allocated length being small--then the null-terminator is not writen\n"
        "and you have a non-null-terminated string; which is an invalid\n"
        "string. Now, while this still isn't great, it is better than the\n"
-       "previous functions outcome that overwrites memory it doesn't own! So,\n"
-       "still make sure that the length provided is still greater than or\n"
+       "previous function's outcome that overwrites memory it doesn't own!\n"
+       "So, still make sure that the length provided is still greater than or\n"
        "to the destination string's size. Now that we have a string, let's\n"
        "return it.\n");
 
@@ -583,11 +586,11 @@ void memory_leak_lost_pointer() {
   puts("----------------------------------------\n");
 
   puts("You may notice from the previous sub-lesson that losing pointers is\n"
-       "the heart of the \"forgetting to free\" issue. This issue though can\n"
-       "be more broad. The previous issue had to do with forgetting to free\n"
-       "before the scope of the function was exited, while the issue we are\n"
-       "going to go over here is losing the pointer to our memory before we\n"
-       "even exit the function. Let's make this bug occur.\n");
+       "the heart of the \"forgetting to free\" issue. This issue, though,\n"
+       "can be more broad. The previous issue had to do with forgetting to\n"
+       "free before the scope of the function was exited, while the issue we\n"
+       "are going to go over here is losing the pointer to our memory before\n"
+       "we even exit the function. Let's make this bug occur.\n");
 
   int *lost = (int *)malloc(sizeof(int));
   if (!lost) {
@@ -611,7 +614,10 @@ void memory_leak_lost_pointer() {
        "it like good a developer; so, we aren't leaking our memory in that\n"
        "way. The problem is that we call malloc() a second time and save the\n"
        "new address malloc() returns to the same variable we have already\n"
-       "allocated to before freeing that memory.\n");
+       "allocated to before freeing that memory. Therefore, we have\n"
+       "overwritten our address to our first block of memory before we freed\n"
+       "that block of memory. Now that we lost the address, that block can\n"
+       "never be freed.\n");
 }
 
 // -----------------------------------------------------------------------------
@@ -638,6 +644,7 @@ void memory_leak_realloc_failure() {
   len = 999999999999999;
   numbers_leaked = (int *)realloc(numbers_leaked, sizeof(int) * len);
   if (!numbers_leaked) {
+    puts("");
     fprintf(stderr,
             "Could not realloc numbers_leaked. I have introduced a leak.\n\n");
   }
@@ -663,7 +670,7 @@ void memory_leak_realloc_failure() {
   len = 999999999999999;
   int *tmp = (int *)realloc(numbers, sizeof(int) * len);
   if (!tmp) {
-    fprintf(stderr, "Could not re-allocate numbers.\n\n");
+    fprintf(stderr, "\nCould not re-allocate numbers.\n\n");
   } else {
     // This won't ever execute in our case.
     numbers = tmp;
@@ -688,8 +695,7 @@ void memory_leak_realloc_failure() {
        "the numbers pointer. If it was successful, then numbers would be\n"
        "overwritten with the new address that is stored in the tmp pointer.\n"
        "By saving into a temporary pointer like this, we get to guard against\n"
-       "a failed re-allocation. So that we can still free our memory before\n"
-       "the attempted re-allocation.\n");
+       "a failed re-allocation.\n");
 }
 
 // -----------------------------------------------------------------------------
@@ -787,15 +793,15 @@ void memory_leak_nested_malloc_failure() {
        "data. So, always be sure to be careful when allocating and de-\n"
        "allocating structs. A good way to handle allocating and de-allocating\n"
        "structs is to have constructor and destructor functions. A\n"
-       "constructor function would take in any parameters it needed in order\n"
+       "constructor function would take in any parameters it needs in order\n"
        "to construct the struct, and would then return a pointer to the\n"
        "struct it allocated. In our case the function signature would look\n"
        "something like this:\n\n"
        "\t\tlist_t *create_list_t(void);\n\n"
        "A destructor function is a function that is responsible for taking a\n"
-       "pointer to a heap allocated struct and then freeing any of the heap\n"
-       "allocated memory that is a part of that struct, and then freeing the\n"
-       "struct itself. In our case the function signature would look\n"
+       "pointer to a heap allocated struct, freeing any of the heap allocated\n"
+       "memory that is a part of that struct, and then freeing the struct\n"
+       "itself. In our case the function signature would look\n"
        "something like this:\n\n"
        "\t\tvoid destroy_list_t(list_t *list);\n\n"
        "Now you know how you would handle this in a real program. You change\n"
@@ -807,7 +813,7 @@ void memory_leak_nested_malloc_failure() {
 // -----------------------------------------------------------------------------
 void understanding_dangling_pointers() {
   puts("-----------------------------------------------------");
-  puts("\t\tUnderstanding Dangling Pointers.");
+  puts("\tUnderstanding Dangling Pointers.");
   puts("-----------------------------------------------------\n");
 
   puts("This is yet another potential bug that can occur when dealing with\n"
@@ -817,16 +823,16 @@ void understanding_dangling_pointers() {
        "free function does not clear the memory that it is freeing, nor does\n"
        "it set the de-allocated pointer to NULL to invalidate the pointer.\n"
        "These 2 things are the heart of the issue. A dangling pointer is a\n"
-       "de-allocated memory address that we can still reference between we\n"
-       "have the memory address: the bug REALLY starts to show itself when\n"
-       "when start reading or writing to this address. If we were to read\n"
-       "from this address, it is not guaranteed to be any kind of data that\n"
-       "we care about because the address(es) can be written to by allocated\n"
-       "memory from some other allocation: we would be reading garbage data\n"
-       "leading to undefined behavior. If we wrote to this address(es) then\n"
-       "we would potentially be overwriting data owned by some other\n"
-       "allocated pointer: doing this would corrupt the data at that\n"
-       "address(es). Let's see what this looks like in practice.\n");
+       "de-allocated memory address that we can still reference: the bug\n"
+       "REALLY starts to show itself when when start reading or writing to\n"
+       "this address. If we were to read from this address it is not\n"
+       "guaranteed to be any kind of data that we care about because the\n"
+       "address(es) can be written to by allocated memory from some other\n"
+       "allocation: we would be reading garbage data leading to undefined\n"
+       "behavior. If we wrote to this address(es) then we would potentially\n"
+       "be overwriting data owned by some other allocated pointer: doing\n"
+       "this would corrupt the data at that address(es). Let's see what this\n"
+       "looks like in practice.\n");
 
   int *dangling_pointer = (int *)malloc(sizeof(int));
   if (!dangling_pointer) {
@@ -870,17 +876,17 @@ void understanding_dangling_pointers() {
        "don't own by accident; but, there is a con: we can not dereference\n"
        "that pointer without creating a segmentation fault and crashing the\n"
        "entire program. While this is bad, it is much better than reading\n"
-       "garbage data or corrupting unowned data: so, a pick your poison kind\n"
-       "of a deal. This is also a good practice because most functions will\n"
-       "defensively check for a NULL pointer before trying to do work: you\n"
-       "should also try to do this. Another thing to note is that you don't\n"
-       "neccessarily need to assign NULL to a pointer after freeing if you\n"
-       "are de-allocating heap allocated memory at the end of a function and\n"
-       "NOT returning that pointer--which would be erroneous anyway because\n"
-       "you'd be returning a dangling pointer since it is freed. We don't\n"
-       "need to assign NULL in this case because when we return our stack\n"
-       "frame will be destroyed: so, the pointer to freed memory will be\n"
-       "lost along with everything else in the stack frame.\n");
+       "garbage data or corrupting unowned data: so, it's a pick your poison\n"
+       "kind of a deal. This is also a good practice because most functions\n"
+       "will defensively check for a NULL pointer before trying to do work:\n"
+       "you should also try to do this. Another thing to note is that you\n"
+       "don't neccessarily need to assign NULL to a pointer after freeing if\n"
+       "you are de-allocating heap allocated memory at the end of a function\n"
+       "and NOT returning that pointer--which would be erroneous anyway\n"
+       "because you'd be returning a dangling pointer since it is freed. We\n"
+       "don't need to assign NULL in this case because when we return our\n"
+       "stack frame will be destroyed: so, the pointer to freed memory will\n"
+       "be lost along with everything else in the stack frame.\n");
 }
 
 // -----------------------------------------------------------------------------
@@ -949,7 +955,7 @@ void understanding_realloc_security_vulnerability() {
   printf("\t\tpassword1 = %s\n", password1);
   printf("\t\tpassword2 = %s\n\n", password2);
 
-  puts("We have allocated onto the heap a string and we then store our super\n"
+  puts("We have allocated onto the heap 2 strings and we then store our super\n"
        "secure passwords--no one could possibly guess them. Let's see how\n"
        "close these 2 pieces of data are in memory by printing out 100\n"
        "characters starting at password1.\n");
@@ -961,7 +967,7 @@ void understanding_realloc_security_vulnerability() {
   puts("Let's now get the bug to occur by having realloc() move our data to a\n"
        "new region in memory.\n");
 
-  char *save = password1;
+  const char *const password1_save = password1;
   char *tmp = (char *)realloc(password1, sizeof(char) * LEN * 3);
   if (!tmp) {
     fprintf(stderr, "Could not realloc password1.\n\n");
@@ -982,24 +988,24 @@ void understanding_realloc_security_vulnerability() {
        "the new memory location. What's up with the old block of memory\n"
        "though? We saved the pointer to it, so let's see.\n");
 
-  printf("\t\tsave @ %li\n", (long)save);
-  printf("\t\tsave = %s\n\n", save);
+  printf("\t\tpassword1_save @ %li\n", (long)password1_save);
+  printf("\t\tpassword1_save = \"%s\"\n", password1_save);
 
   for (int i = 0; i < 100; i++)
-    printf("%c", save[i]);
+    printf("%c", password1_save[i]);
   puts("\n");
 
   puts("You may notice that save is a dangling pointer as that memory address\n"
        "is not owned by the program anymore. That isn't the issue though: I\n"
-       "simply using this dangling pointer to demonstrate that our password\n"
-       "is still in the old block of memory. This is the crux of the issue!\n"
-       "If an attacker created a memory dump of our program, the attacker\n"
-       "would see the password: it's just hanging out there. That is\n"
+       "am simply using this dangling pointer to demonstrate that our\n"
+       "password is still in the old block of memory. This is the crux of the\n"
+       "issue! If an attacker created a memory dump of our program, the\n"
+       "attacker would see the password: it's just hanging out there. That is\n"
        "obviously not great. This makes our program less secure.\n");
   puts("Solving this problem with realloc() is not ideal, nor exactly\n"
        "trivial, when storing sensitive data on the heap. The solution, funny\n"
-       "enough is to not use realloc() when managing sensitive data. We can\n"
-       "use stack memory--which has it's limitations and I still think we\n"
+       "enough, is to not use realloc() when managing sensitive data. We can\n"
+       "use stack memory--which has its limitations and I still think we\n"
        "need to zero the memory anyway--or we make our own sensitive data\n"
        "realloc() function. There are probably many ways to go about this,\n"
        "and I'm not a security expert so I defer to a page I found from a\n"
@@ -1063,8 +1069,8 @@ void understanding_realloc_security_vulnerability() {
        "memory can be changed at any time and forces the compiler to not\n"
        "optimize the line. In this case, that is what we want. The line could\n"
        "be moved by compiler optimizations. We then cast to void in order to\n"
-       "not get any compiler warnings when passing to memset. Next, after\n"
-       "zeroeing the memory we free the old block of memory held by secret.\n"
+       "not get any compiler warnings when passing to memset(). Next, after\n"
+       "zeroeing the memory, we free the old block of memory held by secret.\n"
        "Now, the only memory is the temporary buffer. We assign that address\n"
        "to secret for later use and assign NULL to the temporary buffer\n"
        "pointer so that we don't have 2 pointers to the same block of\n"
