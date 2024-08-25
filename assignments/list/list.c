@@ -4,13 +4,13 @@
 list *create_list() {
   list *l = (list *)malloc(sizeof(list));
   if (!l) {
-    fprintf(stderr, "Could not malloc List.");
+    fprintf(stderr, "\n\nCould not malloc List.\n\n");
     return NULL;
   }
 
   l->data = calloc(GROWTH_FACTOR, sizeof(int));
   if (!l->data) {
-    fprintf(stderr, "Could not calloc data in List.");
+    fprintf(stderr, "\n\nCould not calloc data in List.\n\n");
     free(l);
     return NULL;
   }
@@ -33,20 +33,30 @@ void destroy(list *l) {
 }
 
 // -----------------------------------------------------------------------------
+int pop(list *const l) {
+  int i = l->data[l->length - 1];
+  l->length--;
+
+  return i;
+}
+
+// -----------------------------------------------------------------------------
+void realloc_list(list *l, const size_t new_array_size) {
+
+}
+
+// -----------------------------------------------------------------------------
 void put(list *l, const int i) {
   printf("length = %zu ; capacity = %zu\n", l->length, l->capacity);
 
   if (l->length >= l->capacity) {
-    // TODO: Maybe, I could make this body into a function to share with
-    // shrink_to_fit() and give it a function pointer to calculate the
-    // new_array_size.
     printf("Reallocationg.\n");
     const size_t new_array_size = (GROWTH_FACTOR + l->capacity) * sizeof(int);
     printf("new_array_size = %ld\n", new_array_size);
 
     int *tmp = realloc(l->data, new_array_size);
-    if (tmp == NULL) {
-      fprintf(stderr, "Could not realloc data in List.");
+    if (!tmp) {
+      fprintf(stderr, "\n\nCould not realloc data in List.\n\n");
       destroy(l);
       exit(EXIT_FAILURE);
     }
@@ -57,14 +67,6 @@ void put(list *l, const int i) {
 
   l->length++;
   l->data[l->length - 1] = i;
-}
-
-// -----------------------------------------------------------------------------
-int pop(list *const l) {
-  int i = l->data[l->length - 1];
-  l->length--;
-
-  return i;
 }
 
 // -----------------------------------------------------------------------------
@@ -79,8 +81,8 @@ void shrink_to_fit(list *l) {
     const size_t new_array_size = l->length * sizeof(int);
     printf("new_array_size = %ld\n", new_array_size);
     int *tmp = realloc(l->data, new_array_size);
-    if (tmp == NULL) {
-      fprintf(stderr, "Could not realloc data in List.");
+    if (!tmp) {
+      fprintf(stderr, "\n\nCould not realloc data in List.\n\n");
       destroy(l);
       exit(EXIT_FAILURE);
     }
