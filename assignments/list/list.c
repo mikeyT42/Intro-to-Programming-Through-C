@@ -41,11 +41,6 @@ int pop(list *const l) {
 }
 
 // -----------------------------------------------------------------------------
-void realloc_list(list *l, const size_t new_array_size) {
-
-}
-
-// -----------------------------------------------------------------------------
 void put(list *l, const int i) {
   printf("length = %zu ; capacity = %zu\n", l->length, l->capacity);
 
