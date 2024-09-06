@@ -1,19 +1,20 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#define CONSTANT 500
+
 void goals_of_this_course(void);
 
 void what_is_a_program(void);
 void compilation(void);
 void how_does_a_program_execute(void);
 
-void general_syntax(void);
 void what_is_syntax(void);
+void general_syntax(void);
 void declaring_and_defining_variables(void);
 void declaring_defining_and_calling_functions(void);
 int function_a(void);
 int function_b(int x);
-void comments(void);
 
 void intro_to_arrays(void);
 void calculate_array_length(void);
@@ -31,6 +32,9 @@ int main(void) {
   goals_of_this_course();
   what_is_a_program();
   compilation();
+  how_does_a_program_execute();
+  what_is_syntax();
+  general_syntax();
 
   return EXIT_SUCCESS;
 }
@@ -102,5 +106,174 @@ void compilation() {
        "Essentially these macros and constansts will be copied directly into\n"
        "our source code so that we don't have to write it ourselves. It's\n"
        "basically a glorified copying machine.\n");
-  puts("The next step that");
+  puts("The next step that we will be talking about is when the source code\n"
+       "is actually parsed by the compiler. It checks the syntax and symbols\n"
+       "of our code, along with with if our functions are declared and\n"
+       "defined. It also checks to see for our included source files. It also\n"
+       "checks our data types.\n");
+  puts("The compiler does a wide variety of other things, but we won't be\n"
+       "going into it all.\n");
+}
+
+// -----------------------------------------------------------------------------
+void how_does_a_program_execute() {
+  puts("----------------------------------------------------");
+  puts("\tHow Does A Program Execute?");
+  puts("----------------------------------------------------");
+
+  puts("Code executes one step at a time. This is most often one line at a\n"
+       "time; there are certain exceptions--we'll get to them soon. The\n"
+       "program starts executing in the \"main\" function; this is the\n"
+       "function defined at the beginning of this file. The lines inside of\n"
+       "the main function are then executed one line at a time. Any function\n"
+       "calls, like the call to puts() prints out the line of text, are moved\n"
+       "moved into. So, the program starts to execute the code inside of\n"
+       "puts(). This function prints out text to the standard output--the\n"
+       "terminal in our case. We then call the function\n"
+       "goals_of_this_course(). Our program starts executing the code inside\n"
+       "of goals_of_this_course(). At the end of each of these functions, we\n"
+       "then return out of the function and go back into the main() function.\n"
+       "Then the program starts to execute the function what_is_a_program().\n"
+       "Then the code starts to be executed inside of that function. This\n"
+       "continues onward until the main() function returns its exit code.");
+}
+
+// -----------------------------------------------------------------------------
+void what_is_syntax() {
+  puts("----------------------------------------------------");
+  puts("\tWhat Is \"Syntax\"?");
+  puts("----------------------------------------------------");
+
+  puts("What does \"syntax\" mean? The word describes the words and symbols\n"
+       "we use to write in our programming language. For example, we use the\n"
+       "parentheses to say that a name is a function. We will go over a ton\n"
+       "of syntax. These words we use of the building blocks of any\n"
+       "language.\n");
+}
+
+// -----------------------------------------------------------------------------
+void general_syntax() {
+  puts("----------------------------------------------------");
+  puts("\tSome General Syntax.");
+  puts("----------------------------------------------------");
+
+  puts("All programming statements end with a semicolon. This tells the\n"
+       "compiler that we reached the end of a statement. Do NOT forget to put\n"
+       "a semicolon. The program will not compile with out them. If you\n"
+       "forget you will get some really strange compilation errors.\n");
+  puts("Since code is meant not just for computers, but for humans, we need\n"
+       "to be able to communicate to humans in a way that the computer will\n"
+       "not execute. These are called comments. We have to ways to make\n"
+       "comments: a single-line comment and a multiline block comment. I'll\n"
+       "show you the first way.");
+
+  // This is a single line comment. We make it with the forward slashes.
+
+  puts("Single-line comments are meant to be only on one line. You can\n"
+       "technically write a bunch of them on multiple lines. But, that is\n"
+       "what the block comment is for. I'll show you what that looks like.\n");
+
+  /*
+   * This is a multiline block comment!
+   * We define it with the forward slash and then the star symbol. Every new
+   * line starts with a star symbol. It ends with a star and forward slash
+   * adjacent to each other.
+   */
+
+  puts("Comments are a good way to communicate weird things that the code is\n"
+       "doing. Comments should NOT explain the code. They should simply be\n"
+       "used to document code for other readers, or they should be used to\n"
+       "explain something unorthodox that is being done.\n");
+
+  puts("At the top of this file you may notice this:\n\n"
+       "\t\t#include <stdio.h>\n\n"
+       "Let's go over this. The #include is a pre-proccessor command. It\n"
+       "tells the pre-processor to copy into this file (include) the code\n"
+       "from some other file. In this case, we are including the code from\n"
+       "the stdio.h file that is a part of the C standard library. This\n"
+       "collection of code holds many different files that we will go over.\n"
+       "There are various types and functions made available to us by the\n"
+       "standard library so that we don't need to implement them; we get to\n"
+       "use the code provided to us. The file that we use from the standard\n"
+       "library must be surrounded with the < and > characters.\n");
+
+  declaring_and_defining_variables();
+}
+
+// -----------------------------------------------------------------------------
+void declaring_and_defining_variables() {
+  puts("--------------------------------------------");
+  puts("     Declaring and Defining Variables.");
+  puts("--------------------------------------------");
+
+  puts("Let's go over in this section how to define variables. Variable\n"
+       "definitions start with an optional qualifier--we'll go over one in a\n"
+       "second--a type, and then finally a name for the variable. Let's\n"
+       "define one now:\n");
+
+  int my_integer;
+
+  puts("Above we have defined a variable with the name of \"my_integer.\" It\n"
+       "has a type of \"int,\" which as you may guess is an integer. This\n"
+       "variable though, has no data: it is not initialized to anything.\n"
+       "Let's assign a value to \"my_integer.\"");
+
+  my_integer = 10;
+
+  puts("Here we have used the \"assignment operator\" (=) to assign the value\n"
+       "of 10 to our variable name \"my_integer.\" We can declare a variable\n"
+       "and assign to it in one statement. Assigning to the variable in this\n"
+       "way is called \"initializing\" the variable. Let's see what that\n"
+       "looks like.\n");
+
+  int my_integer2 = 20;
+
+  puts("We now declared \"my_integer2\" and initialized it with a value of\n"
+       "20. Let's now get to that optional qualifier business. We can make\n"
+       "our variable a constant by using the \"const\" qualifier when we\n"
+       "declare our variable. In this declaration, we must also initialize\n"
+       "the variable because we cannot assign to our constant variable later\n"
+       "on in the code; otherwise, it wouldn't be a constant! So, let's see\n"
+       "how we do this.\n");
+
+  const int MY_CONSTANT = 5;
+  // my_constant = 10; This would produce a compilation error if we uncommented
+  // the above line out.
+
+  puts("We can now not assign to this variable after declaring it, if we\n"
+       "tried to we would get a compilation error. Sometimes, this is\n"
+       "desirable because this prevents us from assignming to a variable\n"
+       "that shouldn't be altered by ourselves or any other developer: using\n"
+       "this qualifier signifies our intent for this variable; and the\n"
+       "compiler is able to enforce this for us. You may also notice the name\n"
+       "is capitalized. This is the standard practice for variables that are\n"
+       "contants. It helps to further communicate that this variable is a\n"
+       "constant.\n");
+}
+
+// -----------------------------------------------------------------------------
+void declaring_defining_and_calling_functions() {
+  puts("--------------------------------------------");
+  puts(" Declaring, Defining, and Calling Functions.");
+  puts("--------------------------------------------");
+
+  puts("In this section, we will start explaining functions. Up to this point\n"
+       "we have been using and making them; but I have simply not explained\n"
+       "their syntax.\n");
+  puts("Functions must be declared, just like variables. We declare functions\n"
+       "at the top of our file. The first piece of a function is the return\n"
+       "type. This tells the compiler what kind, if any data, the function\n"
+       "will be giving back to the caller. We can use any data types. We can\n"
+       "tell the compiler we are returning nothing by saying the return type\n"
+       "is \"void.\" Then, after the return type is the function name. Here,\n"
+       "we want to be descriptive. We don't want to be overly descriptive\n"
+       "like I am being in certain instances in this program; but we do want\n"
+       "to communicate purpose. Next comes the opening and closing\n"
+       "parentheses. This is the section to hold any arguments (a.k.a.\n"
+       "parameters) that this function will take as input. We would then have\n"
+       "the variable declaration syntax that is separated by commas to define\n"
+       "multiple arguments. We can say void in this section in order to\n"
+       "define that this function takes no arguments. We then end our\n"
+       "declaration with a semicolon. See the top of this file for an\n"
+       "example.\n");
 }
