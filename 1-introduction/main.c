@@ -13,8 +13,9 @@ void what_is_syntax(void);
 void general_syntax(void);
 void declaring_and_defining_variables(void);
 void declaring_defining_and_calling_functions(void);
-int function_a(void);
+void function_a(void);
 int function_b(int x);
+double function_c(double x, double y);
 
 void intro_to_arrays(void);
 void calculate_array_length(void);
@@ -56,6 +57,16 @@ void goals_of_this_course() {
        "will also go over the kind of data that we can define and use. We\n"
        "will go over various things to lay a great foundation of\n"
        "understanding for you to build on.\n");
+  puts("This course will adhere to some standards held in the C language\n"
+       "community. We will be using snake case to define our variable,\n"
+       "function, and type names. Snake case is a particular writing method\n"
+       "to give split our multi-word names while making them one symbol.\n"
+       "Snake case looks like this: my_variable_name. There are different\n"
+       "ways to do this--like camelCase--but we will be using what others use\n"
+       "in C. I will also be formatting a strict way of formatting our code.\n"
+       "All function definitions will be split with a separator. Look at this\n"
+       "whiteboard file to see what I mean. I expect this formatting to be\n"
+       "adhered to because it allows better writing habits I believe.\n");
 }
 
 // -----------------------------------------------------------------------------
@@ -276,4 +287,46 @@ void declaring_defining_and_calling_functions() {
        "define that this function takes no arguments. We then end our\n"
        "declaration with a semicolon. See the top of this file for an\n"
        "example.\n");
+  puts("Next comes the definition, or implementation, of the function that\n"
+       "was declared. This happens after the main function: it technically\n"
+       "doesn't have to be after the main function, but it is a better\n"
+       "practice to do so. The definition needs to match the declaration. The\n"
+       "return type, function name, and argument list must match. The\n"
+       "argument list doesn't need to have the same argument names as the\n"
+       "declaration--it is a good practice to do so and I will enforce that--\n"
+       "but the argument types must match.\n");
+  puts("Then, we use the opening bracket (\"{\") to define the beginning of\n"
+       "the function's code, and the closing bracket (\"}\")to define the end\n"
+       "of the function's code: this is also known as the function's\n"
+       "\"scope.\" The opening bracket should go on the same line as the\n"
+       "function's definition, while the closing bracket will go on its own\n"
+       "line after any of the function's code. Some C formatting standards\n"
+       "will have the opening bracket on its own line as well: we will NOT be\n"
+       "doing this--I simply don't like it. See this own function definiton\n"
+       "along with the other function defintions to see what this looks\n"
+       "like.\n");
+  puts("now we move of the using, or \"calling,\" functions. Let's call a\n"
+       "function that I have defined that takes no arguments and returns\n"
+       "nothing.\n");
+
+  function_a();
+
+  puts("We call a function by typing its name, and the passing it any data\n"
+       "that matches it argument list. In this particular case since nothing\n"
+       "is asked for by the function, we have empty parentheses. But, what\n"
+       "does it look like if a function returns something and takes something\n"
+       "in its argument list?");
+
+  int i = 10;
+  int j = function_b(i);
+
+  puts("Here we have a variable, i, with a value of 10, that is given, or\n"
+       "passed to our function. We then save the value return by function_b\n"
+       "into an integer variable j.");
+}
+
+// -----------------------------------------------------------------------------
+void function_a() {
+  puts("I am function_a and I return nothing.");
+  puts("I do perform something though: I print out this text!");
 }
