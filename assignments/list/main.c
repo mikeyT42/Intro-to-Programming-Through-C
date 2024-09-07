@@ -1,4 +1,4 @@
-#include "list.h"
+#include "list_t.h"
 #include <stdio.h>
 
 int main(void) {
@@ -10,7 +10,7 @@ int main(void) {
   puts("\t\tCreating the List.");
   puts("-----------------------------------------------------\n");
 
-  list *list = create_list();
+  list_t *list = create_list();
   if (!list)
     return EXIT_FAILURE;
   printf("List length = %zu\n", list->length);

@@ -1,8 +1,8 @@
-#include "list.h"
+#include "list_t.h"
 
 // -----------------------------------------------------------------------------
-list *create_list() {
-  list *l = (list *)malloc(sizeof(list));
+list_t *create_list() {
+  list_t *l = (list_t *)malloc(sizeof(list_t));
   if (!l) {
     fprintf(stderr, "\n\nCould not malloc List.\n\n");
     return NULL;
@@ -23,7 +23,7 @@ list *create_list() {
 }
 
 // -----------------------------------------------------------------------------
-void destroy(list *l) {
+void destroy(list_t *l) {
   free(l->data);
   l->data = NULL;
   l->length = 0;
@@ -33,7 +33,7 @@ void destroy(list *l) {
 }
 
 // -----------------------------------------------------------------------------
-int pop(list *const l) {
+int pop(list_t *const l) {
   int i = l->data[l->length - 1];
   l->length--;
 
@@ -41,7 +41,7 @@ int pop(list *const l) {
 }
 
 // -----------------------------------------------------------------------------
-void put(list *l, const int i) {
+void put(list_t *l, const int i) {
   printf("length = %zu ; capacity = %zu\n", l->length, l->capacity);
 
   if (l->length >= l->capacity) {
@@ -65,7 +65,7 @@ void put(list *l, const int i) {
 }
 
 // -----------------------------------------------------------------------------
-void shrink_to_fit(list *l) {
+void shrink_to_fit(list_t *l) {
   const size_t diff = l->capacity - l->length;
   const bool can_reduce_size = diff > 0;
   printf("diff = %zu\n", diff);
