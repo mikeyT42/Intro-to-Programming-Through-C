@@ -17,11 +17,6 @@ void function_a(void);
 int function_b(int x);
 double function_c(double x, double y);
 
-void intro_to_arrays(void);
-void calculate_array_length(void);
-void enums(void);
-void structs(void);
-
 // -----------------------------------------------------------------------------
 int main(void) {
   system("clear");
@@ -328,5 +323,5 @@ void declaring_defining_and_calling_functions() {
 // -----------------------------------------------------------------------------
 void function_a() {
   puts("I am function_a and I return nothing.");
-  puts("I do perform something though: I print out this text!");
+  puts("I do perform something though, I print out this text!");
 }
