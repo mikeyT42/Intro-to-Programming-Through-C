@@ -7,7 +7,7 @@ int subtract(int x, int y);
 int multiply(int x, int y);
 int divide(int x, int y);
 int remainder_of(int x, int y);
-double power(int x, int y);
+int power(int x, int y);
 
 // -----------------------------------------------------------------------------
 int main(void) {
@@ -35,8 +35,8 @@ int main(void) {
   result = remainder_of(x, y);
   printf("result = %i\n\n", result);
 
-  double result2 = power(x, y);
-  printf("result = %f\n\n", result2);
+  result = power(x, y);
+  printf("result = %i\n\n", result);
 
   printf("-----------------------------------------------------------------\n");
   printf("\t\t\tThank you.\n");
@@ -76,7 +76,7 @@ int remainder_of(int x, int y) {
 }
 
 // -----------------------------------------------------------------------------
-double power(int x, int y) {
+int power(int x, int y) {
   printf("raising %i to the power of %i\n", x, y);
-  return pow(x, y);
+  return (int)pow(x, y);
 }
