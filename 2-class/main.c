@@ -33,6 +33,7 @@ void using_if_statements() {
   int the_size_of_int = 4;
   short the_size_of_double = 8;
 
+  // TODO: Get rid of this control flow.
   if (the_size_of_int == 4) 
     printf("int size = %li\n", sizeof(int));
 
@@ -60,6 +61,7 @@ void some_enum_stuff() {
   enum Color green = RED;
   printf("green = %i\n", green);
 
+  // TODO: Get rid of this control flow.
   if (red != green)
     puts("Duh... red isn't green.");
   else
