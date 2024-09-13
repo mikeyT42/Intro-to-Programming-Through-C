@@ -11,6 +11,14 @@ void how_does_a_program_execute(void);
 
 void what_is_syntax(void);
 void general_syntax(void);
+
+void arithmetic_operators(void);
+void addition(void);
+void subtraction(void);
+void multiplication(void);
+void division(void);
+void modulus(void);
+
 void declaring_and_defining_variables(void);
 void declaring_defining_and_calling_functions(void);
 void function_a(void);
