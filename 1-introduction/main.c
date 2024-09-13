@@ -212,6 +212,7 @@ void general_syntax() {
        "library must be surrounded with the < and > characters.\n");
 
   declaring_and_defining_variables();
+  declaring_defining_and_calling_functions();
 }
 
 // -----------------------------------------------------------------------------
