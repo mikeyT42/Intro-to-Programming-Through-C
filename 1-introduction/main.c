@@ -225,6 +225,7 @@ void declaring_and_defining_variables() {
        "Let's assign a value to \"my_integer.\"");
 
   my_integer = 10;
+  printf("my_integer = %i", my_integer);
 
   puts("Here we have used the \"assignment operator\" (=) to assign the value\n"
        "of 10 to our variable name \"my_integer.\" We can declare a variable\n"
@@ -233,6 +234,7 @@ void declaring_and_defining_variables() {
        "looks like.\n");
 
   int my_integer2 = 20;
+  printf("my_integer2 = %i", my_integer2);
 
   puts("We now declared \"my_integer2\" and initialized it with a value of\n"
        "20. Let's now get to that optional qualifier business. We can make\n"
@@ -245,6 +247,7 @@ void declaring_and_defining_variables() {
   const int MY_CONSTANT = 5;
   // my_constant = 10; This would produce a compilation error if we uncommented
   // the above line out.
+  printf("MY_CONSTANT = %i\n\n", MY_CONSTANT);
 
   puts("We can now not assign to this variable after declaring it, if we\n"
        "tried to we would get a compilation error. Sometimes, this is\n"
@@ -255,6 +258,18 @@ void declaring_and_defining_variables() {
        "is capitalized. This is the standard practice for variables that are\n"
        "contants. It helps to further communicate that this variable is a\n"
        "constant.\n");
+
+  puts("We can make constants in another way. We can make a constant by using\n"
+       "the \"#define\" keyword at the top of our file--a best practice--and\n"
+       "that symbol a value. This way is nice because it utilizes the\n"
+       "pre-processor to copy and paste this value directly into any code\n"
+       "that uses this symbol. It it a pre-processor command. This is\n"
+       "particularly nice because it is very efficient for the program when\n"
+       "it is executing. The value is not stored into a variable, but is a\n"
+       "\"literal value\" that is copied into the code itself before it is\n"
+       "finally compiled. Let's see what that looks like exactly.\n");
+
+  printf("CONSTANT = %i\n\n", CONSTANT);
 }
 
 // -----------------------------------------------------------------------------
@@ -291,8 +306,8 @@ void declaring_defining_and_calling_functions() {
        "declaration--it is a good practice to do so and I will enforce that--\n"
        "but the argument types must match.\n");
   puts("Then, we use the opening bracket (\"{\") to define the beginning of\n"
-       "the function's code, and the closing bracket (\"}\")to define the end\n"
-       "of the function's code: this is also known as the function's\n"
+       "the function's code, and the closing bracket (\"}\") to define the\n"
+       "end of the function's code: this is also known as the function's\n"
        "\"scope.\" The opening bracket should go on the same line as the\n"
        "function's definition, while the closing bracket will go on its own\n"
        "line after any of the function's code. Some C formatting standards\n"
@@ -306,9 +321,9 @@ void declaring_defining_and_calling_functions() {
 
   function_a();
 
-  puts("We call a function by typing its name, and the passing it any data\n"
-       "that matches it argument list. In this particular case since nothing\n"
-       "is asked for by the function, we have empty parentheses. But, what\n"
+  puts("We call a function by typing its name, and then passing it any data\n"
+       "that matches it argument list. In this particular case, since nothing\n"
+       "is asked for by the function, we have empty parentheses; but, what\n"
        "does it look like if a function returns something and takes something\n"
        "in its argument list?");
 
@@ -317,11 +332,46 @@ void declaring_defining_and_calling_functions() {
 
   puts("Here we have a variable, i, with a value of 10, that is given, or\n"
        "passed to our function. We then save the value return by function_b\n"
-       "into an integer variable j.");
+       "into an integer variable j. When we call a function, the execution of\n"
+       "the program enters that function and then executes its code until it\n"
+       "returns. A void reterning function does not need a retrun statement\n"
+       "because it returns nothing; but a function that does return something\n"
+       "requires at least one return statement and must return something if\n"
+       "there are logical branches in the code--we won't get into logic and\n"
+       "the syntax for the various control flow mechanisms until another\n"
+       "class. We can see how the flow of execution is changed by the output\n"
+       "of our program. Next, we can also call functions by using a literal\n"
+       "value--a value itself--into a function: we can also not save the\n"
+       "returned value into a variable if we choose to do so.\n");
+
+  function_b(20);
+
+  puts("Let's also look a a function that returns a double value (a floating\n"
+       "point a.k.a. decimal type) and takes 2 double vales.\n");
+
+  int h = function_c(20.5, 15.25);
+
+  puts("The syntax is virtually the same. The only difference is that we\n"
+       "separate our arguments with a comma. This allows us to give any\n"
+       "number of data to a function as long as it accepts it.\n");
 }
 
 // -----------------------------------------------------------------------------
 void function_a() {
   puts("I am function_a and I return nothing.");
   puts("I do perform something though, I print out this text!");
+}
+
+// -----------------------------------------------------------------------------
+int function_b(int x) {
+  printf("x = %i", x);
+  return x + 10;
+}
+
+// -----------------------------------------------------------------------------
+double function_c(double x, double y) {
+  double j = x + y;
+  puts("x + y = j");
+  printf("%f + %f = %f", x, y, j);
+  return j;
 }
