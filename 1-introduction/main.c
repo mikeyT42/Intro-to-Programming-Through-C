@@ -12,6 +12,8 @@ void how_does_a_program_execute(void);
 void what_is_syntax(void);
 void general_syntax(void);
 
+void operators(void);
+void assignment_operator(void);
 void arithmetic_operators(void);
 void addition(void);
 void subtraction(void);
@@ -211,8 +213,134 @@ void general_syntax() {
        "use the code provided to us. The file that we use from the standard\n"
        "library must be surrounded with the < and > characters.\n");
 
+  operators();
   declaring_and_defining_variables();
   declaring_defining_and_calling_functions();
+}
+
+// -----------------------------------------------------------------------------
+void operators() {
+  puts("----------------------------------------------------");
+  puts("\t\tOperators.");
+  puts("----------------------------------------------------");
+
+  puts("There are various operators to perform certain actions. An operator\n"
+       "is a symbol for the computer to perform a certain action. Let's go\n"
+       "over a few of them.\n");
+
+  assignment_operator();
+  arithmetic_operators();
+}
+// -----------------------------------------------------------------------------
+void assignment_operator() {
+  puts("-------------------------------------------");
+  puts("\tAssignment Operator.");
+  puts("-------------------------------------------");
+
+  puts("The assignment operator assigns a value of a certain type to a\n"
+       "variable of the same type. The assignment operator is the equals\n"
+       "symbol (=). Let's see how it looks.");
+
+  int i = 0;
+
+  puts("Pretty easy right!\n");
+}
+
+// -----------------------------------------------------------------------------
+void arithmetic_operators() {
+  puts("-------------------------------------------");
+  puts("\tArithmetic Operators.");
+  puts("-------------------------------------------");
+
+  puts("We have certain operators to do simple arithmetic. We will go over\n"
+       "the few that we have. They operators more or less follow PEMDAS.\n");
+
+  addition();
+  subtraction();
+  multiplication();
+  division();
+  modulus();
+}
+
+// -----------------------------------------------------------------------------
+void addition() {
+  puts("----------------------------------");
+  puts("\tAddition Operator.");
+  puts("----------------------------------");
+
+  puts("The addition operator (+) adds the 2 numbers--or variable--together.\n"
+       "Let's see what that looks like.\n");
+
+  int i = 1 + 2;
+  printf("i = %i\n\n", i);
+
+  puts("We can also add and assign at the same time with the += operator.\n");
+
+  i += 5;
+  printf("i = %i\n\n", i);
+}
+
+// -----------------------------------------------------------------------------
+void subtraction() {
+  puts("----------------------------------");
+  puts("\tSubtration Operator.");
+  puts("----------------------------------");
+
+  puts("The subtraction operator (-) subtracts the 2 numbers--or variables--\n"
+       "with the second number being subtracted from the first number. Let's\n"
+       "see what that looks like.\n");
+
+  int i = 5 - 3;
+  printf("i = %i\n\n", i);
+
+  puts("We can also subtract and assign at the same time with the -=\n"
+       "operator.\n");
+
+  i -= 4;
+  printf("i = %i\n\n", i);
+}
+
+// -----------------------------------------------------------------------------
+void multiplication() {
+  puts("----------------------------------");
+  puts("\tMultiplication Operator.");
+  puts("----------------------------------");
+
+  puts("The multiplication operator (*) multiplies the 2 numbers--or\n"
+       "variables--together. Let's see what that looks like.\n");
+
+  int x = 2 * 10;
+  printf("x = %i\n\n", x);
+
+  puts("We can also multipliy and assign at the same time with the *=\n"
+       "operator.\n");
+
+  x *= 3;
+  printf("x = %i\n\n", x);
+}
+
+// -----------------------------------------------------------------------------
+void division() {
+  puts("----------------------------------");
+  puts("\tDivision Operator.");
+  puts("----------------------------------");
+
+  puts("The division operator (/) divides the 2 numbers--or variablbes--from\n"
+       "from each other; with the left number being divided by the right\n"
+       "number. Let's see what this looks like.\n");
+
+  int y = 10 / 2;
+  printf("y = %i\n\n", y);
+
+  puts(
+      "We can also divide and assign at the same time with the /= operator.\n");
+
+  y /= 2;
+  printf("y = %i\n\n", y);
+
+  puts("You may notice we did not get the fractional part of this division.\n"
+       "This is because we have divided an integer and not a decimal number.\n"
+       "When doing integer division");
 }
 
 // -----------------------------------------------------------------------------
