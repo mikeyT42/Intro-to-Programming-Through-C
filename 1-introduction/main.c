@@ -242,6 +242,7 @@ void assignment_operator() {
        "symbol (=). Let's see how it looks.");
 
   int i = 0;
+  printf("i = %i\n\n", i);
 
   puts("Pretty easy right!\n");
 }
@@ -404,10 +405,10 @@ void declaring_and_defining_variables() {
   puts("Above we have defined a variable with the name of \"my_integer.\" It\n"
        "has a type of \"int,\" which as you may guess is an integer. This\n"
        "variable though, has no data: it is not initialized to anything.\n"
-       "Let's assign a value to \"my_integer.\"");
+       "Let's assign a value to \"my_integer.\"\n");
 
   my_integer = 10;
-  printf("my_integer = %i", my_integer);
+  printf("my_integer = %i\n\n", my_integer);
 
   puts("Here we have used the \"assignment operator\" (=) to assign the value\n"
        "of 10 to our variable name \"my_integer.\" We can declare a variable\n"
@@ -416,7 +417,7 @@ void declaring_and_defining_variables() {
        "looks like.\n");
 
   int my_integer2 = 20;
-  printf("my_integer2 = %i", my_integer2);
+  printf("my_integer2 = %i\n\n", my_integer2);
 
   puts("We now declared \"my_integer2\" and initialized it with a value of\n"
        "20. Let's now get to that optional qualifier business. We can make\n"
@@ -502,15 +503,17 @@ void declaring_defining_and_calling_functions() {
        "nothing.\n");
 
   function_a();
+  puts("");
 
   puts("We call a function by typing its name, and then passing it any data\n"
        "that matches it argument list. In this particular case, since nothing\n"
        "is asked for by the function, we have empty parentheses; but, what\n"
        "does it look like if a function returns something and takes something\n"
-       "in its argument list?");
+       "in its argument list?\n");
 
   int i = 10;
   int j = function_b(i);
+  printf("j = %i\n\n", j);
 
   puts("Here we have a variable, i, with a value of 10, that is given, or\n"
        "passed to our function. We then save the value return by function_b\n"
@@ -527,11 +530,13 @@ void declaring_defining_and_calling_functions() {
        "returned value into a variable if we choose to do so.\n");
 
   function_b(20);
+  puts("");
 
   puts("Let's also look a a function that returns a double value (a floating\n"
        "point a.k.a. decimal type) and takes 2 double vales.\n");
 
   int h = function_c(20.5, 15.25);
+  printf("h = %i\n\n", h);
 
   puts("The syntax is virtually the same. The only difference is that we\n"
        "separate our arguments with a comma. This allows us to give any\n"
@@ -546,7 +551,7 @@ void function_a() {
 
 // -----------------------------------------------------------------------------
 int function_b(int x) {
-  printf("x = %i", x);
+  printf("x = %i\n", x);
   return x + 10;
 }
 
@@ -554,6 +559,6 @@ int function_b(int x) {
 double function_c(double x, double y) {
   double j = x + y;
   puts("x + y = j");
-  printf("%f + %f = %f", x, y, j);
+  printf("%f + %f = %f\n", x, y, j);
   return j;
 }
