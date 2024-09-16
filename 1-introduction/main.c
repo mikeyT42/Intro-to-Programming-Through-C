@@ -274,7 +274,9 @@ void addition() {
   int i = 1 + 2;
   printf("i = %i\n\n", i);
 
-  puts("We can also add and assign at the same time with the += operator.\n");
+  puts("We can also add and assign at the same time with the += operator.\n"
+       "This spreads out to be this:\n\n"
+       "\t\ti = i + 5;\n");
 
   i += 5;
   printf("i = %i\n\n", i);
@@ -294,7 +296,8 @@ void subtraction() {
   printf("i = %i\n\n", i);
 
   puts("We can also subtract and assign at the same time with the -=\n"
-       "operator.\n");
+       "operator. This spreads out to be this:\n\n"
+       "\t\ti = i - 4;\n");
 
   i -= 4;
   printf("i = %i\n\n", i);
@@ -303,7 +306,7 @@ void subtraction() {
 // -----------------------------------------------------------------------------
 void multiplication() {
   puts("----------------------------------");
-  puts("\tMultiplication Operator.");
+  puts("     Multiplication Operator.");
   puts("----------------------------------");
 
   puts("The multiplication operator (*) multiplies the 2 numbers--or\n"
@@ -313,7 +316,8 @@ void multiplication() {
   printf("x = %i\n\n", x);
 
   puts("We can also multipliy and assign at the same time with the *=\n"
-       "operator.\n");
+       "operator. This spreads to be this:\n\n"
+       "\t\tx = x * 3;\n");
 
   x *= 3;
   printf("x = %i\n\n", x);
@@ -332,15 +336,56 @@ void division() {
   int y = 10 / 2;
   printf("y = %i\n\n", y);
 
-  puts(
-      "We can also divide and assign at the same time with the /= operator.\n");
+  puts("We can also divide and assign at the same time with the /= operator.\n"
+       "This is spread out to this:\n\n"
+       "\t\ty = y / 2;\n");
 
   y /= 2;
   printf("y = %i\n\n", y);
 
   puts("You may notice we did not get the fractional part of this division.\n"
        "This is because we have divided an integer and not a decimal number.\n"
-       "When doing integer division");
+       "When doing integer division we can't keep track of the decimal part.\n"
+       "What happens? That data is never calculated. So, whatever fractional\n"
+       "part can be thought of as \"dropped.\"\n");
+}
+
+// -----------------------------------------------------------------------------
+void modulus() {
+  puts("----------------------------------");
+  puts("\tModulus Operator.");
+  puts("----------------------------------");
+
+  puts("The modulus operator (%) gives us the remainder from a division of 2\n"
+       "numbers--or variables. Let's see some examples.\n");
+
+  int x = 5 / 2;
+  int y = 5 % 2;
+  printf("x = %i\n"
+         "y = %i\n\n",
+         x, y);
+
+  puts("Here we can see that the division of 5 by 2 gives us 2, while the\n"
+       "modulus of 5 by 2 gives us 3. This is the remaining number from our\n"
+       "original division to gives us 5: x + y = 5\n"
+       "Let's see another example.\n");
+
+  x = 10 / 5;
+  y = 10 % 5;
+  printf("x = %i\n"
+         "y = %i\n\n",
+         x, y);
+
+  puts("Here we can see that our modulus of 10 by 5 gives us 0: why is that?\n"
+       "This is because there is no remainder from the division of 10 by 5.\n");
+
+  puts("We can also modulus and assign at the same time. This is spread out\n"
+       "to this:\n\n"
+       "\t\tz = z % 2;\n");
+
+  int z = 10;
+  z %= 2;
+  printf("z = %i\n\n", z);
 }
 
 // -----------------------------------------------------------------------------
