@@ -57,21 +57,21 @@ void goals_of_this_course() {
        "also pretty simple; other languages have more complex syntax that\n"
        "make writing programs a bit confusing.\n");
   puts("We will learn good coding habits, like proper and clear formatting,\n"
-       "ways to structure simple programs. We will go over the various memory\n"
-       "mechanisms available to us; we will go over stack vs. heap memory. We\n"
-       "will also go over the kind of data that we can define and use. We\n"
-       "will go over various things to lay a great foundation of\n"
+       "and ways to structure simple programs. We will go over the various\n"
+       "memory mechanisms available to us; we will go over stack vs. heap\n"
+       "memory. We will also go over the kind of data that we can define and\n"
+       "use. We will go over various things to lay a great foundation of\n"
        "understanding for you to build on.\n");
   puts("This course will adhere to some standards held in the C language\n"
        "community. We will be using snake case to define our variable,\n"
        "function, and type names. Snake case is a particular writing method\n"
-       "to give split our multi-word names while making them one symbol.\n"
-       "Snake case looks like this: my_variable_name. There are different\n"
-       "ways to do this--like camelCase--but we will be using what others use\n"
-       "in C. I will also be formatting a strict way of formatting our code.\n"
-       "All function definitions will be split with a separator. Look at this\n"
+       "to split our multi-word names while making them one symbol. Snake\n"
+       "case looks like this: my_variable_name. There are different ways to\n"
+       "do this--like camelCase--but we will be using what others use in C. I\n"
+       "will also be forcing a strict way of formatting our code. All\n"
+       "function definitions will be split with a separator. Look at this\n"
        "whiteboard file to see what I mean. I expect this formatting to be\n"
-       "adhered to because it allows better writing habits I believe.\n");
+       "adhered to because it allows for better writing habits I believe.\n");
 }
 
 // -----------------------------------------------------------------------------
@@ -80,10 +80,10 @@ void what_is_a_program() {
   puts("\tWhat Is A Program?");
   puts("----------------------------------------------------");
 
-  puts("A simply question, but a very good starting point. A program is a set\n"
+  puts("A simple question, but a very good starting point. A program is a set\n"
        "of instructions for a computer to execute. In the most basic sense,\n"
        "that is all. Programs can do anything that we want them to, as long\n"
-       "as long as we can actually write them. A programm, though, is not\n"
+       "as long as we can actually write them. A program, though, is not\n"
        "just for the computer.\n");
   puts("We use a programming language to write these instructions. There are\n"
        "various languages that we can use; some are more difficult to write,\n"
