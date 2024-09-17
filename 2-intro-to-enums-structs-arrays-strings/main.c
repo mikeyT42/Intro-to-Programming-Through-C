@@ -28,7 +28,102 @@ int main(void) {
   puts("---------------------------------------------------------------------"
        "\n");
 
+  intro_to_arrays();
+  calculate_array_length();
+
   return EXIT_SUCCESS;
+}
+
+// -----------------------------------------------------------------------------
+void intro_to_arrays() {
+  puts("----------------------------------------------------");
+  puts("\tIntroduction To Arrays.");
+  puts("----------------------------------------------------");
+
+  puts("Arrays are a simple data structure. A data structure is something\n"
+       "that holds data in a defined organization. Later on in your education\n"
+       "you will learn about many kinds of data structures, but arrays are\n"
+       "the simplest and are built into C--and most languages. An array is a\n"
+       "block of contiguously allocated memory. So, every item in the array\n"
+       "is right next to the other and we can name this chunk of memory. This\n"
+       "allows us to group items together. How though, do we define an\n"
+       "array?\n");
+
+  int array_a[3];
+
+  puts("Here we have declared an int array called array_a with a length of\n"
+       "3. The square brackets ([]) make this symbol an array. An array\n"
+       "needs a defined length at compilation time, so inside these square\n"
+       "brackets we give the length. The length of the array says how many\n"
+       "items we can hold in that declared array. All we have declared though\n"
+       "is the block of memory. We need to give this array some data. We can\n"
+       "do this in a few ways. The first being declaring and initializing,\n"
+       "and the second being assignment.\n");
+
+  double array_b[] = {1.25, 2.12, 3.45};
+  printf("array_b[%i] = %f", 0, array_b[0]);
+  printf("array_b[%i] = %f", 1, array_b[1]);
+  printf("array_b[%i] = %f", 2, array_b[2]);
+
+  puts("Here we have declared and initialized a double array called array_b\n"
+       "with 3 values; because we have declared and initialized we don't need\n"
+       "to explicitely define the array size. This is because the compiler\n"
+       "can infer the array length from the initialization. We could also\n"
+       "give the array length as well explicitely.\n");
+
+  int array_c[4] = {1, 2, 3};
+  printf("array_c[%i] = %i", 0, array_c[0]);
+  printf("array_c[%i] = %i", 1, array_c[1]);
+  printf("array_c[%i] = %i", 2, array_c[2]);
+  printf("array_c[%i] = %i", 3, array_c[3]);
+
+  puts("You may notice that in this case we have a length that is larger than\n"
+       "the initialization list. This is valid because C will assign\n"
+       "zero-values to the uninitialized items; so, the last item will be a\n"
+       "0. Let's now assign values to our first array using our second\n"
+       "method.\n");
+
+  array_a[0] = 1;
+  array_a[1] = 2;
+  array_a[2] = 3;
+  printf("array_a[%i] = %i", 0, array_a[0]);
+  printf("array_a[%i] = %i", 1, array_a[1]);
+  printf("array_a[%i] = %i", 2, array_a[2]);
+
+  puts("In this method we assign data to elements at a certain index in the\n"
+       "array. Indexing the array is zero based: the first index is index 0,\n"
+       "the second is at index 1, and the third is at index 2. It is\n"
+       "imperative that you remember this. Many bugs can be caused by going\n"
+       "outside of the bounds of the array or thinking indexing is 1 based.\n"
+       "This syntax allows us to get the element at the index. Now, how do we\n"
+       "talk about arrays in common language in relation to the index? We\n"
+       "say, \"the element at index 0 is 1,\" or \"the item at index 0,\" and\n"
+       "what-not.\n");
+}
+
+// -----------------------------------------------------------------------------
+void calculate_array_length() {
+  puts("----------------------------------------------------");
+  puts("\tHow To Calculate Array Length.");
+  puts("----------------------------------------------------");
+
+  puts("It is possible, in certain instances, to calculate the length of a\n"
+       "given array. Let's define an array, and output certain details.\n");
+
+  int array[4];
+  printf("sizeof(array) = %lu\n"
+         "sizeof(int)   = %lu\n\n",
+         sizeof(array), sizeof(int));
+
+  puts("Here we see the size, in bytes, of the total size allocated for the\n"
+       "array. We also see the total number of bytes needed to allocate an\n"
+       "int variable. You may be able to see where I am going here. We can\n"
+       "calculate the length of the array by dividing the total size of the\n"
+       "array by the size of the type of thing it holds. Let's see that.\n");
+
+  printf("array length = sizeof(array) / sizeof(array element type)\n"
+         "%lu = %lu / %lu\n\n",
+         sizeof(array) / sizeof(int), sizeof(array), sizeof(int));
 }
 
 // -----------------------------------------------------------------------------
