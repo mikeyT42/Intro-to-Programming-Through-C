@@ -1,86 +1,54 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 
-// NEW sections from lesson 1.
+#define NAME_LEN 30
+
 void intro_to_arrays(void);
 void calculate_array_length(void);
-void enums(void);
-void structs(void);
-// New sections from lesson 3.
-void strings();
-void string_declarations();
-void string_to_functions(char string[]);
 
-int how_many_in_array();
-void using_if_statements();
-void some_enum_stuff();
-void what_struct();
+enum Color { RED, GREEN, BLUE };
+void enums(void);
+
+struct Person {
+  int age;
+  char name[NAME_LEN];
+};
+void structs(void);
+
+void strings(void);
+void string_declarations(void);
+void string_to_functions(char string[]);
 
 // -----------------------------------------------------------------------------
 int main(void) {
-  int how_many = how_many_in_array();
-  printf("how many elements in char array = %i\n", how_many);
+  system("clear");
+  puts("---------------------------------------------------------------------");
+  puts("\t\tThis is the \"Whiteboard\" for today.");
+  puts("---------------------------------------------------------------------"
+       "\n");
 
-  using_if_statements();
-  some_enum_stuff();
-  what_struct();
-
-  return 0;
+  return EXIT_SUCCESS;
 }
 
 // -----------------------------------------------------------------------------
-void using_if_statements() {
-  int the_size_of_int = 4;
-  short the_size_of_double = 8;
-
-  // TODO: Get rid of this control flow.
-  if (the_size_of_int == 4) 
-    printf("int size = %li\n", sizeof(int));
-
-  if (the_size_of_double == 8)
-    printf("double size = %li\n", sizeof(double));
-}
-
-// -----------------------------------------------------------------------------
-int how_many_in_array() {
-  char array[10] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
-
-  printf("size of char array = %li\n", sizeof(array));
-  printf("char size = %li\n", sizeof(char));
-
-  return sizeof(array) / sizeof(char);
-}
-
-// -----------------------------------------------------------------------------
-void some_enum_stuff() {
-  enum Color { RED, GREEN, BLUE };
-
+void enums() {
   enum Color red = RED;
   printf("red = %i\n", red);
 
   enum Color green = RED;
   printf("green = %i\n", green);
-
-  // TODO: Get rid of this control flow.
-  if (red != green)
-    puts("Duh... red isn't green.");
-  else
-    puts("Wait, red should never be green!");
 }
 
 // -----------------------------------------------------------------------------
-void what_struct() {
-  struct Person {
-    int age;
-    char name[3];
-  };
+void structs() {
 
-  struct Person michael = {.age = 28, .name = "Mi"};
+  struct Person michael = {.age = 28, .name = "Michael"};
 
   struct Person thomas;
   thomas.age = 14;
-  //thomas.name = "Thomas";
-  strcpy(thomas.name, "Th");
+  // thomas.name = "Thomas";
+  strcpy(thomas.name, "Thomas");
 
   printf("name = %s, age = %i\n", michael.name, michael.age);
   printf("name = %s, age = %i\n", thomas.name, thomas.age);
@@ -88,13 +56,11 @@ void what_struct() {
   printf("sizeof Person = %li\n", sizeof(struct Person));
 }
 
-// =============================================================================
-//                             String Basics
-// =============================================================================
+// -----------------------------------------------------------------------------
 void strings() {
-  puts("\n\n============================================================");
-  puts("\tString Basics");
-  puts("============================================================\n");
+  puts("------------------------------------------------------------");
+  puts("\tIntroduction To Strings.");
+  puts("------------------------------------------------------------\n");
 
   puts("Finally, we'll go over some string basics. Strings in 'C' are\n"
        "character arrays. Because they are arrays, they have a fixed size at\n"
