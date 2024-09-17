@@ -12,6 +12,8 @@ void how_does_a_program_execute(void);
 void what_is_syntax(void);
 void general_syntax(void);
 
+void declaring_and_defining_variables(void);
+
 void operators(void);
 void assignment_operator(void);
 void arithmetic_operators(void);
@@ -21,7 +23,6 @@ void multiplication(void);
 void division(void);
 void modulus(void);
 
-void declaring_and_defining_variables(void);
 void declaring_defining_and_calling_functions(void);
 void function_a(void);
 int function_b(int x);
@@ -83,8 +84,8 @@ void what_is_a_program() {
   puts("A simple question, but a very good starting point. A program is a set\n"
        "of instructions for a computer to execute. In the most basic sense,\n"
        "that is all. Programs can do anything that we want them to, as long\n"
-       "as long as we can actually write them. A program, though, is not\n"
-       "just for the computer.\n");
+       "as we can actually write them. A program, though, is not just for the\n"
+       "computer.\n");
   puts("We use a programming language to write these instructions. There are\n"
        "various languages that we can use; some are more difficult to write,\n"
        "some are more terse, some are more verbose, some are esoteric, and\n"
@@ -93,12 +94,12 @@ void what_is_a_program() {
        "These instructions that we write are not just read by the computer,\n"
        "but they are read by other developers; these programs are altered by\n"
        "other developers; these programs need to be able to be understood by\n"
-       "developers. This is why we have programming languages. We could just\n"
-       "write programs in machine code, but we choose to write programs using\n"
-       "language so that it is more ergonomic and easily understood by both\n"
-       "ourselves and others. This is why we have Assembly, C, Java, and the\n"
-       "hundreds of other languages. So, a program is a set of instructions\n"
-       "for the computer and for humans.\n");
+       "other developers. This is why we have programming languages. We could\n"
+       "just write programs in machine code, but we choose to write programs\n"
+       "using language so that it is more ergonomic and easily understood by\n"
+       "both ourselves and others. This is why we have Assembly, C, Java, and\n"
+       "the hundreds of other languages. So, a program is a set of\n"
+       "instructions for the computer and for humans.\n");
 }
 
 // -----------------------------------------------------------------------------
@@ -119,7 +120,7 @@ void compilation() {
   puts("The first step that we will talk about is the pre-proccessing step.\n"
        "This is where certain pre-proccessor commands and macros will be\n"
        "executed. We will go over how we can utilize this step later.\n"
-       "Essentially these macros and constansts will be copied directly into\n"
+       "Essentially these macros and constants will be copied directly into\n"
        "our source code so that we don't have to write it ourselves. It's\n"
        "basically a glorified copying machine.\n");
   puts("The next step that we will be talking about is when the source code\n"
@@ -143,15 +144,16 @@ void how_does_a_program_execute() {
        "function defined at the beginning of this file. The lines inside of\n"
        "the main function are then executed one line at a time. Any function\n"
        "calls, like the call to puts() prints out the line of text, are moved\n"
-       "moved into. So, the program starts to execute the code inside of\n"
-       "puts(). This function prints out text to the standard output--the\n"
-       "terminal in our case. We then call the function\n"
-       "goals_of_this_course(). Our program starts executing the code inside\n"
-       "of goals_of_this_course(). At the end of each of these functions, we\n"
-       "then return out of the function and go back into the main() function.\n"
-       "Then the program starts to execute the function what_is_a_program().\n"
-       "Then the code starts to be executed inside of that function. This\n"
-       "continues onward until the main() function returns its exit code.");
+       "into. So, the program starts to execute the code inside of puts().\n"
+       "This function prints out text to the standard output--the terminal in\n"
+       "our case. We then call the function goals_of_this_course(). Our\n"
+       "program starts executing the code inside of goals_of_this_course().\n"
+       "At the end of each of these functions, we then return out of the\n"
+       "function and go back into the main() function. Then the program\n"
+       "starts to execute the function what_is_a_program(). Then the code\n"
+       "starts to be executed inside of that function. This continues onward\n"
+       "until the main() function returns its exit code, which is the end of\n"
+       "the program.\n");
 }
 
 // -----------------------------------------------------------------------------
@@ -161,10 +163,12 @@ void what_is_syntax() {
   puts("----------------------------------------------------");
 
   puts("What does \"syntax\" mean? The word describes the words and symbols\n"
-       "we use to write in our programming language. For example, we use the\n"
+       "we use to write in our programming language, along with the structure\n"
+       "of the symbols to create statements. For example, we use the\n"
        "parentheses to say that a name is a function. We will go over a ton\n"
-       "of syntax. These words we use of the building blocks of any\n"
-       "language.\n");
+       "of syntax. These words we use are the building blocks of any\n"
+       "language, human or computer. They describe the words, and grammar\n"
+       "rules to create sentences.\n");
 }
 
 // -----------------------------------------------------------------------------
@@ -177,11 +181,11 @@ void general_syntax() {
        "compiler that we reached the end of a statement. Do NOT forget to put\n"
        "a semicolon. The program will not compile with out them. If you\n"
        "forget you will get some really strange compilation errors.\n");
-  puts("Since code is meant not just for computers, but for humans, we need\n"
-       "to be able to communicate to humans in a way that the computer will\n"
-       "not execute. These are called comments. We have to ways to make\n"
-       "comments: a single-line comment and a multiline block comment. I'll\n"
-       "show you the first way.");
+  puts("Since code is meant not just for computers, but for humans as well,\n"
+       "we sometimes need to communicate something to humans that the\n"
+       "computer will not be able to execute. These are called comments. We\n"
+       "have to ways to make comments: a single-line comment and a multiline\n"
+       "block comment. I'll show you the first way.\n");
 
   // This is a single line comment. We make it with the forward slashes.
 
@@ -213,9 +217,74 @@ void general_syntax() {
        "use the code provided to us. The file that we use from the standard\n"
        "library must be surrounded with the < and > characters.\n");
 
-  operators();
   declaring_and_defining_variables();
+  operators();
   declaring_defining_and_calling_functions();
+}
+
+// -----------------------------------------------------------------------------
+void declaring_and_defining_variables() {
+  puts("--------------------------------------------");
+  puts("     Declaring and Defining Variables.");
+  puts("--------------------------------------------");
+
+  puts("Let's go over in this section how to define variables. Variable\n"
+       "definitions start with an optional qualifier--we'll go over one in a\n"
+       "second--a type, and then finally a name for the variable. Let's\n"
+       "define one now.\n");
+
+  int my_integer;
+
+  puts("Above we have defined a variable with the name of \"my_integer.\" It\n"
+       "has a type of \"int,\" which as you may guess is an integer. This\n"
+       "variable though, has no data: it is not initialized to anything.\n"
+       "Let's assign a value to \"my_integer.\"\n");
+
+  my_integer = 10;
+  printf("my_integer = %i\n\n", my_integer);
+
+  puts("Here we have used the \"assignment operator\" (=) to assign the value\n"
+       "of 10 to our variable name \"my_integer.\" We can declare a variable\n"
+       "and assign to it in one statement. Assigning to the variable in this\n"
+       "way is called \"initializing\" the variable. Let's see what that\n"
+       "looks like.\n");
+
+  int my_integer2 = 20;
+  printf("my_integer2 = %i\n\n", my_integer2);
+
+  puts("We now declared \"my_integer2\" and initialized it with a value of\n"
+       "20. Let's now get to that optional qualifier business. We can make\n"
+       "our variable a constant by using the \"const\" qualifier when we\n"
+       "declare our variable. In this declaration, we must also initialize\n"
+       "the variable because we cannot assign to our constant variable later\n"
+       "on in the code; otherwise, it wouldn't be a constant! So, let's see\n"
+       "how we do this.\n");
+
+  const int MY_CONSTANT = 5;
+  // my_constant = 10; This would produce a compilation error if we uncommented
+  // the above line out.
+  printf("MY_CONSTANT = %i\n\n", MY_CONSTANT);
+
+  puts("We can now not assign to this variable after declaring it, if we\n"
+       "tried to we would get a compilation error. Sometimes, this is\n"
+       "desirable because this prevents us from assignming to a variable\n"
+       "that shouldn't be altered by ourselves or any other developer: using\n"
+       "this qualifier signifies our intent for this variable; and the\n"
+       "compiler is able to enforce this for us. You may also notice the name\n"
+       "is capitalized. This is the standard practice for variables that are\n"
+       "contants. It helps to further communicate that this variable is a\n"
+       "constant.\n");
+
+  puts("We can make constants in another way. We can make a constant by using\n"
+       "the \"#define\" keyword at the top of our file--a best practice. This\n"
+       "way is nice because it utilizes the pre-processor to copy and paste\n"
+       "the value the symbol represents directly into any code that uses the\n"
+       "symbol. This is particularly nice because it is very efficient for\n"
+       "the program when it is executing. The value is not stored into a\n"
+       "variable, but is a \"literal value\" that is copied into the code\n"
+       "itself before it is finally compiled. Let's use that constant here.\n");
+
+  printf("CONSTANT = %i\n\n", CONSTANT);
 }
 
 // -----------------------------------------------------------------------------
@@ -254,7 +323,7 @@ void arithmetic_operators() {
   puts("-------------------------------------------");
 
   puts("We have certain operators to do simple arithmetic. We will go over\n"
-       "the few that we have. They operators more or less follow PEMDAS.\n");
+       "the few that we have. The operators more or less follow PEMDAS.\n");
 
   addition();
   subtraction();
@@ -269,7 +338,7 @@ void addition() {
   puts("\tAddition Operator.");
   puts("----------------------------------");
 
-  puts("The addition operator (+) adds the 2 numbers--or variable--together.\n"
+  puts("The addition operator (+) adds the 2 numbers--or variables--together.\n"
        "Let's see what that looks like.\n");
 
   int i = 1 + 2;
@@ -331,8 +400,8 @@ void division() {
   puts("----------------------------------");
 
   puts("The division operator (/) divides the 2 numbers--or variablbes--from\n"
-       "from each other; with the left number being divided by the right\n"
-       "number. Let's see what this looks like.\n");
+       "each other; with the left number being divided by the right number.\n"
+       "Let's see what this looks like.\n");
 
   int y = 10 / 2;
   printf("y = %i\n\n", y);
@@ -348,7 +417,8 @@ void division() {
        "This is because we have divided an integer and not a decimal number.\n"
        "When doing integer division we can't keep track of the decimal part.\n"
        "What happens? That data is never calculated. So, whatever fractional\n"
-       "part can be thought of as \"dropped.\"\n");
+       "part that should exists can be thought of as \"dropped.\" This is\n"
+       "called \"truncation.\"\n");
 }
 
 // -----------------------------------------------------------------------------
@@ -367,8 +437,9 @@ void modulus() {
          x, y);
 
   puts("Here we can see that the division of 5 by 2 gives us 2, while the\n"
-       "modulus of 5 by 2 gives us 3. This is the remaining number from our\n"
-       "original division to gives us 5: x + y = 5\n"
+       "modulus of 5 by 2 gives us 1. This is the remaining number from our\n"
+       "original division to give us 5:\n\n"
+       "\t\tx + x + y = 5\n\n"
        "Let's see another example.\n");
 
   x = 10 / 5;
@@ -387,72 +458,6 @@ void modulus() {
   int z = 10;
   z %= 2;
   printf("z = %i\n\n", z);
-}
-
-// -----------------------------------------------------------------------------
-void declaring_and_defining_variables() {
-  puts("--------------------------------------------");
-  puts("     Declaring and Defining Variables.");
-  puts("--------------------------------------------");
-
-  puts("Let's go over in this section how to define variables. Variable\n"
-       "definitions start with an optional qualifier--we'll go over one in a\n"
-       "second--a type, and then finally a name for the variable. Let's\n"
-       "define one now:\n");
-
-  int my_integer;
-
-  puts("Above we have defined a variable with the name of \"my_integer.\" It\n"
-       "has a type of \"int,\" which as you may guess is an integer. This\n"
-       "variable though, has no data: it is not initialized to anything.\n"
-       "Let's assign a value to \"my_integer.\"\n");
-
-  my_integer = 10;
-  printf("my_integer = %i\n\n", my_integer);
-
-  puts("Here we have used the \"assignment operator\" (=) to assign the value\n"
-       "of 10 to our variable name \"my_integer.\" We can declare a variable\n"
-       "and assign to it in one statement. Assigning to the variable in this\n"
-       "way is called \"initializing\" the variable. Let's see what that\n"
-       "looks like.\n");
-
-  int my_integer2 = 20;
-  printf("my_integer2 = %i\n\n", my_integer2);
-
-  puts("We now declared \"my_integer2\" and initialized it with a value of\n"
-       "20. Let's now get to that optional qualifier business. We can make\n"
-       "our variable a constant by using the \"const\" qualifier when we\n"
-       "declare our variable. In this declaration, we must also initialize\n"
-       "the variable because we cannot assign to our constant variable later\n"
-       "on in the code; otherwise, it wouldn't be a constant! So, let's see\n"
-       "how we do this.\n");
-
-  const int MY_CONSTANT = 5;
-  // my_constant = 10; This would produce a compilation error if we uncommented
-  // the above line out.
-  printf("MY_CONSTANT = %i\n\n", MY_CONSTANT);
-
-  puts("We can now not assign to this variable after declaring it, if we\n"
-       "tried to we would get a compilation error. Sometimes, this is\n"
-       "desirable because this prevents us from assignming to a variable\n"
-       "that shouldn't be altered by ourselves or any other developer: using\n"
-       "this qualifier signifies our intent for this variable; and the\n"
-       "compiler is able to enforce this for us. You may also notice the name\n"
-       "is capitalized. This is the standard practice for variables that are\n"
-       "contants. It helps to further communicate that this variable is a\n"
-       "constant.\n");
-
-  puts("We can make constants in another way. We can make a constant by using\n"
-       "the \"#define\" keyword at the top of our file--a best practice--and\n"
-       "that symbol a value. This way is nice because it utilizes the\n"
-       "pre-processor to copy and paste this value directly into any code\n"
-       "that uses this symbol. It it a pre-processor command. This is\n"
-       "particularly nice because it is very efficient for the program when\n"
-       "it is executing. The value is not stored into a variable, but is a\n"
-       "\"literal value\" that is copied into the code itself before it is\n"
-       "finally compiled. Let's see what that looks like exactly.\n");
-
-  printf("CONSTANT = %i\n\n", CONSTANT);
 }
 
 // -----------------------------------------------------------------------------
@@ -498,7 +503,7 @@ void declaring_defining_and_calling_functions() {
        "doing this--I simply don't like it. See this own function definiton\n"
        "along with the other function defintions to see what this looks\n"
        "like.\n");
-  puts("now we move of the using, or \"calling,\" functions. Let's call a\n"
+  puts("Now we move on to using, or \"calling,\" functions. Let's call a\n"
        "function that I have defined that takes no arguments and returns\n"
        "nothing.\n");
 
@@ -519,7 +524,7 @@ void declaring_defining_and_calling_functions() {
        "passed to our function. We then save the value return by function_b\n"
        "into an integer variable j. When we call a function, the execution of\n"
        "the program enters that function and then executes its code until it\n"
-       "returns. A void reterning function does not need a retrun statement\n"
+       "returns. A void reterning function does not need a return statement\n"
        "because it returns nothing; but a function that does return something\n"
        "requires at least one return statement and must return something if\n"
        "there are logical branches in the code--we won't get into logic and\n"
@@ -533,7 +538,7 @@ void declaring_defining_and_calling_functions() {
   puts("");
 
   puts("Let's also look a a function that returns a double value (a floating\n"
-       "point a.k.a. decimal type) and takes 2 double vales.\n");
+       "point a.k.a. decimal type) and takes 2 double values.\n");
 
   int h = function_c(20.5, 15.25);
   printf("h = %i\n\n", h);
