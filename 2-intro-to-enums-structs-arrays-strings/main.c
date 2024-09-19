@@ -4,8 +4,13 @@
 
 #define NAME_LEN 30
 
+void arrays(void);
 void intro_to_arrays(void);
 void calculate_array_length(void);
+
+void strings(void);
+void string_declarations(void);
+void string_to_functions(char string[]);
 
 enum Color { RED, GREEN, BLUE };
 void enums(void);
@@ -16,10 +21,6 @@ struct Person {
 };
 void structs(void);
 
-void strings(void);
-void string_declarations(void);
-void string_to_functions(char string[]);
-
 // -----------------------------------------------------------------------------
 int main(void) {
   system("clear");
@@ -28,10 +29,18 @@ int main(void) {
   puts("---------------------------------------------------------------------"
        "\n");
 
-  intro_to_arrays();
-  calculate_array_length();
+  arrays();
+  strings();
+  enums();
+  structs();
 
   return EXIT_SUCCESS;
+}
+
+// -----------------------------------------------------------------------------
+void arrays() {
+  intro_to_arrays();
+  calculate_array_length();
 }
 
 // -----------------------------------------------------------------------------
@@ -186,70 +195,59 @@ void string_declarations() {
 
   char s[14] = {'H', 'e', 'l', 'l', 'o', ',', ' ',
                 'W', 'o', 'r', 'l', 'd', '!', '\0'};
-  printf("s = %s\n", s);
+  printf("s = %s\n\n", s);
 
-  puts("\nAs you can see, printf() stops when the null-terminator is reached.\n"
-       "We can as well.\n");
-
-  for (int i = 0; s[i] != '\0'; i++) {
-    printf("%c", s[i]);
-  }
-  printf("\n");
-
-  puts("\nMost of the time though, we iterate over a string with the length.\n"
+  puts("As you can see, printf() stops when the null-terminator is reached.\n"
+       "Most of the time though, we iterate over a string with the length.\n"
        "We can get the length in a few ways. We know it when we declare a\n"
        "string but when getting input there is not guarantee that the whole\n"
        "array has been used by text. So, we can also use the strlen()\n"
        "function from string.h library.\n");
 
   const int len = strlen(s);
-  printf("len = %i\n", len);
+  printf("len = %i\n\n", len);
 
-  puts("\nThe strlen() function does not include the null-terminator\n"
-       "character for iteration. You do NOT want to put the strlen() function\n"
-       "call in a \"for\" declaration because each iteration will\n"
-       "re-calculate the length of the string. Since the strlen() basically\n"
-       "just iterates over a string and counts until it reaches the\n"
-       "null-terminator, you actually end up iterating the array a bunch of\n"
-       "times! This is terrible for performance, so get the length of a\n"
-       "string before you enter a loop.\n");
+  puts("The strlen() function does not include the null-terminator character\n"
+       "length calculation. You do NOT want to put the strlen() function call\n"
+       "in a loop because each iteration will re-calculate the length of the\n"
+       "string. Since the strlen() basically just iterates over a string and\n"
+       "counts until it reaches the null-terminator, you actually end up\n"
+       "iterating the array a bunch of times! This is terrible for\n"
+       "performance, so get the length of a string before you enter a loop.\n");
   puts("The most common way to create a string is with a string literal. We\n"
        "don't need to include the char array size when doing it like this\n"
        "(or even the way before but no one does it like that) because the\n"
        "compiler can easily figure it out.\n");
 
   char s2[] = "Foo";
-  printf("%s\n", s2);
+  printf("%s\n\n", s2);
 
-  puts("\nDeclaring and initializing in this way is far more common. The\n"
+  puts("Declaring and initializing in this way is far more common. The\n"
        "null-terminator character is automatically added using this method,\n"
        "which is nice. Really, all of these puts() and format strings for\n"
        "printf() are string literals. The only difference is they are not\n"
-       "assigned to a variable.");
-  char text[] =
-      "\nReally, I can also write like this and then give it to puts().";
-  puts(text);
+       "assigned to a variable.\n");
 
-  char format_string[] = "\nI can even do this! My favorite number is %i.\n";
+  char text[] =
+      "Really, I can also write like this and then give it to puts().\n";
+  puts(text);
+  char format_string[] = "I can even do this! My favorite number is %i.\n\n";
   printf(format_string, 50);
 
-  puts("\nStrings can also just be defined and then filled in later.");
+  puts("Strings can also just be defined and then filled in later.\n");
 
-  char string[10];
+  char string[4];
   char c = 'a';
-  for (int i = 0; i < 10; i++, c++) {
-    if (i == 10 - 1) {
-      string[i] = '\0';
-      continue;
-    }
-    string[i] = c;
-  }
-  printf("\n%s\n", string);
+  string[0] = c;
+  string[1] = c;
+  string[2] = c;
+  string[3] = '\0';
+  printf("%s\n\n", string);
 
-  puts("\nIf we don't add the null-terminator at the end of the string, there\n"
+  puts("If we don't add the null-terminator at the end of the string, there\n"
        "is no guarantee that garbage won't be printed from standard library\n"
        "functions; we'll go over why that is when we talk about arrays in\n"
-       "general next week.");
+       "a greater degree a couple lessons from now.\n");
 }
 
 // -----------------------------------------------------------------------------
@@ -259,12 +257,8 @@ void string_to_functions(char string[]) {
   puts("----------------------------------------------------");
 
   puts("We're going to do some very basic string passing to functions.\n");
-  printf("\tLet's simply print string: %s\n", string);
+  printf("\tLet's simply print string: %s\n\n", string);
 
-  puts("\nAnd now, lets do a simpe loop.\n");
-  for (int i = 0; string[i] != '\0'; i++)
-    printf("%c", string[i]);
-
-  puts("\n\nThat is it for now, we'll talk much more about arrays and strings\n"
+  puts("That is it for now, we'll talk much more about arrays and strings\n"
        "another time.");
 }
