@@ -65,7 +65,7 @@ void understanding_arrays() {
       "Arrays are a special kind of type in \"C\" because they aren't exactly\n"
       "a type, they are a data structure, and a basic one at that. They are\n"
       "contiguous blocks of memory that are allocated for your program. Let's\n"
-      "say we have an array of integers with a size of 3 that stores 0, 1,\n"
+      "say we have an array of integers with a length of 3 that stores 0, 1,\n"
       "and 2.\n");
 
   int a[3] = {1, 2, 3};
