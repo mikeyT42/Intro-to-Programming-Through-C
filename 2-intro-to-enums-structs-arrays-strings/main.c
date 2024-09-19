@@ -11,6 +11,7 @@ void calculate_array_length(void);
 void strings(void);
 void string_declarations(void);
 void string_to_functions(char string[]);
+const char* returning_string_literals(void);
 
 typedef enum { RED, GREEN, BLUE } color;
 void enums(void);
