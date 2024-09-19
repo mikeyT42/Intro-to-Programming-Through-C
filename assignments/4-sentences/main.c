@@ -1,6 +1,6 @@
-#include <ctype.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <ctype.h>
 
 #define SENTINEL '\n'
 #define MAX_INPUT 300
@@ -28,7 +28,7 @@ int main(void) {
   printf("\t\tThank you and goodbye.\n");
   printf("-----------------------------------------------------------------\n");
 
-  return 0;
+  return EXIT_SUCCESS;
 }
 
 // -----------------------------------------------------------------------------
