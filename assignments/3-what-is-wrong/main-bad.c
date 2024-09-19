@@ -1,16 +1,23 @@
 //#include <stdio.h>
 //#include <stdbool.h>
+//#include <stdlib.h>
 
-void integerTypes();
-void floatingPointTypes();
-void booleanType();
-void voidType(int i);
-void pointerType();
-arrayType();
-void enumType();
-int structType();
+void integer_types();
+void floating_point_types();
+void boolean_type();
+void void_type(int i);
+void pointer_type();
+array_type();
+void enum_type();
+int struct_type();
 
 int main(void) {
+  system("clear");
+  puts("---------------------------------------------------------------------");
+  puts("\t\t\tWelcome");
+  puts("---------------------------------------------------------------------"
+       "\n");
+
   puts("Welcome, we are going to do some data type tests along with some"
        " debugging.");
   puts("\tPlease make sure ALL warnings are gone.");
@@ -20,16 +27,21 @@ int main(void) {
       "\tPlease be sure that every original printf() statement create output.");
 
   characterTypes();
-  integerTypes();
-  floatingPointTypes();
-  booleanType();
-  voidType();
-  pointerType();
-  arrayType();
-  enumType();
-  structType();
+  integer_types();
+  floating_point_types();
+  boolean_type();
+  void_type();
+  pointer_type();
+  array_type();
+  enum_type();
+  struct_type();
 
-  return 0;
+  puts("---------------------------------------------------------------------");
+  puts("\t\t\tThank you.");
+  puts("---------------------------------------------------------------------"
+       "\n");
+
+  return EXIT_SUCCESS;
 }
 
 // -----------------------------------------------------------------------------
@@ -53,7 +65,7 @@ void characterTypes() {
 }
 
 // -----------------------------------------------------------------------------
-void integerTypes() {
+void integer_types() {
   puts("\n----\nInteger Types\n----");
   unsigned long shortSize;
   unsigned long unsignedShortSize;
@@ -129,7 +141,7 @@ void integerTypes() {
 }
 
 // -----------------------------------------------------------------------------
-void floatingPointTypes() {
+void floating_point_types() {
   puts("\n----\nFloating Point Types\n----");
   unsigned long floatSize;
   unsigned long doubleSize;
@@ -144,7 +156,7 @@ void floatingPointTypes() {
 }
 
 // -----------------------------------------------------------------------------
-void booleanType() {
+void boolean_type() {
   puts("\n----\nBoolean Type\n----");
   unsigned long booleanSize;
 
@@ -154,7 +166,7 @@ void booleanType() {
 }
 
 // -----------------------------------------------------------------------------
-void voidType() {
+void void_type() {
   puts("\n----\nVoid Type\n----");
   unsigned long voidSize;
 
@@ -164,7 +176,7 @@ void voidType() {
 }
 
 // -----------------------------------------------------------------------------
-void pointerType() {
+void pointer_type() {
   puts("\n----\nPointer Type\n----");
   unsigned long intPointerSize;
   unsigned long doublePointerSize;
@@ -189,7 +201,7 @@ void pointerType() {
 }
 
 // -----------------------------------------------------------------------------
-void arrayType() {
+void array_type() {
   puts("\n----\nArray Type\n----");
   unsigned long char10ArraySize = 1 * ;
   unsigned long int10ArraySize = * 10;
@@ -222,7 +234,7 @@ void arrayType() {
 }
 
 // -----------------------------------------------------------------------------
-void enumType() {
+void enum_type() {
   puts("\n----\nEnum Type\n----");
   unsigned long redEnumSize;
 
@@ -240,7 +252,7 @@ void enumType() {
 }
 
 // -----------------------------------------------------------------------------
-void structType() {
+void struct_type() {
   puts("\n----\nDeveloper Designed Struct Type\n----");
   unsigned long personStructSize;
   unsigned long colorStructSize;

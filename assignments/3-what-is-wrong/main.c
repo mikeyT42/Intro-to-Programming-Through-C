@@ -1,5 +1,6 @@
 #include <stdbool.h>
 #include <stdio.h>
+#include <stdlib.h>
 
 void character_types();
 void integer_types();
@@ -12,6 +13,12 @@ void enum_type();
 void struct_type();
 
 int main(void) {
+  system("clear");
+  puts("---------------------------------------------------------------------");
+  puts("\t\t\tWelcome");
+  puts("---------------------------------------------------------------------"
+       "\n");
+
   puts("Welcome, we are going to do some data type tests along with some"
        " debugging.");
   puts("\tPlease make sure ALL warnings are gone.");
@@ -30,7 +37,12 @@ int main(void) {
   enum_type();
   struct_type();
 
-  return 0;
+  puts("---------------------------------------------------------------------");
+  puts("\t\t\tThank you.");
+  puts("---------------------------------------------------------------------"
+       "\n");
+
+  return EXIT_SUCCESS;
 }
 
 // -----------------------------------------------------------------------------
