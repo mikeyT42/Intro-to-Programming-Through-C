@@ -12,13 +12,13 @@ void strings(void);
 void string_declarations(void);
 void string_to_functions(char string[]);
 
-enum Color { RED, GREEN, BLUE };
+typedef enum { RED, GREEN, BLUE } Color;
 void enums(void);
 
-struct Person {
+typedef struct {
   int age;
   char name[NAME_LEN];
-};
+} Person;
 void structs(void);
 
 // -----------------------------------------------------------------------------
@@ -136,35 +136,6 @@ void calculate_array_length() {
 }
 
 // -----------------------------------------------------------------------------
-void enums() {
-  puts("----------------------------------------------------");
-  puts("\tIntroduction To Enumerations.");
-  puts("----------------------------------------------------");
-
-  enum Color red = RED;
-  printf("red = %i\n", red);
-
-  enum Color green = RED;
-  printf("green = %i\n", green);
-}
-
-// -----------------------------------------------------------------------------
-void structs() {
-
-  struct Person michael = {.age = 28, .name = "Michael"};
-
-  struct Person thomas;
-  thomas.age = 14;
-  // thomas.name = "Thomas";
-  strcpy(thomas.name, "Thomas");
-
-  printf("name = %s, age = %i\n", michael.name, michael.age);
-  printf("name = %s, age = %i\n", thomas.name, thomas.age);
-
-  printf("sizeof Person = %li\n", sizeof(struct Person));
-}
-
-// -----------------------------------------------------------------------------
 void strings() {
   puts("------------------------------------------------------------");
   puts("\tIntroduction To Strings.");
@@ -260,5 +231,63 @@ void string_to_functions(char string[]) {
   printf("\tLet's simply print string: %s\n\n", string);
 
   puts("That is it for now, we'll talk much more about arrays and strings\n"
-       "another time.");
+       "another time.\n");
+}
+
+// -----------------------------------------------------------------------------
+void enums() {
+  puts("----------------------------------------------------");
+  puts("\tIntroduction To Enumerations.");
+  puts("----------------------------------------------------");
+
+  puts("We now start getting into making our own types. An enumeration is a\n"
+       "way to define named constant symbols that are grouped together by a\n"
+       "common idea. Let's go over this with an example. At the top of this\n"
+       "file I have used the typedef keyword which says that we are defining\n"
+       "a new type--we can use the typedef keyword on other types as well to\n"
+       "create aliases to other types like, \"typedef int my_int\"--we then\n"
+       "say we are defining an enum with the enum keyword; after that we\n"
+       "define enumeration values; and finally give this enumeration a name.\n"
+       "Now, how then do we use this enum? Like any other type really, with\n"
+       "one caveat: we can only assign the values that we have defined as a\n"
+       "part the enum to a variable of our enum type. Let's see this in\n"
+       "practice.\n");
+
+  Color red = RED;
+
+  puts("Look at that! Pretty neat right! We can make grouped symbols with\n"
+       "symbolic values. Now, why would we do this? For one, we can make\n"
+       "certain limited symbols valid for ourselves and other developers to\n"
+       "use: everyone knows the values because we have defined the values!\n"
+       "This is particularly useful for error codes. We could have an enum\n"
+       "defined for error codes and return that enumeration type from a\n"
+       "validation function so that we can get specific errors without having\n"
+       "to memorize error code integers.\n");
+  puts("How though, are enumerations stored in memory? They need to be\n"
+       "something. Let's output our enumeration.\n");
+
+  printf("red = %i\n", red);
+  Color green = GREEN;
+  printf("green = %i\n\n", green);
+
+  puts("Wow, look at that, 2 integers that have gone up incrementally.\n"
+       "Enumerations are just integers. How does C decide what integer to\n"
+       "make a symbol? It is done in order. The first one is 0, the second is\n"
+       "1, etc.\n");
+}
+
+// -----------------------------------------------------------------------------
+void structs() {
+
+  Person michael = {.age = 28, .name = "Michael"};
+
+  Person thomas;
+  thomas.age = 14;
+  // thomas.name = "Thomas";
+  strcpy(thomas.name, "Thomas");
+
+  printf("name = %s, age = %i\n", michael.name, michael.age);
+  printf("name = %s, age = %i\n", thomas.name, thomas.age);
+
+  printf("sizeof Person = %li\n", sizeof(Person));
 }
