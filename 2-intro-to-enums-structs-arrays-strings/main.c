@@ -86,7 +86,7 @@ void intro_to_arrays() {
        "with 3 values; because we have declared and initialized we don't need\n"
        "to explicitely define the array size. This is because the compiler\n"
        "can infer the array length from the initialization. We could also\n"
-       "give the array length as well explicitely.\n");
+       "give the array length explicitely.\n");
 
   int array_c[4] = {1, 2, 3};
   printf("array_c[%i] = %i\n", 0, array_c[0]);
@@ -98,7 +98,7 @@ void intro_to_arrays() {
        "the initialization list. This is valid because C will assign\n"
        "zero-values to the uninitialized items; so, the last item will be a\n"
        "0. Let's now assign values to our first array using our second\n"
-       "method.\n");
+       "method of simple assignment.\n");
 
   array_a[0] = 1;
   array_a[1] = 2;
@@ -149,8 +149,8 @@ void strings() {
   puts("\tIntroduction To Strings.");
   puts("------------------------------------------------------------\n");
 
-  puts("Finally, we'll go over some string basics. Strings in 'C' are\n"
-       "character arrays. Because they are arrays, they have a fixed size at\n"
+  puts("Finally, we'll go over some string basics. Strings in C are character\n"
+       "arrays. Because they are arrays, they have a fixed size at\n"
        "declaration. If you accidentally iterate over that size, or try to\n"
        "put a string that is bigger than the declared size, you will have\n"
        "undefined behavior.\n");
@@ -172,7 +172,7 @@ void string_declarations() {
 
   puts("Strings are a special kind of array. They are a character array with\n"
        "a null-terminator character. It is not printable, so you won't see\n"
-       "it, but it's there. This null-terminator allows 'C', and you, to stop\n"
+       "it, but it's there. This null-terminator allows C, and you, to stop\n"
        "at the end of the string. Let's see one way we can initialize a\n"
        "string.\n");
 
@@ -180,26 +180,33 @@ void string_declarations() {
                 'W', 'o', 'r', 'l', 'd', '!', '\0'};
   printf("s = %s\n\n", s);
 
-  puts("As you can see, printf() stops when the null-terminator is reached.\n"
-       "Most of the time though, we iterate over a string with the length.\n"
-       "We can get the length in a few ways. We know it when we declare a\n"
-       "string but when getting input there is not guarantee that the whole\n"
-       "array has been used by text. So, we can also use the strlen()\n"
-       "function from string.h library.\n");
+  puts("As you can see, printf() stops when the null-terminator is reached.\n");
+  puts("Strings, like arrays, don't have to have all of their allocated data\n"
+       "used at any given time: essentially the end of a string--denoted by\n"
+       "the null-terminator character--could be before the length of the\n"
+       "character array. Since these 2 values are not guaranteed to be equal,\n"
+       "and we know every string will end with the null-terminator, we can\n"
+       "count how many characters there are up until the null-terminator. We,\n"
+       "though, don't need to write this code ourselves--even though it is\n"
+       "quite trivial. There is a library of string functions that live in\n"
+       "the string.h library. We can use the strlen() function to get us this\n"
+       "length. Let's use it here.\n");
 
   const int len = strlen(s);
   printf("len = %i\n\n", len);
 
   puts("The strlen() function does not include the null-terminator character\n"
-       "length calculation. You do NOT want to put the strlen() function call\n"
-       "in a loop because each iteration will re-calculate the length of the\n"
-       "string. Since the strlen() basically just iterates over a string and\n"
-       "counts until it reaches the null-terminator, you actually end up\n"
-       "iterating the array a bunch of times! This is terrible for\n"
-       "performance, so get the length of a string before you enter a loop.\n");
+       "in the length calculation. Also--a note for later--you do NOT want to\n"
+       "put the strlen() function call in a loop because each iteration will\n"
+       "re-calculate the length of the string. Since the strlen() function\n"
+       "basically just iterates over a string and counts until it reaches the\n"
+       "null-terminator, you actually end up iterating over the array a bunch\n"
+       "of times! This is terrible for performance, so get the length of a\n"
+       "string before you enter a loop. This will make a bit more sense in\n"
+       "the next class.\n");
   puts("The most common way to create a string is with a string literal. We\n"
-       "don't need to include the char array size when doing it like this\n"
-       "(or even the way before but no one does it like that) because the\n"
+       "don't need to include the char array size when doing it like this--or\n"
+       "even the way before but no one does it like that--because the\n"
        "compiler can easily figure it out.\n");
 
   char s2[] = "Foo";
@@ -333,7 +340,7 @@ void structs() {
        "by using the \"dot operator\" before the name of the data member and\n"
        "then assign a value to that data member: each data member is\n"
        "separated with a comma. We could optionally not include the data\n"
-       "member names in the declaration, but the value need to exactly match\n"
+       "member names in the declaration, but the values need to exactly match\n"
        "the struct definition order. If there are 2 integers defined next to\n"
        "each other, it gets confusing. I think it is a bad practice, so I\n"
        "will enforce the way I have shown above. Now, how do we use the data\n"
@@ -372,8 +379,8 @@ void structs() {
   printf(
       "We will now go over something that is moderately important about\n"
       "structs that you should be aware of: how C sizes them. Depending on\n"
-      "the data member types and how many data members there, the size of a\n"
-      "defined struct will change. Let's see if we can figure out the size\n"
+      "the data member types and how many data members there are, the size of\n"
+      "a defined struct will change. Let's see if we can figure out the size\n"
       "of our person struct. Here are the sizes of it's data members:\n\n"
       "\tsizeof(int)      = %lu\n"
       "\tsizeof(char)     = %lu\n"
@@ -392,8 +399,9 @@ void structs() {
 
   puts("The size of a structure is determined not just by the data member\n"
        "types, but also by padding. Depending on the data member types, C may\n"
-       "insert padding between the data members in memory. What does this\n"
-       "\"look\" like in memory? Here is a way it can be shown.\n");
+       "insert padding between, or after, the data members in memory. This is\n"
+       "called \"structure padding.\" What does this \"look\" like in memory?\n"
+       "Here is a way it can be shown.\n");
   puts("\t|  age  | 0x0\n"
        "\t|  age  | 0x1\n"
        "\t|  age  | 0x2\n"
@@ -414,7 +422,7 @@ void structs() {
        "alignment, but padding may be added at the end of the structure to\n"
        "ensure overall alignment. The largest alignment requirement in the\n"
        "person struct is that of the int (4 bytes). After placing int and the\n"
-       "30 bytes of the char array, the total size of the structure is 34n\n"
+       "30 bytes of the char array, the total size of the structure is 34\n"
        "bytes. This is not a multiple of 4, so 2 padding bytes are added at\n"
        "the end to round the structure's size to a multiple of 4, making it\n"
        "36 bytes in total.\n");
