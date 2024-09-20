@@ -158,12 +158,16 @@ void strings() {
   string_declarations();
   char string[] = "Foo bar";
   string_to_functions(string);
+  const char *returned_string = returning_string_literals();
+  printf("Here is our returned string literal:\n\n"
+         "\t%s\n\n",
+         returned_string);
 }
 
 // -----------------------------------------------------------------------------
 void string_declarations() {
   puts("----------------------------------------------------");
-  puts("\tDeclaring String Variables");
+  puts("\tDeclaring String Variables.");
   puts("----------------------------------------------------");
 
   puts("Strings are a special kind of array. They are a character array with\n"
@@ -232,7 +236,7 @@ void string_declarations() {
 // -----------------------------------------------------------------------------
 void string_to_functions(char string[]) {
   puts("----------------------------------------------------");
-  puts("\tPassing String Variables to Functions");
+  puts("\tPassing String Variables to Functions.");
   puts("----------------------------------------------------");
 
   puts("We're going to do some very basic string passing to functions.\n");
@@ -240,6 +244,22 @@ void string_to_functions(char string[]) {
 
   puts("That is it for now, we'll talk much more about arrays and strings\n"
        "another time.\n");
+}
+
+// -----------------------------------------------------------------------------
+const char *returning_string_literals() {
+  puts("----------------------------------------------------");
+  puts("\tReturning String Literals.");
+  puts("----------------------------------------------------");
+
+  puts("Returning strings--and arrays in general--is a bit of a complicated\n"
+       "topic. It's not exactly possible to return a string variable--we will\n"
+       "go over why in a few classes from now--but we can return a string\n"
+       "literal. We can do this because string literals live for the life of\n"
+       "the program. A string variable is different. We'll get to it. Let's\n"
+       "return a string literal now.\n");
+
+  return "I am a returned string!";
 }
 
 // -----------------------------------------------------------------------------
