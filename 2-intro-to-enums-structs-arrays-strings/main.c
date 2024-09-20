@@ -11,15 +11,22 @@ void calculate_array_length(void);
 void strings(void);
 void string_declarations(void);
 void string_to_functions(char string[]);
-const char* returning_string_literals(void);
+const char *returning_string_literals(void);
 
 typedef enum { RED, GREEN, BLUE } color;
+
 void enums(void);
 
 typedef struct {
   int age;
   char name[NAME_LEN];
 } person;
+
+typedef struct {
+  int x;
+  int y;
+} point;
+
 void structs(void);
 
 // -----------------------------------------------------------------------------
@@ -71,9 +78,9 @@ void intro_to_arrays() {
        "and the second being assignment.\n");
 
   double array_b[] = {1.25, 2.12, 3.45};
-  printf("array_b[%i] = %f", 0, array_b[0]);
-  printf("array_b[%i] = %f", 1, array_b[1]);
-  printf("array_b[%i] = %f", 2, array_b[2]);
+  printf("array_b[%i] = %f\n", 0, array_b[0]);
+  printf("array_b[%i] = %f\n", 1, array_b[1]);
+  printf("array_b[%i] = %f\n\n", 2, array_b[2]);
 
   puts("Here we have declared and initialized a double array called array_b\n"
        "with 3 values; because we have declared and initialized we don't need\n"
@@ -82,10 +89,10 @@ void intro_to_arrays() {
        "give the array length as well explicitely.\n");
 
   int array_c[4] = {1, 2, 3};
-  printf("array_c[%i] = %i", 0, array_c[0]);
-  printf("array_c[%i] = %i", 1, array_c[1]);
-  printf("array_c[%i] = %i", 2, array_c[2]);
-  printf("array_c[%i] = %i", 3, array_c[3]);
+  printf("array_c[%i] = %i\n", 0, array_c[0]);
+  printf("array_c[%i] = %i\n", 1, array_c[1]);
+  printf("array_c[%i] = %i\n", 2, array_c[2]);
+  printf("array_c[%i] = %i\n\n", 3, array_c[3]);
 
   puts("You may notice that in this case we have a length that is larger than\n"
        "the initialization list. This is valid because C will assign\n"
@@ -96,9 +103,9 @@ void intro_to_arrays() {
   array_a[0] = 1;
   array_a[1] = 2;
   array_a[2] = 3;
-  printf("array_a[%i] = %i", 0, array_a[0]);
-  printf("array_a[%i] = %i", 1, array_a[1]);
-  printf("array_a[%i] = %i", 2, array_a[2]);
+  printf("array_a[%i] = %i\n", 0, array_a[0]);
+  printf("array_a[%i] = %i\n", 1, array_a[1]);
+  printf("array_a[%i] = %i\n\n", 2, array_a[2]);
 
   puts("In this method we assign data to elements at a certain index in the\n"
        "array. Indexing the array is zero based: the first index is index 0,\n"
@@ -146,7 +153,7 @@ void strings() {
        "character arrays. Because they are arrays, they have a fixed size at\n"
        "declaration. If you accidentally iterate over that size, or try to\n"
        "put a string that is bigger than the declared size, you will have\n"
-       "undefined behavior.");
+       "undefined behavior.\n");
 
   string_declarations();
   char string[] = "Foo bar";
@@ -371,10 +378,40 @@ void structs() {
        "\t|  age  | 0x1\n"
        "\t|  age  | 0x2\n"
        "\t|  age  | 0x3\n"
-       "\t|  pad  | 0x4\n"
-       "\t|  pad  | 0x5\n"
-       "\t|  name | 0x6\n"
-       "\t|  name | 0x7\n"
+       "\t|  name | 0x4\n"
+       "\t|  name | 0x5\n"
        "\t|  ...  | ...\n"
-       "\t|  name | 0x36\n\n");
+       "\t|  name | 0x34\n"
+       "\t|  pad  | 0x35\n"
+       "\t|  pad  | 0x36\n");
+  puts("An int in most 64-bit systems require 4-byte (32 bits) alignment (not\n"
+       "8 bytes or 64 bits). This is because an int is a 32-bit type, and\n"
+       "aligning it to 4-byte boundaries provides optimal performance.\n"
+       "Therefore, when placing an int in memory, the compiler ensures it\n"
+       "starts at an address that is a multiple of 4. A char data type\n"
+       "requires no alignment because it is just 1 byte. However, when you\n"
+       "have an array like char name[30], the array itself doesn’t require\n"
+       "alignment, but padding may be added at the end of the structure to\n"
+       "ensure overall alignment. The largest alignment requirement in the\n"
+       "person struct is that of the int (4 bytes). After placing int and the\n"
+       "30 bytes of the char array, the total size of the structure is 34n\n"
+       "bytes. This is not a multiple of 4, so 2 padding bytes are added at\n"
+       "the end to round the structure's size to a multiple of 4, making it\n"
+       "36 bytes in total.\n");
+  printf("Now that we have seen a structure with padding, let's see a\n"
+         "structure without any padding:\n\n"
+         "\tsizeof(int)   = %lu\n"
+         "\tsizeof(point) = %lu\n\n"
+         "\t| x | 0x0\n"
+         "\t| x | 0x1\n"
+         "\t| x | 0x2\n"
+         "\t| x | 0x3\n"
+         "\t| y | 0x4\n"
+         "\t| y | 0x5\n"
+         "\t| y | 0x6\n"
+         "\t| y | 0x7\n\n"
+         "As you can see, we don't have any padding. The point struct\n"
+         "contains 2 ints, so it only needs 8 bytes. We then don't need any\n"
+         "padding for alignment because 8 is a multiple of 4.\n\n",
+         sizeof(int), sizeof(point));
 }
