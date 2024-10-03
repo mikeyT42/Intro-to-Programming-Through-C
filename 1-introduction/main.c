@@ -64,8 +64,8 @@ void goals_of_this_course() {
        "use. We will go over various things to lay a great foundation of\n"
        "understanding for you to build on.\n");
   puts("This course will adhere to some standards held in the C language\n"
-       "community. We will be using snake case to define our variable,\n"
-       "function, and type names. Snake case is a particular writing method\n"
+       "community. We will be using snake case to define our variables,\n"
+       "functions, and type names. Snake case is a particular writing method\n"
        "to split our multi-word names while making them one symbol. Snake\n"
        "case looks like this: my_variable_name. There are different ways to\n"
        "do this--like camelCase--but we will be using what others use in C. I\n"
@@ -81,11 +81,11 @@ void what_is_a_program() {
   puts("\tWhat Is A Program?");
   puts("----------------------------------------------------");
 
-  puts("A simple question, but a very good starting point. A program is a set\n"
-       "of instructions for a computer to execute. In the most basic sense,\n"
-       "that is all. Programs can do anything that we want them to, as long\n"
-       "as we can actually write them. A program, though, is not just for the\n"
-       "computer.\n");
+  puts("A simple question, but a very good starting point, is \"what is a\n"
+       "program.\" A program is a set of instructions for a computer to\n"
+       "execute. In the most basic sense, that is all. Programs can do\n"
+       "anything that we want them to, as long as we can actually write them.\n"
+       "A program, though, is not just for the computer.\n");
   puts("We use a programming language to write these instructions. There are\n"
        "various languages that we can use; some are more difficult to write,\n"
        "some are more terse, some are more verbose, some are esoteric, and\n"
@@ -162,12 +162,12 @@ void what_is_syntax() {
   puts("\tWhat Is \"Syntax\"?");
   puts("----------------------------------------------------");
 
-  puts("What does \"syntax\" mean? The word describes the words and symbols\n"
+  puts("What does \"syntax\" mean? This word describes the words and symbols\n"
        "we use to write in our programming language, along with the structure\n"
        "of the symbols to create statements. For example, we use the\n"
        "parentheses to say that a name is a function. We will go over a ton\n"
        "of syntax. These words we use are the building blocks of any\n"
-       "language, human or computer. They describe the words, and grammar\n"
+       "language, human or computer. They describe the words and grammar\n"
        "rules to create sentences.\n");
 }
 
@@ -399,7 +399,7 @@ void division() {
   puts("\tDivision Operator.");
   puts("----------------------------------");
 
-  puts("The division operator (/) divides the 2 numbers--or variablbes--from\n"
+  puts("The division operator (/) divides the 2 numbers--or variables--from\n"
        "each other; with the left number being divided by the right number.\n"
        "Let's see what this looks like.\n");
 
@@ -417,7 +417,7 @@ void division() {
        "This is because we have divided an integer and not a decimal number.\n"
        "When doing integer division we can't keep track of the decimal part.\n"
        "What happens? That data is never calculated. So, whatever fractional\n"
-       "part that should exists can be thought of as \"dropped.\" This is\n"
+       "part that should exist can be thought of as \"dropped.\" This is\n"
        "called \"truncation.\"\n");
 }
 
