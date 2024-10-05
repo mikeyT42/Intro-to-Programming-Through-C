@@ -285,7 +285,7 @@ void enums() {
        "define enumeration values; and finally give this enumeration a name.\n"
        "Now, how then do we use this enum? Like any other type really, with\n"
        "one caveat: we can only assign the values that we have defined as a\n"
-       "part the enum to a variable of our enum type. Let's see this in\n"
+       "part of the enum to a variable of our enum type. Let's see this in\n"
        "practice.\n");
 
   color red = RED;
