@@ -205,8 +205,8 @@ void string_declarations() {
        "string before you enter a loop. This will make a bit more sense in\n"
        "the next class.\n");
   puts("The most common way to create a string is with a string literal. We\n"
-       "don't need to include the char array size when doing it like this--or\n"
-       "even the way before but no one does it like that--because the\n"
+       "don't need to include the char array length when doing it like this\n"
+       "--or even the way before but no one does it like that--because the\n"
        "compiler can easily figure it out.\n");
 
   char s2[] = "Foo";
