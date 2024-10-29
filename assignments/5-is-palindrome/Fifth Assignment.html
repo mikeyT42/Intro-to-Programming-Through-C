@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html>
+  <head>
+
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <title>Third Assignment</title>
+  </head>
+  <body>
+    <div dir="ltr">
+      <div><font size="4"><b><u><br>
+            </u></b></font></div>
+      <div><font size="4"><b><u>Introduction:</u></b></font></div>
+      <div><br>
+      </div>
+      <div>This third assignment is going to be a chance to work more
+        with arrays. Really, it will be a way to iterate through an
+        array in 2 ways at the same time: you will walk an array
+        backwards and forwards in the same loop.</div>
+      <div><br>
+      </div>
+      <div>This program will check if a single word is a palindrome. A
+        palindrome is a word--or really a string of text, <u><i>but
+            we're keeping it to a single word</i></u>--that is spelt the
+        same backwards and forwards. A simple example is, "huh" or even,
+        "radar": there are many words that you can Google to see and
+        test in your program. You will accept string input from the
+        user, and then output whether or not the string is a palindrome.
+        Please show your output in a block comment at the bottom of your
+        program.<br>
+      </div>
+      <div><br>
+      </div>
+      <div><font size="4"><b><u><span style="font-family:monospace">main</span>:</u></b></font></div>
+      <div><br>
+      </div>
+      <div>You will output a banner and a salutation. You will have an
+        input loop function that returns <span
+          style="font-family:monospace">true</span> or <span
+          style="font-family:monospace">false</span> on whether to exit
+        the loop or not. The function it will call until <span
+          style="font-family:monospace">false</span> will be called <span
+          style="font-family:monospace">input_loop(void)</span>. This
+        will be inside of a loop defined in the <span
+          style="font-family:monospace">main</span> function. Try to
+        remember what we talked about with the <span
+          style="font-family:monospace">do {} while()</span> loop; but
+        any loop will work.<br>
+      </div>
+      <div><br>
+      </div>
+      <div><b><u><font size="4"><span style="font-family:monospace">input_loop(void)</span>:</font></u></b></div>
+      <div><br>
+      </div>
+      <div>This function is where the magic will happen. It will return
+        a boolean value representing whether or not to continue
+        gathering input or not from the user: the return value controls
+        the outer loop inside of the <span
+          style="font-family:monospace">main</span> function. This
+        function will be the one to accept user input, check if the user
+        wants to exit--our sentinel value will be <span
+          style="font-family:monospace">'\n'</span> again--validate the
+        input, clean the input, check if it's a palindrome, and then
+        exit to continue gathering user input.</div>
+      <div><br>
+      </div>
+      <div>If the user wants to exit; do not validate, clean, or check
+        if the input is a palindrome: simply return <span
+          style="font-family:monospace">false</span> to exit the outer
+        loop in <span style="font-family:monospace">main</span>. If the
+        user entered a word; then validate, clean the word, check if
+        it's a palindrome, and then return <span
+          style="font-family:monospace">true</span> to continue
+        executing the outer loop in <span style="font-family:monospace">main</span>.
+        Be sure after checking if the input is a palindrome to output
+        the result to the user and then return.<br>
+      </div>
+      <div><br>
+      </div>
+      <div><b><u><font size="4"><span style="font-family:monospace">validate(const
+                char input[])</span>:</font></u></b></div>
+      <div><br>
+      </div>
+      <div>This function will validate that the user has input a single,
+        valid, word. If there is any space character (<span
+          style="font-family:monospace">' '</span>) in the string, then
+        a single word was not entered; return <span
+          style="font-family:monospace">false</span> if this is the
+        case. Also check for more error cases as well--like if the
+        string contains a number--and return <span
+          style="font-family:monospace">false</span>. Return <span
+          style="font-family:monospace">true</span> if no error cases
+        are met.<br>
+      </div>
+      <div><br>
+      </div>
+      <div>In the <span style="font-family:monospace">input_loop</span>
+        function, show the user an error message about the error that
+        occurred: something like, "you entered non-valid input." If the
+        error occurred, then return <span style="font-family:monospace">true</span>
+        in the <span style="font-family:monospace">input_loop</span>
+        function to exit and then continue gathering input; otherwise
+        continue forward to the next step.</div>
+      <div><br>
+      </div>
+      <div><b><u>Bonus definition:</u></b></div>
+      <div><br>
+      </div>
+      <div>You can define an <span style="font-family:monospace">enum</span>,
+        say <span style="font-family:monospace">validation_errors</span>,
+        for other error cases and return a specific enumeration code.
+        For example, the case we defined above would be <span
+          style="font-family:monospace">SENTENCE</span>. Then inside of
+        <span style="font-family:monospace">input_loop</span> we could <span
+          style="font-family:monospace">switch</span> on those cases,
+        outputting specific error messages for more than just if the
+        input was a word or not. Other error cases could be the input
+        has or is all numbers, or if it was whitespace, or any other
+        cases you could think of.</div>
+      <div><br>
+      </div>
+      <div><font size="4"><b><u><span style="font-family:monospace">clean_input(char
+                input[])</span>:</u></b></font></div>
+      <div><br>
+      </div>
+      <div>This function has a couple simple tasks. The first being to
+        get rid of the newline character at the end of the string. If
+        you don't replace this with the null-terminator character, there
+        will be issues later on!</div>
+      <div><br>
+      </div>
+      <div>Also, normalize all of the characters to be uppercase or
+        lowercase. Essentially, loop through the string after fixing the
+        newline character and reassign each character at each index with
+        its upper or lowercase version: just choose one.<br>
+      </div>
+      <div><br>
+      </div>
+      <div><font size="4"><b><u><span style="font-family:monospace">is_palindrome(const
+                char input[])</span>:</u></b></font></div>
+      <div><br>
+      </div>
+      <div>This function is the heart of the program. This is where we
+        check if the input array is a palindrome or not. If it is,
+        return <span style="font-family:monospace">true</span>;
+        otherwise return <span style="font-family:monospace">false</span>.</div>
+      <div><br>
+      </div>
+      <div>You will need to define a loop that iterates over the input
+        array. It will iterate for the length of the array divided by 2.
+        The reason for this is because we are walking the array
+        backwards and forwards to check 2 characters in each loop
+        iteration; therefore, we only need to iterate for half of the
+        array's length. If there are an odd number of characters, the
+        middle index will equal itself--therefore not needing to be
+        checked--and if it's even then the 2 characters we need to check
+        are right next to each other.</div>
+      <div><br>
+      </div>
+      <div>Now, you will have 2 indexes in this loop. The first index
+        will go forward, and the second index will go backwards. I will
+        give you an initial hint: utilize the length of the string to
+        get the backwards index: use subtraction to get the backwards
+        index position. Now, when thinking and reasoning about this
+        problem, think of these 2 indexes as "fingers:" draw it on paper
+        if you need to! Kind of like this:</div>
+      <div><br>
+      </div>
+      <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <span style="font-family:monospace">first iteration:<br>
+        </span></div>
+      <div><span style="font-family:monospace">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          radar</span></div>
+      <div><span style="font-family:monospace">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          ^&nbsp;&nbsp; ^</span></div>
+      <div><span style="font-family:monospace">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          second iteration:</span></div>
+      <div><span style="font-family:monospace">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          radar</span></div>
+      <div><span style="font-family:monospace">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          ^ ^<br>
+        </span></div>
+      <div><span style="font-family:monospace">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          third iteration:</span></div>
+      <div><span style="font-family:monospace">&nbsp;&nbsp;&nbsp;&nbsp;
+          // len / 2 will be an integer;</span></div>
+      <div><span style="font-family:monospace">&nbsp;&nbsp;&nbsp;&nbsp;
+          // in this case the value is 2.<br>
+        </span></div>
+      <div><span style="font-family:monospace">&nbsp;&nbsp;&nbsp;&nbsp;
+          first_finger == len / 2</span></div>
+      <div><span style="font-family:monospace"><br>
+        </span></div>
+      <div><font face="arial,sans-serif">If at any point of the loop
+          iteration the 2 characters at the positions are <b>not</b>
+          equal to each other, return </font><span
+          style="font-family:monospace">false</span><font
+          face="arial,sans-serif">. At the end of the function return </font><span
+          style="font-family:monospace">true</span><font
+          face="arial,sans-serif">: that means the loop has run with no
+          character <i>not</i> matching each other.<br>
+        </font></div>
+      <div><font face="arial,sans-serif"><br>
+        </font></div>
+      <div><font face="arial,sans-serif">In the </font><span
+          style="font-family:monospace">input_loop</span><font
+          face="arial,sans-serif"> function, show a message if the input
+          string is a palindrome or not: return from the </font><span
+          style="font-family:monospace">input_loop</span><font
+          face="arial,sans-serif"> function </font><span
+          style="font-family:monospace">true</span><font
+          face="arial,sans-serif"> to continue gathering user input.</font></div>
+      <div><font face="arial,sans-serif"><br>
+        </font></div>
+      <div><font face="arial,sans-serif" size="4"><b><u>Conclusion:</u></b></font></div>
+      <div><font face="arial,sans-serif"><br>
+        </font></div>
+      <div><font face="arial,sans-serif">Those are all of the needed
+          functions to get this assignment done. Utilize all of the
+          tools you have available. Reach out to me with any questions,
+          and use Google for compilation warnings and errors as much as
+          you can. Use the C reference site as well. Please, make sure
+          to have read my comments on your previous assignment to know
+          what I am looking for and for the tips I have provided to
+          continue your success and growth.</font></div>
+      <div><font face="arial,sans-serif"><br>
+        </font></div>
+      <div><font face="arial,sans-serif">I expect you to have some
+          trouble on the reverse iteration: that is truly the main
+          problem for this program. The other things are further
+          teachings on program design. Also, as you may notice I have
+          not provided a starting file: this is purposeful. Please use
+          our previous programs as examples. I expect you to succeed in
+          all these aspects. Please be diligent: I know that you can do
+          it with some time. I don't expect you to blast through
+          everything in 20 minutes!<br>
+        </font></div>
+      <div><font face="arial,sans-serif"><br>
+        </font></div>
+      <div><font face="arial,sans-serif">Good luck and please reach out,</font></div>
+      <div><font face="arial,sans-serif">~ Michael<br>
+        </font></div>
+    </div>
+  </body>
+</html>

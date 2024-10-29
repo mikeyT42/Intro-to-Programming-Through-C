@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html>
+  <head>
+
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <title>Fifth Assignment</title>
+  </head>
+  <body>
+    <div dir="ltr">
+      <div><font size="4"><b><u>Introduction:</u></b></font></div>
+      <div><br>
+      </div>
+      <div>This program is going to be our second foray into pointer
+        practice. This program will do some simple mathematics: we will
+        create some sums and averages. We will gather some numbers from
+        the user.</div>
+      <div><br>
+      </div>
+      <div><font size="4"><b><u>Structures:</u></b></font><br>
+      </div>
+      <div><br>
+      </div>
+      <div>This program will be our first one to utilize <span
+          style="font-family:monospace">struct</span> definitions. Our
+        first <span style="font-family:monospace">typedef</span> of a <span
+          style="font-family:monospace">struct</span> will be <span
+          style="font-family:monospace">sums</span>. It will have 3 data
+        members: a <span style="font-family:monospace">double</span>
+        variable called <span style="font-family:monospace">positive</span>;
+        a <span style="font-family:monospace">double</span> variable
+        called negative; and a <span style="font-family:monospace">double</span>
+        variable called <span style="font-family:monospace">overall</span>.
+        The second <span style="font-family:monospace">typedef</span>
+        of a <span style="font-family:monospace">struct</span> will be
+        called <span style="font-family:monospace">counts</span>. This
+        has 3 data members as well: an <span
+          style="font-family:monospace">unsigned</span>, <span
+          style="font-family:monospace">int</span> variable called <span
+          style="font-family:monospace">positive</span><span
+          style="font-family:arial,sans-serif">; an </span><span
+          style="font-family:monospace">unsigned,</span><span
+          style="font-family:arial,sans-serif"> </span><span
+          style="font-family:monospace">int</span><span
+          style="font-family:arial,sans-serif"> variable called </span><span
+          style="font-family:monospace">negative</span><span
+          style="font-family:arial,sans-serif">; and an </span><span
+          style="font-family:monospace">unsigned</span><span
+          style="font-family:arial,sans-serif">, </span><span
+          style="font-family:monospace">int</span><span
+          style="font-family:arial,sans-serif"> variable called </span><span
+          style="font-family:monospace">overall</span><span
+          style="font-family:arial,sans-serif">.</span> Finally, make a
+        <span style="font-family:monospace">typedef</span> of a <span
+          style="font-family:monospace">struct</span> called averages.
+        It will have 3 data members: a <span
+          style="font-family:monospace">double</span> variable called <span
+          style="font-family:monospace">positive</span>; a <span
+          style="font-family:monospace">double</span> variable called
+        negative; and a <span style="font-family:monospace">double</span>
+        variable called <span style="font-family:monospace">overall.</span></div>
+      <div><br>
+      </div>
+      <div><font size="4"><u><b><span style="font-family:monospace">main</span>:</b></u></font></div>
+      <div><br>
+      </div>
+      <div>This will behave exactly like our other <span
+          style="font-family:monospace">main</span> methods: print
+        banners and execute an <span style="font-family:monospace">input_loop()</span>.</div>
+      <div><br>
+      </div>
+      <div><u><b><font size="4"><span style="font-family:monospace">input_loop</span>:</font></b></u></div>
+      <div><br>
+      </div>
+      <div>This will return a boolean value, or enum if you'd like, of <span
+          style="font-family:monospace">true</span> or <span
+          style="font-family:monospace">false</span>: <span
+          style="font-family:monospace">true</span> representing
+        continue the input loop and <span style="font-family:monospace">false</span>
+        indicating to stop the program. This function will read the
+        user's input into a string: make sure it is pretty big; 256
+        characters should be sufficiently sized. Indicate to the user
+        that floating point or integers are acceptable; also indicate to
+        only enter up to 10 numbers. The newline character will continue
+        to be our sentinel.</div>
+      <div><br>
+      </div>
+      <div>First check for the sentinel: exit if it has been entered.
+        Then, utilize sscanf to read our string into a <span
+          style="font-family:monospace">double</span> array: this array
+        will hold up to 10 numbers. So, some context on <span
+          style="font-family:monospace">sscanf</span>: this function
+        reads a string into any number of variables on the pattern
+        provided, kind of like how <span style="font-family:monospace">scanf</span>
+        reads from the standard input stream; or how <span
+          style="font-family:monospace">printf</span> outputs data. The
+        first argument is a string, the second argument is the full
+        pattern to match on--in this case all 10 floating point
+        numbers--and the last arguments will be the address of each
+        array element we can possibly save into. The return value of <span
+          style="font-family:monospace">sscanf</span> is the number of
+        matches it had from the string. So, if the user input 5 things,
+        the return value would be 5.</div>
+      <div><br>
+      </div>
+      <div>This time around we won't have a validate function. Simply
+        validate the number of matches. If it fails to validate, return
+        <span style="font-family:monospace">true</span>.</div>
+      <div><br>
+      </div>
+      <div>Then declare and initialize our 3 <span
+          style="font-family:monospace">structs</span>: each member of
+        the structures should be initialized to <span
+          style="font-family:monospace">0</span>.</div>
+      <div><br>
+      </div>
+      <div>We will then execute <span style="font-family:monospace">sum_and_count()</span>,
+        <span style="font-family:monospace">average()</span>, and <span
+          style="font-family:monospace">print_table()</span> functions
+        before returning <span style="font-family:monospace">true</span>.</div>
+      <div><br>
+      </div>
+      <div><font size="4"><b><u><span style="font-family:monospace">sum_and_count(double
+                numbers[], unsigned int numbers_len, sums *sums, counts
+                *counts)</span>:</u></b></font></div>
+      <div><br>
+      </div>
+      <div>First off, make each argument as immutable as possible.
+        Iterate over the <span style="font-family:monospace">numbers</span>
+        array. For each element in the array, check if it is positive
+        (greater than or equal to 0) or negative. If it is positive,
+        then add to the <span style="font-family:monospace">positive</span>
+        member of <span style="font-family:monospace">sums</span> and
+        increment the <span style="font-family:monospace">positive</span>
+        member of <span style="font-family:monospace">counts</span>. Do
+        the same for negative numbers. For every array iteration
+        regardless of positivity or negativity, add to <span
+          style="font-family:monospace">sums</span> <span
+          style="font-family:monospace">overall</span> and increment <span
+          style="font-family:monospace">counts</span> <span
+          style="font-family:monospace">overall</span>.</div>
+      <div><br>
+      </div>
+      <div><font size="4"><b><u><span style="font-family:monospace">average(sums
+                sums, counts counts, averages *averages)</span>:</u></b></font></div>
+      <div><font size="4"><b><u><br>
+            </u></b></font></div>
+      <div><font size="2">First off, make each argument as immutable as
+          possible. Calculate the <span style="font-family:monospace">averages</span>
+          for both <span style="font-family:monospace">positive</span>,
+          <span style="font-family:monospace">negative</span> and <span
+            style="font-family:monospace">overall</span> numbers. Be
+          sure to check first if the <span
+            style="font-family:monospace">counts</span> for each
+          respective kind is 0; if you don't do this you could get a
+          divide by <span style="font-family:arial,sans-serif">0</span>
+          bug.<br>
+        </font></div>
+      <div><font size="2"><br>
+        </font></div>
+      <div><font size="4"><u><b><span style="font-family:monospace">print_table(sums
+                sums, counts counts, averages averages)</span>:</b><br>
+          </u></font></div>
+      <div><font size="2"><br>
+        </font></div>
+      <div><font size="2">First off, make each argument as immutable as
+          possible. Output our data in a nice table like this:</font></div>
+      <div><font size="2"><br>
+        </font></div>
+      <div><span style="font-family:monospace">Statistics:<br>
+          &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Number: &nbsp; &nbsp;
+          &nbsp; &nbsp; &nbsp;Total: &nbsp; &nbsp; &nbsp;Average:<br>
+          Positive: &nbsp; &nbsp; &nbsp; &nbsp;6 &nbsp; &nbsp; &nbsp;
+          &nbsp; &nbsp;30.000 &nbsp; &nbsp; &nbsp; &nbsp; 5.000<br>
+          Negative: &nbsp; &nbsp; &nbsp; &nbsp;4 &nbsp; &nbsp; &nbsp;
+          &nbsp; -25.000 &nbsp; &nbsp; &nbsp; &nbsp;-6.250<br>
+          Overall: &nbsp; &nbsp; &nbsp; &nbsp;10 &nbsp; &nbsp; &nbsp;
+          &nbsp; &nbsp; 5.000 &nbsp; &nbsp; &nbsp; &nbsp; 0.500</span></div>
+      <div><span style="font-family:monospace"><br>
+        </span></div>
+      <div><font face="arial,sans-serif">Utilize </font><span
+          style="font-family:monospace">printf</span><font
+          face="arial,sans-serif"> of course. This will be your
+          redemption for print padding. Simply experiment with different
+          padding numbers until everything is lined up very nicely.</font></div>
+      <div><font face="arial,sans-serif"><br>
+        </font></div>
+      <div><font face="arial,sans-serif" size="4"><b><u>Conclusion:</u><br>
+          </b></font></div>
+      <div><font face="arial,sans-serif"><br>
+        </font></div>
+      <div><font face="arial,sans-serif">This program will be another
+          great exercise in using pointers. Please show your output at
+          the bottom of your program. Also, if you do decide to make
+          more in-depth validation, make it a function and return an
+          enumeration.<br>
+        </font></div>
+      <div><font face="arial,sans-serif"><br>
+        </font></div>
+      <div><font face="arial,sans-serif">If you have any questions then
+          please feel free to reach out,</font></div>
+      <div><font face="arial,sans-serif">~ Michael<br>
+        </font></div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+  <head>
+
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <title>Second Assignment</title>
+  </head>
+  <body>
+    <p><font size="4"><b><u>Introduction:</u></b></font></p>
+    <div dir="auto">
+      <div dir="ltr">
+        <div><br>
+        </div>
+        <div>This program will be practice with using enumerations,
+          arrays, strings, and structures. This will also be the only
+          program where I will provide a function. We haven't been
+          introduced to logical statements, so that is why I am
+          providing it.</div>
+        <div><br>
+        </div>
+        <div>You will be writing a program that is going to be a
+          "Library."&nbsp; You will have some books that you will
+          define, and print them all out.</div>
+        <div><br>
+        </div>
+        <div><font size="4"><u><b><span style="font-family:monospace">genre</span>
+                Enumeration:</b></u></font></div>
+        <div><br>
+        </div>
+        <div>This will be an <span style="font-family:monospace">enum</span>
+          that you will define that will represent book genres. Here are
+          the values:</div>
+        <div><br>
+        </div>
+        <div style="margin-left:40px"><span
+            style="font-family:monospace">FICTION</span></div>
+        <div style="margin-left:40px"><span
+            style="font-family:monospace">NON_FICTION</span></div>
+        <div style="margin-left:40px"><span
+            style="font-family:monospace">SCIENCE_FICTION</span></div>
+        <div style="margin-left:40px"><span
+            style="font-family:monospace">MYSTERY</span></div>
+        <div style="margin-left:40px"><span
+            style="font-family:monospace">BIOGRAPHY</span></div>
+        <div><br>
+        </div>
+        <div>These values will then be used to print the kinds of <span
+            style="font-family:monospace">genres</span>.</div>
+        <div><br>
+        </div>
+        <div><font size="4"><u><b><span style="font-family:monospace">book</span>
+                Structure:</b></u></font></div>
+        <div><br>
+        </div>
+        <div>Make a constant using <span style="font-family:monospace">#define</span>.
+          I want the name to be <span style="font-family:monospace">STRING_LEN</span>
+          with a value of <span style="font-family:monospace">100</span>.</div>
+        <div><br>
+        </div>
+        <div>Now onto the <span style="font-family:monospace">book</span>
+          structure. We need a string called <span
+            style="font-family:monospace">title</span> with a length of
+          <span style="font-family:monospace">STRING_LEN</span>. Use
+          this constant in the length part of the declaration. Then
+          declare a string called <span style="font-family:monospace">author</span>
+          with the same length. Declare another data member with a type
+          of <span style="font-family:monospace">unsigned int</span>
+          called <span style="font-family:monospace">year</span>. Then
+          declare another data member with a type of <span
+            style="font-family:monospace">genre</span> called <span
+            style="font-family:monospace">genre</span>.</div>
+        <div><br>
+        </div>
+        <div><font size="4"><b><u><span style="font-family:monospace">void
+                  print_book(book book)</span>:</u></b></font></div>
+        <div><br>
+        </div>
+        <div>This function will be solely responsible for printing its
+          given <span style="font-family:monospace">book</span>
+          argument. Make the argument <span
+            style="font-family:monospace">const</span> too. I want the
+          printed output to look like the below:<br>
+        </div>
+        <div><br>
+        </div>
+        <div><span style="font-family:monospace">book {<br>
+            &nbsp; title = The War of the Worlds<br>
+            &nbsp; author = H. G. Wells<br>
+            &nbsp; year = 1898<br>
+            &nbsp; genre = Science Fiction<br>
+            }</span></div>
+        <div><br>
+        </div>
+        <div>It is possible to use a single <span
+            style="font-family:monospace">printf</span> statement to do
+          this, but you can also do this in about 6 <span
+            style="font-family:monospace">printf</span> statements. Be
+          sure to make use of the given <span
+            style="font-family:monospace">genre_to_string(const genre
+            genre)</span> function.</div>
+        <div><br>
+        </div>
+        <div><font size="4"><b><u><span style="font-family:monospace">main</span>:</u></b></font></div>
+        <div><br>
+        </div>
+        <div>After the salutation, declare and initialize a <span
+            style="font-family:monospace">book</span> array with 6
+          books. Initialize it with any 6 books that you like. Then, <span
+            style="font-family:monospace">printf</span> this message:</div>
+        <div><br>
+        </div>
+        <div><span style="font-family:monospace">Our library has %lu
+            book(s).</span></div>
+        <div><br>
+        </div>
+        <div>Be sure to put 2 newlines at the end. Calculate the length
+          of the array in this <span style="font-family:monospace">printf</span>
+          statement. Then call the <span style="font-family:monospace">printf_book</span>
+          function for each book in our <span
+            style="font-family:monospace">library</span> array.</div>
+        <div><br>
+        </div>
+        <div><font size="4"><b><u>Conclusion:</u></b></font></div>
+        <div><br>
+        </div>
+        <div>Be sure to follow our formatting rules. Between function
+          definitions put our function separator comment. Also, remember
+          our variables and function names are following snake case. Be
+          sure that indenting is proper as well. 4 spaces, and no more
+          than 80 characters wide.</div>
+        <div><br>
+        </div>
+        <div>Good luck and please email me with any questions,</div>
+        <div>~ Michael<br>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

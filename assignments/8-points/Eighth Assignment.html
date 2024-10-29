@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+  <head>
+
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <title>Sixth Assignment</title>
+  </head>
+  <body>
+    <div dir="ltr">
+      <div dir="auto"><font size="4"><b><u>Introduction:</u></b></font>
+        <div dir="auto"><br>
+        </div>
+        <div dir="auto">This is our first assignment where we will be
+          using heap memory. This program will create points in space by
+          gathering x and y values as input from the user. We will then
+          build a string representation of our point and then output it.</div>
+        <div dir="auto"><br>
+        </div>
+        <div><font size="4"><b><u>Structures:</u></b></font><br>
+        </div>
+        <div dir="auto"><br>
+        </div>
+        <div>Make a <span style="font-family:monospace">struct</span>
+          to represent a <span style="font-family:monospace">point</span>.
+          It will have 2 data members; an <span
+            style="font-family:monospace">int</span> called <span
+            style="font-family:monospace">x</span>, and an <span
+            style="font-family:monospace">int</span> called <span
+            style="font-family:monospace">y</span>.<br>
+        </div>
+        <div dir="auto"><br>
+        </div>
+        <div dir="auto"><font size="4"><b><u><span
+                  style="font-family:monospace">main()</span>:</u></b></font></div>
+        <div dir="auto"><br>
+        </div>
+        <div dir="auto">This function is going to operate exactly the
+          same as our other programs. It will call the <span
+            style="font-family:monospace">input_loop()</span> function
+          and will output greeting and salutation banners.</div>
+        <div dir="auto"><br>
+        </div>
+        <div dir="auto"><b><u><font size="4"><span
+                  style="font-family:monospace">input_loop()</span>:</font></u></b></div>
+        <div dir="auto"><font size="2"><b><u><br>
+              </u></b></font></div>
+        <div><font size="2">This function will collect the input of 2
+            integers from the user. Use <span
+              style="font-family:monospace">fgets()</span> to read into
+            a string with a length of <span
+              style="font-family:monospace">256</span>. Check for the <span
+              style="font-family:monospace">sentinel</span> and if it
+            was entered then exit the program. Then use <span
+              style="font-family:monospace">sscanf()</span> to read 2
+            integers from the <span style="font-family:monospace">input</span>
+            into 2 variables <span style="font-family:monospace">x</span>
+            and <span style="font-family:monospace">y</span>--in that
+            order. If less than 2 were entered--our validation--then
+            tell the user they did something wrong and then return <span
+              style="font-family:monospace">true</span> to continue
+            executing the input loop.<br>
+          </font></div>
+        <div><font size="2"><br>
+          </font></div>
+        <div><font size="2">Then call <span
+              style="font-family:monospace">create_point()</span>: if
+            this function returns <span style="font-family:monospace">NULL</span>,
+            then return <span style="font-family:monospace">true</span>;
+            otherwise continue onwards. Call the <span
+              style="font-family:monospace">to_string()</span> function:
+            if this function returns <span
+              style="font-family:monospace">NULL</span>, then return <span
+              style="font-family:monospace">true</span> and handle any
+            memory; otherwise continue onwards. Print the point string
+            and then cleanup and return <span
+              style="font-family:monospace">true</span>.<br>
+          </font></div>
+        <div><font size="2"><br>
+          </font></div>
+        <div><font size="4"><b><u><span style="font-family:monospace">create_point(int
+                  x, int y)</span>:</u></b></font></div>
+        <div><font size="2"><br>
+          </font></div>
+        <div><font size="2">Make these arguments as immutable as
+            possible. This function will allocate on the heap a <span
+              style="font-family:monospace">point</span>. Assign <span
+              style="font-family:monospace">x</span> and <span
+              style="font-family:monospace">y</span> to the structures
+            respective members after it is allocated. Be sure in any
+            error cases to handle them well and with error messages. Use
+            <span style="font-family:monospace">fprintf()</span> and
+            send the output to <span style="font-family:monospace">stderr</span>
+            if there is an issue. Return the pointer to our allocated <span
+              style="font-family:monospace">pointer</span>.</font></div>
+        <div><font size="2"><br>
+          </font></div>
+        <div><font size="4"><b><u>to_string(point *point):</u></b></font></div>
+        <div><font size="2"><br>
+          </font></div>
+        <div><font size="2">Make this argument as immutable as possible.
+            This function will utilize a <span
+              style="font-family:monospace">char</span> array as a <span
+              style="font-family:monospace">buffer</span>; its length
+            will be 512 characters long. Use the <span
+              style="font-family:monospace">snprintf()</span> function
+            to write into our declared <span
+              style="font-family:monospace">buffer</span>, up to its <span
+              style="font-family:monospace">buffer_length</span>; then
+            use a formatted string and our <span
+              style="font-family:monospace">point</span> to write our
+            formatted string with data into the <span
+              style="font-family:monospace">buffer</span>. The output
+            should look like this this:</font></div>
+        <div><font size="2"><br>
+          </font></div>
+        <div><font size="2" style="font-family:monospace">point {</font></div>
+        <div><font size="2" style="font-family:monospace">&nbsp; x = 2</font></div>
+        <div><font size="2" style="font-family:monospace">&nbsp; y = 1<br>
+          </font></div>
+        <div><font size="2" style="font-family:monospace">}<br>
+          </font></div>
+        <div><font size="2"><br>
+          </font></div>
+        <div><font size="2">Use width padding on the x and y string
+            literals to give the padding on the left of 2 characters.
+            Read some documentation on <span
+              style="font-family:monospace">snprintf()</span>. If you
+            need any help with this function let me know. If it was
+            unsuccessful, then output an error using <span
+              style="font-family:monospace">fprintf()</span>. Return <span
+              style="font-family:monospace">NULL</span> if an error
+            occurs.</font></div>
+        <div><font size="2"><br>
+          </font></div>
+        <div><font size="2">If successful, use the return value as the
+            new string length we are going to use for our string
+            allocation. If there was an error in allocation then print
+            an error and return <span style="font-family:monospace">NULL</span>.
+            If successful, then use <span style="font-family:monospace">strnlen()</span>
+            to write our buffer into the heap allocated string and then
+            return the pointer to our string.<br>
+          </font></div>
+        <div><font size="2"><br>
+          </font></div>
+        <div><b><font size="4"><u>Conclusion:</u></font></b></div>
+        <div><font size="2"><br>
+          </font></div>
+        <div><font size="2">That should be it to explain this program.
+            If you have any questions feel free to ask. Please utilize
+            any of your tools to help you work through this--including
+            me.</font></div>
+        <div><font size="2"><br>
+          </font></div>
+        <div><font size="2">Good luck,</font></div>
+        <div><font size="2">~ Michael<br>
+          </font></div>
+      </div>
+    </div>
+  </body>
+</html>
