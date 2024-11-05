@@ -26,7 +26,7 @@ int main(void) {
   puts(
       "\tPlease be sure that every original printf() statement create output.");
 
-  characterTypes();
+  character_types();
   integer_types();
   floating_point_types();
   boolean_type();
@@ -45,7 +45,7 @@ int main(void) {
 }
 
 // -----------------------------------------------------------------------------
-void characterTypes() {
+void character_types() {
   puts("\n----\nCharacter Types\n----");
   unsigned long charSize;
   unsigned long unsignedCharSize;
