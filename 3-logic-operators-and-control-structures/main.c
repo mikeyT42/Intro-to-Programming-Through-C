@@ -557,21 +557,17 @@ void do_while_loops() {
   puts("\nThis loop is particularly useful for user input loops. I'll model\n"
        "that up with strings.\n");
 
-  char input[14] = "Hello, World!";
-  int i = 0;
-  char SENTINEL = '\n';
   do {
-    /*
-     * On the first iteration the user enters Hello, World!; and then on the
-     * second iteration the user hits the commuincated exit character.
-     */
-    if (i == 1)
-      input[0] = SENTINEL;
-    else {
-      printf("input = %s\n", input);
-      i++;
-    }
-  } while (input[0] != SENTINEL);
+    char input[50];
+    char SENTINEL = '\n';
+
+    // Gather input from the user.
+
+    if (input[0] == SENTINEL)
+      break;
+
+    // Do some stuff with the user's input.
+  } while (TRUE);
 
   puts("\nThis loop allows the user to first enter input, and then we are\n"
        "able to check that input.\n"
