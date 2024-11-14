@@ -254,7 +254,7 @@ void enum_type() {
 // -----------------------------------------------------------------------------
 void struct_type() {
   puts("\n----\nDeveloper Designed Struct Type\n----");
-  unsigned long personStructSize;
+  unsigned long personStructSize = 34;
   unsigned long colorStructSize;
 
   struct Color {
@@ -277,6 +277,6 @@ void struct_type() {
    * vocab word here.
    */
   puts("\t* 2");
-  if (sizeof(struct Person) == 34)
+  if (sizeof(struct Person) == personStructSize)
     printf("\t  sizeof(struct Person) = %lu\n", sizeof(struct Person));
 }
