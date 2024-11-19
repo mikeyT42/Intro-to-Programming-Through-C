@@ -133,7 +133,9 @@ void integer_types() {
     printf("\t  sizeof(signed long long) = %lu\n", sizeof(signed long long));
 
   /*
-   * Why is the size the way it is?
+   * What size does my_int match with? Why does my_int match the size of that
+   * data type? I am looking for a vocabulary word here.
+   * Hint: look at how my_int is defined.
    */
   puts("\t* 13");
   if (sizeof(my_int) == my_int_size)
@@ -185,7 +187,7 @@ void pointer_type() {
   /*
    * BONUS:
    * There is interesting behavior here. Do you have a best guess on why the
-   * sizes are the way they are?
+   * sizes are all the same?
    */
   puts("\t* 1");
   if (sizeof(int *) == int_pointer_size)
@@ -272,9 +274,10 @@ void struct_type() {
   };
 
   /*
-   * Why is there a bug here? Why is the size not correct? Give an explanation
-   * as to why in as much detail as you can: I am looking for a particular
-   * vocab word here.
+   * Why is there a bug here? Why is the size not as expected? Give an
+   * explanation as to why in as much detail as you can: I am looking for a
+   * particular vocab word here.
+   * Hint: double check lesson 2.
    */
   puts("\t* 2");
   if (sizeof(struct person) == 34)
