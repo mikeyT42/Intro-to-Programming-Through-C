@@ -6,10 +6,10 @@
 
 #define INPUT_SIZE 100
 #define SENTINEL '\n'
-#define CONTINUE true
-#define BREAK false
 
-bool input_loop(void);
+typedef enum { CONTINUE, BREAK } loop_control;
+
+loop_control input_loop(void);
 void clean_input(char input[]);
 bool is_palindrome(const char input[]);
 
@@ -20,10 +20,10 @@ int main(void) {
   printf("\tWelcome to the Palindrome Checker\n");
   printf("-----------------------------------------------------------------\n");
 
-  bool loop_control;
+  loop_control l;
   do {
-    loop_control = input_loop();
-  } while (loop_control);
+    l = input_loop();
+  } while (l == CONTINUE);
 
   printf("-----------------------------------------------------------------\n");
   printf("\t\tDhank you, come again.\n");
@@ -33,7 +33,7 @@ int main(void) {
 }
 
 // -----------------------------------------------------------------------------
-bool input_loop(void) {
+loop_control input_loop(void) {
   puts("Please enter a string that is a palindrome; if you want to exit then\n"
        "then just hit enter. It can be a sentence or a word.\n");
 
