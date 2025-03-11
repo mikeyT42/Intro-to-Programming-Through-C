@@ -45,7 +45,7 @@ void put(list_t *l, const int i) {
   printf("length = %zu ; capacity = %zu\n", l->length, l->capacity);
 
   if (l->length >= l->capacity) {
-    printf("Reallocationg.\n");
+    printf("Reallocating.\n");
     const size_t new_array_size = (GROWTH_FACTOR + l->capacity) * sizeof(int);
     printf("new_array_size = %ld\n", new_array_size);
 

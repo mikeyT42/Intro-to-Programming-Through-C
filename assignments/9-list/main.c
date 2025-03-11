@@ -92,7 +92,8 @@ int main(void) {
   puts("\t\tRemoving and Shrinking.");
   puts("-----------------------------------------------------\n");
 
-  pop(list);
+  const int popped = pop(list);
+  printf("Popped = %d\n", popped);
   pop(list);
   pop(list);
   shrink_to_fit(list);
