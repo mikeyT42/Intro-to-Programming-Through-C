@@ -348,6 +348,7 @@ void addition() {
        "This spreads out to be this:\n\n"
        "\t\ti = i + 5;\n");
 
+  // i = i + 5;
   i += 5;
   printf("i = %i\n\n", i);
 }
@@ -369,6 +370,7 @@ void subtraction() {
        "operator. This spreads out to be this:\n\n"
        "\t\ti = i - 4;\n");
 
+  // i = i - 4;
   i -= 4;
   printf("i = %i\n\n", i);
 }
@@ -388,7 +390,7 @@ void multiplication() {
   puts("We can also multipliy and assign at the same time with the *=\n"
        "operator. This spreads to be this:\n\n"
        "\t\tx = x * 3;\n");
-
+  // x = x * 3;
   x *= 3;
   printf("x = %i\n\n", x);
 }
@@ -409,7 +411,7 @@ void division() {
   puts("We can also divide and assign at the same time with the /= operator.\n"
        "This is spread out to this:\n\n"
        "\t\ty = y / 2;\n");
-
+  // y = y / 2;
   y /= 2;
   printf("y = %i\n\n", y);
 
@@ -456,6 +458,7 @@ void modulus() {
        "\t\tz = z % 2;\n");
 
   int z = 10;
+  // z = z % 2;
   z %= 2;
   printf("z = %i\n\n", z);
 }
@@ -540,8 +543,8 @@ void declaring_defining_and_calling_functions() {
   puts("Let's also look a a function that returns a double value (a floating\n"
        "point a.k.a. decimal type) and takes 2 double values.\n");
 
-  int h = function_c(20.5, 15.25);
-  printf("h = %i\n\n", h);
+  double h = function_c(20.5, 15.25);
+  printf("h = %f\n\n", h);
 
   puts("The syntax is virtually the same. The only difference is that we\n"
        "separate our arguments with a comma. This allows us to give any\n"
