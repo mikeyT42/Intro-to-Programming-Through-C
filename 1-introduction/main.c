@@ -111,12 +111,10 @@ void compilation() {
   puts("How does our code that we write--in our case C--become something that\n"
        "the computer can understand? There is a program called a \"compiler\"\n"
        "that turns our C source code into what the computer understands. It\n"
-       "either turns it first into Assembly code and then machine code, or\n"
-       "directly into machine code. In either case, our source code becomes\n"
-       "machine code, which is all the computer understands. The compiler\n"
-       "understands C and translates it. There are a few steps of this\n"
-       "process that we will go over--only in the broadest of strokes\n"
-       "though.\n");
+       "turns it first into Assembly code and then machine code, which is all\n"
+       "the computer understands. The compiler understands C and translates\n"
+       "it. There are a few steps of this process that we will go over--only\n"
+       "in the broadest of strokes though.\n");
   puts("The first step that we will talk about is the pre-proccessing step.\n"
        "This is where certain pre-proccessor commands and macros will be\n"
        "executed. We will go over how we can utilize this step later.\n"
