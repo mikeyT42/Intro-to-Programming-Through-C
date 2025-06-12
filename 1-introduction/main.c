@@ -259,7 +259,7 @@ void declaring_and_defining_variables() {
        "how we do this.\n");
 
   const int MY_CONSTANT = 5;
-  // my_constant = 10; This would produce a compilation error if we uncommented
+  //MY_CONSTANT = 10; This would produce a compilation error if we uncommented
   // the above line out.
   printf("MY_CONSTANT = %i\n\n", MY_CONSTANT);
 
