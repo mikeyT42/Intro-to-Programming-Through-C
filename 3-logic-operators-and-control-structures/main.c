@@ -448,7 +448,7 @@ void while_loops() {
        "from the body of the loop. It is very useful for input loops. We have\n"
        "to execute the infinite \"while\" loop using while(TRUE) which will\n"
        "run for infinity (or until stack-overflow or no more memory) because\n"
-       "the condtional statement always evaluates to true. It is a\n"
+       "the conditional statement always evaluates to true. It is a\n"
        "best-practice to check the loop exit condtion at the beginning of the\n"
        "loop for \"while\" loops; they can technically be anywhere though and\n"
        "depends on the required logic.\n");
