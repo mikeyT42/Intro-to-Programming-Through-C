@@ -447,11 +447,11 @@ void while_loops() {
        "using the \"break\" statement. This word allows us to exit the loop\n"
        "from the body of the loop. It is very useful for input loops. We have\n"
        "to execute the infinite \"while\" loop using while(TRUE) which will\n"
-       "run for infinity (or really until stack-overflow) because the\n"
-       "condtional statement always evaluates to true. It is a best-practice\n"
-       "to check the loop exit condtion at the beginning of the loop for\n"
-       "\"while\" loops; they can technically be anywhere though and depends\n"
-       "on the required logic.\n");
+       "run for infinity (or until stack-overflow or no more memory) because\n"
+       "the condtional statement always evaluates to true. It is a\n"
+       "best-practice to check the loop exit condtion at the beginning of the\n"
+       "loop for \"while\" loops; they can technically be anywhere though and\n"
+       "depends on the required logic.\n");
 
   int d = 0;
   const int SENTINEL = 10;
