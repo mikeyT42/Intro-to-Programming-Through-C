@@ -562,6 +562,7 @@ void do_while_loops() {
     char SENTINEL = '\n';
 
     // Gather input from the user.
+    input[0] = SENTINEL;
 
     if (input[0] == SENTINEL)
       break;
