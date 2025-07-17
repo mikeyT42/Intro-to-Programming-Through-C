@@ -186,8 +186,7 @@ void pointer_type() {
 
   /*
    * BONUS:
-   * There is interesting behavior here. Do you have a best guess on why the
-   * sizes are all the same?
+   * There is interesting behavior here. Do you have a best guess on why?
    */
   puts("\t* 1");
   if (sizeof(int *) == int_pointer_size)
