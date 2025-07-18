@@ -14,9 +14,9 @@ typedef struct {
 } list_t;
 
 list_t *create_list();
-void put(list_t *l, const int i);
+void put(list_t *const l, const int i);
 int pop(list_t *const l);
 void shrink_to_fit(list_t *l);
-void destroy(list_t *l);
+list_t *destroy(list_t *l);
 
 #endif // !LIST_T_H

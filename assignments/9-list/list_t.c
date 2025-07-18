@@ -23,13 +23,14 @@ list_t *create_list() {
 }
 
 // -----------------------------------------------------------------------------
-void destroy(list_t *l) {
+list_t *destroy(list_t *l) {
   free(l->data);
   l->data = NULL;
   l->length = 0;
   l->capacity = 0;
   free(l);
   l = NULL;
+  return l;
 }
 
 // -----------------------------------------------------------------------------
@@ -52,6 +53,7 @@ void put(list_t *l, const int i) {
     int *tmp = realloc(l->data, new_array_size);
     if (!tmp) {
       fprintf(stderr, "\n\nCould not realloc data in List.\n\n");
+      // Discarding the returned pointer because of forced exit.
       destroy(l);
       exit(EXIT_FAILURE);
     }

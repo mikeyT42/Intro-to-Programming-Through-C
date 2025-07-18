@@ -102,7 +102,9 @@ int main(void) {
   puts("\t\tDestroying.");
   puts("-----------------------------------------------------\n");
 
-  destroy(list);
+  printf("list address before destruction = %p\n", list);
+  list = destroy(list);
+  printf("list address after destruction = %p\n", list);
 
   printf("-----------------------------------------------------------------\n");
   printf("\t\tThank you, come again.\n");
