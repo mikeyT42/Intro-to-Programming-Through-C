@@ -80,6 +80,7 @@ void shrink_to_fit(list_t *l) {
     int *tmp = realloc(l->data, new_array_size);
     if (!tmp) {
       fprintf(stderr, "\n\nCould not realloc data in List.\n\n");
+      // Discarding the returned pointer because of forced exit.
       destroy(l);
       exit(EXIT_FAILURE);
     }

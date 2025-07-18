@@ -56,8 +56,7 @@
       </div>
       <div><br>
       </div>
-      <div><span style="font-family:monospace"><font size="4"><b><u>list_t.h</u></b></font></span><font
-          size="4" style="font-family:arial,sans-serif"><b><u>:</u></b></font></div>
+      <div><span style="font-family:monospace"><font size="4"><b><u>list_t.h:</u></b></font></span></div>
       <div><br>
       </div>
       <div>I will provide the basics of this file as there are specific
@@ -147,7 +146,11 @@
       <div>Free our <span style="font-family:monospace">list</span>:
         set everything to <span style="font-family:monospace">NULL</span>
         or zero and set <span style="font-family:monospace">list</span>
-        to <span style="font-family:monospace">NULL</span>.</div>
+        to <span style="font-family:monospace">NULL</span>. Then, return
+        <span style="font-family:monospace">list</span>, which is now
+        <span style="font-family:monospace">NULL</span>, so that the caller
+        can set their reference to <span style="font-family:monospace">NULL</span>.
+      </div>
       <div><br>
       </div>
       <div><font size="4"><b><u><span style="font-family:monospace">pop(list_t
@@ -197,7 +200,10 @@
         reallocate our <span style="font-family:monospace">data</span>
         using our new size. If it fails, call <span
           style="font-family:monospace">destroy</span> on our <span
-          style="font-family:monospace">list</span> and call <span
+          style="font-family:monospace">list</span>. Put a comment above
+        the destruction saying something how we are discarding the returned
+        value from <span
+          style="font-family:monospace">destroy</span>. Then call <span
           style="font-family:monospace">exit(EXIT_FAILURE)</span> to
         crash the program. If we reallocated successfully, assign our
         new pointer to <span style="font-family:monospace">data</span>
@@ -249,7 +255,9 @@
         array size. Reallocate our data using our new calculated size.
         If we fail to reallocate, <span style="font-family:monospace">destroy</span>
         the <span style="font-family:monospace">list</span> and <span
-          style="font-family:monospace">exit(EXIT_FAILURE)</span>. If we
+          style="font-family:monospace">exit(EXIT_FAILURE)</span>. Put the same
+        comment from the <span style="font-family:monospace">put</span> function
+        about the discarding of the return value here as well. If we
         successfully reallocated, assign our new pointer to <span
           style="font-family:monospace">data</span>. Make our <span
           style="font-family:monospace">capacity</span> equal to our <span
@@ -266,141 +274,103 @@
           style="font-family:monospace">main</span> function will be
         different from the rest, we will not accept any user input.
         Print a header. <span style="font-family:monospace">#include
-          "list_t.h"</span> and <span style="font-family:monospace">stdio.h</span><span
-          style="font-family:arial,sans-serif">.&nbsp; Print a smaller
-          header saying we are creating the </span><span
-          style="font-family:monospace">list</span><span
-          style="font-family:arial,sans-serif">. Call our </span><span
-          style="font-family:monospace">create_list</span><span
-          style="font-family:arial,sans-serif"> function and then print
-          our </span><span style="font-family:monospace">length</span><span
-          style="font-family:arial,sans-serif">. If we get a </span><span
-          style="font-family:monospace">NULL</span><span
-          style="font-family:arial,sans-serif"> pointer, return </span><span
-          style="font-family:monospace">EXIT_FAILURE</span><span
-          style="font-family:arial,sans-serif">.</span></div>
-      <div><span style="font-family:arial,sans-serif"><br>
-        </span></div>
-      <div><span style="font-family:arial,sans-serif">Next print a
-          header that we are filling the </span><span
-          style="font-family:monospace">list</span><span
-          style="font-family:arial,sans-serif">. Call the </span><span
-          style="font-family:monospace">put</span><span
-          style="font-family:arial,sans-serif"> function with our </span><span
-          style="font-family:monospace">list</span><span
-          style="font-family:arial,sans-serif"> and an increasing number
-          of integers. Go up to 9 integers. Print our </span><span
-          style="font-family:monospace">length</span><span
-          style="font-family:arial,sans-serif"> and </span><span
-          style="font-family:monospace">capacity</span><span
-          style="font-family:arial,sans-serif">, then print out every
-          integer in the </span><span style="font-family:monospace">data</span><span
-          style="font-family:arial,sans-serif"> array. Next, call </span><span
-          style="font-family:monospace">put(list, 10)</span><span
-          style="font-family:arial,sans-serif">. Print our </span><span
-          style="font-family:monospace">list</span><span
-          style="font-family:arial,sans-serif"> </span><span
-          style="font-family:monospace">length</span><span
-          style="font-family:arial,sans-serif">, </span><span
-          style="font-family:monospace">capacity</span><span
-          style="font-family:arial,sans-serif"> and </span><span
-          style="font-family:monospace">data</span><span
-          style="font-family:arial,sans-serif">. Call </span><span
-          style="font-family:monospace">shrink_to_fit</span><span
-          style="font-family:arial,sans-serif">.</span></div>
-      <div><span style="font-family:arial,sans-serif"><br>
-        </span></div>
-      <div><span style="font-family:arial,sans-serif">Next, print a
-          header that we are going to see our first reallocation. Call </span><span
-          style="font-family:monospace">put(list, 11)</span><span
-          style="font-family:arial,sans-serif">. Print our </span><span
-          style="font-family:monospace">length</span><span
-          style="font-family:arial,sans-serif">, </span><span
-          style="font-family:monospace">capacity</span><span
-          style="font-family:arial,sans-serif">, and </span><span
-          style="font-family:monospace">data</span><span
-          style="font-family:arial,sans-serif">. Next, call </span><span
-          style="font-family:monospace">put</span><span
-          style="font-family:arial,sans-serif"> up to </span><span
-          style="font-family:monospace">20</span><span
-          style="font-family:arial,sans-serif">.<br>
-        </span></div>
-      <div><span style="font-family:arial,sans-serif"><br>
-        </span></div>
+          "list_t.h" and <span style="font-family:monospace">stdio.h</span>.&nbsp; Print a smaller
+          header saying we are creating the <span
+          style="font-family:monospace">list</span>. Call our <span
+          style="font-family:monospace">create_list</span> function and then print
+          our <span style="font-family:monospace">length</span>. If we get a <span
+          style="font-family:monospace">NULL</span> pointer, return <span
+          style="font-family:monospace">EXIT_FAILURE</span>.</div>
+      <div><br>
+      </div>
+      <div>Next print a
+          header that we are filling the <span
+          style="font-family:monospace">list</span>. Call the <span
+          style="font-family:monospace">put</span> function with our <span
+          style="font-family:monospace">list</span> and an increasing number
+          of integers. Go up to 9 integers. Print our <span
+          style="font-family:monospace">length</span> and <span
+          style="font-family:monospace">capacity</span>, then print out every
+          integer in the <span style="font-family:monospace">data</span> array. Next, call <span
+          style="font-family:monospace">put(list, 10)</span>. Print our <span
+          style="font-family:monospace">list</span> <span
+          style="font-family:monospace">length</span>, <span
+          style="font-family:monospace">capacity</span> and <span
+          style="font-family:monospace">data</span>. Call <span
+          style="font-family:monospace">shrink_to_fit</span>.</div>
+      <div><br>
+      </div>
+      <div>Next, print a
+          header that we are going to see our first reallocation. Call <span
+          style="font-family:monospace">put(list, 11)</span>. Print our <span
+          style="font-family:monospace">length</span>, <span
+          style="font-family:monospace">capacity</span>, and <span
+          style="font-family:monospace">data</span>. Next, call <span
+          style="font-family:monospace">put</span> up to <span
+          style="font-family:monospace">20</span>.<br>
+        </div>
+      <div><br>
+      </div>
       <div>
-        <div><span style="font-family:arial,sans-serif">Next, print a
+        <div>Next, print a
             header that we are going to see our second reallocation.
-            Call </span><span style="font-family:monospace">put(list,
-            21)</span><span style="font-family:arial,sans-serif">. </span><span
-            style="font-family:arial,sans-serif">Next, call </span><span
-            style="font-family:monospace">put</span><span
-            style="font-family:arial,sans-serif"> up to </span><span
-            style="font-family:monospace">30</span><span
-            style="font-family:arial,sans-serif">.<br>
-          </span></div>
-        <div><span style="font-family:arial,sans-serif"><br>
-          </span></div>
+            Call <span style="font-family:monospace">put(list,
+            21)</span>. Next, call <span
+            style="font-family:monospace">put</span> up to <span
+            style="font-family:monospace">30</span>.<br>
+          </div>
+        <div><br>
+        </div>
         <div>
-          <div><span style="font-family:arial,sans-serif">Next, print a
+          <div>Next, print a
               header that we are going to see our third reallocation.
-              Call </span><span style="font-family:monospace">put(list,
-              31)</span><span style="font-family:arial,sans-serif">. </span><span
-              style="font-family:arial,sans-serif">Next, call </span><span
-              style="font-family:monospace">put</span><span
-              style="font-family:arial,sans-serif"> up to </span><span
-              style="font-family:monospace">33</span><span
-              style="font-family:arial,sans-serif">. Next, print our </span><span
-              style="font-family:monospace">length</span><span
-              style="font-family:arial,sans-serif">, </span><span
-              style="font-family:monospace">capacity</span><span
-              style="font-family:arial,sans-serif">, and </span><span
-              style="font-family:monospace">data</span><span
-              style="font-family:arial,sans-serif">.</span></div>
+              Call <span style="font-family:monospace">put(list,
+              31)</span>. Next, call <span
+              style="font-family:monospace">put</span> up to <span
+              style="font-family:monospace">33</span>. Next, print our <span
+              style="font-family:monospace">length</span>, <span
+              style="font-family:monospace">capacity</span>, and <span
+              style="font-family:monospace">data</span>.</div>
           <div><br>
           </div>
           <div>Next, print a header that we are removing and shrinking
             the array. Call <span style="font-family:monospace">pop</span>
             on our list. Print each returned value. Then call <span
-              style="font-family:monospace">shrink_to_fit</span>. <span
-              style="font-family:arial,sans-serif">Next, print our </span><span
-              style="font-family:monospace">length</span><span
-              style="font-family:arial,sans-serif">, </span><span
-              style="font-family:monospace">capacity</span><span
-              style="font-family:arial,sans-serif">, and </span><span
-              style="font-family:monospace">data</span><span
-              style="font-family:arial,sans-serif">.</span></div>
-          <div><span style="font-family:arial,sans-serif"><br>
+              style="font-family:monospace">shrink_to_fit</span>. Next, print our <span
+              style="font-family:monospace">length</span>, <span
+              style="font-family:monospace">capacity</span>, and <span
+              style="font-family:monospace">data</span>.</div>
+          <div><br>
+          </div>
+          <div>Print a header
+              saying that we are destroying the <span
+              style="font-family:monospace">list</span>. Print a before and after
+              of the <span style="font-family:monospace">list</span> pointer
+              so we can see it turn to <span style="font-family:monospace">NULL</span>.
+              Give a salutation and return <span style="font-family:monospace">EXIT_SUCCESS</span>.<br>
             </span></div>
-          <div><span style="font-family:arial,sans-serif">Print a header
-              saying that we are destroying the </span><span
-              style="font-family:monospace">list</span><span
-              style="font-family:arial,sans-serif">. Give a salutation
-              and return </span><span style="font-family:monospace">EXIT_SUCCESS</span><span
-              style="font-family:arial,sans-serif">.<br>
-            </span></div>
-          <div><span style="font-family:arial,sans-serif"><br>
-            </span></div>
-          <div><span style="font-family:arial,sans-serif"><font size="4"><u><b>Conclusion:</b></u></font></span></div>
-          <div><span style="font-family:arial,sans-serif"><br>
-            </span></div>
-          <div><span style="font-family:arial,sans-serif">This program
+          <div><br>
+          </div>
+          <div><font size="4"><u><b>Conclusion:</b></u></font></div>
+          <div><br>
+          </div>
+          <div>This program
               is very different than our other programs. We are
               implementing a data structure and then testing it out in
-              our </span><span style="font-family:monospace">main</span><span
-              style="font-family:arial,sans-serif"> function. We are
+              our <span style="font-family:monospace">main</span> function. We are
               also introducing the concept of modules and a way that we
               can make a module in a simple way. It may not be the most
               robust, or professional way, but it gets the general idea
               across. I fully expect to have questions, and please reach
               out with any. This is more likely than not going to be on
               the difficult side. It is fully in your abilities: I am
-              confident in that!</span></div>
-          <div><span style="font-family:arial,sans-serif"><br>
-            </span></div>
-          <div><span style="font-family:arial,sans-serif">Good luck, and
-              you have 3 weeks to complete this from today,</span></div>
-          <div><span style="font-family:arial,sans-serif">~ Michael<br>
-            </span></div>
+              confident in that!</div>
+          <div><br>
+          </div>
+          <div>Good luck, and
+              you have 3 weeks to complete this from today,</div>
+          <div>~ Michael<br>
+          </div>
         </div>
       </div>
     </div>
