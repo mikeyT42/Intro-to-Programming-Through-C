@@ -42,9 +42,9 @@
         </div>
         <div dir="auto"><b><u><font size="4"><span
                   style="font-family:monospace">input_loop()</span>:</font></u></b></div>
-        <div dir="auto"><font size="2"><b><u><br>
-              </u></b></font></div>
-        <div><font size="2">This function will collect the input of 2
+        <div dir="auto"><b><u><br>
+              </u></b></div>
+        <div>This function will collect the input of 2
             integers from the user. Use <span
               style="font-family:monospace">fgets()</span> to read into
             a string with a length of <span
@@ -59,10 +59,10 @@
             tell the user they did something wrong and then return <span
               style="font-family:monospace">true</span> to continue
             executing the input loop.<br>
-          </font></div>
-        <div><font size="2"><br>
-          </font></div>
-        <div><font size="2">Then call <span
+        </div>
+        <div><br>
+        </div>
+        <div>Then call <span
               style="font-family:monospace">create_point()</span>: if
             this function returns <span style="font-family:monospace">NULL</span>,
             then return <span style="font-family:monospace">true</span>;
@@ -74,14 +74,14 @@
             memory; otherwise continue onwards. Print the point string
             and then cleanup and return <span
               style="font-family:monospace">true</span>.<br>
-          </font></div>
-        <div><font size="2"><br>
-          </font></div>
+        </div>
+        <div><br>
+        </div>
         <div><font size="4"><b><u><span style="font-family:monospace">create_point(int
                   x, int y)</span>:</u></b></font></div>
-        <div><font size="2"><br>
-          </font></div>
-        <div><font size="2">Make these arguments as immutable as
+        <div><br>
+        </div>
+        <div>Make these arguments as immutable as
             possible. This function will allocate on the heap a <span
               style="font-family:monospace">point</span>. Assign <span
               style="font-family:monospace">x</span> and <span
@@ -91,13 +91,13 @@
             <span style="font-family:monospace">fprintf()</span> and
             send the output to <span style="font-family:monospace">stderr</span>
             if there is an issue. Return the pointer to our allocated <span
-              style="font-family:monospace">pointer</span>.</font></div>
-        <div><font size="2"><br>
-          </font></div>
+              style="font-family:monospace">pointer</span>.</div>
+        <div><br>
+        </div>
         <div><font size="4"><b><u>to_string(point *point):</u></b></font></div>
-        <div><font size="2"><br>
-          </font></div>
-        <div><font size="2">Make this argument as immutable as possible.
+        <div><br>
+        </div>
+        <div>Make this argument as immutable as possible.
             This function will utilize a <span
               style="font-family:monospace">char</span> array as a <span
               style="font-family:monospace">buffer</span>; its length
@@ -110,18 +110,18 @@
               style="font-family:monospace">point</span> to write our
             formatted string with data into the <span
               style="font-family:monospace">buffer</span>. The output
-            should look like this this:</font></div>
-        <div><font size="2"><br>
+            should look like this this:</div>
+        <div><br>
+        </div>
+        <div><font style="font-family:monospace">point {</font></div>
+        <div><font style="font-family:monospace">&nbsp; x = 2</font></div>
+        <div><font style="font-family:monospace">&nbsp; y = 1<br>
           </font></div>
-        <div><font size="2" style="font-family:monospace">point {</font></div>
-        <div><font size="2" style="font-family:monospace">&nbsp; x = 2</font></div>
-        <div><font size="2" style="font-family:monospace">&nbsp; y = 1<br>
+        <div><font style="font-family:monospace">}<br>
           </font></div>
-        <div><font size="2" style="font-family:monospace">}<br>
-          </font></div>
-        <div><font size="2"><br>
-          </font></div>
-        <div><font size="2">Use width padding on the x and y string
+        <div><br>
+        </div>
+        <div>Use width padding on the x and y string
             literals to give the padding on the left of 2 characters.
             Read some documentation on <span
               style="font-family:monospace">snprintf()</span>. If you
@@ -129,31 +129,31 @@
             unsuccessful, then output an error using <span
               style="font-family:monospace">fprintf()</span>. Return <span
               style="font-family:monospace">NULL</span> if an error
-            occurs.</font></div>
-        <div><font size="2"><br>
-          </font></div>
-        <div><font size="2">If successful, use the return value as the
+            occurs.</div>
+        <div><br>
+        </div>
+        <div>If successful, use the return value as the
             new string length we are going to use for our string
             allocation. If there was an error in allocation then print
             an error and return <span style="font-family:monospace">NULL</span>.
             If successful, then use <span style="font-family:monospace">strnlen()</span>
             to write our buffer into the heap allocated string and then
             return the pointer to our string.<br>
-          </font></div>
-        <div><font size="2"><br>
-          </font></div>
+        </div>
+        <div><br>
+        </div>
         <div><b><font size="4"><u>Conclusion:</u></font></b></div>
-        <div><font size="2"><br>
-          </font></div>
-        <div><font size="2">That should be it to explain this program.
+        <div><br>
+        </div>
+        <div>That should be it to explain this program.
             If you have any questions feel free to ask. Please utilize
             any of your tools to help you work through this--including
-            me.</font></div>
-        <div><font size="2"><br>
-          </font></div>
-        <div><font size="2">Good luck,</font></div>
-        <div><font size="2">~ Michael<br>
-          </font></div>
+            me.</div>
+        <div><br>
+        </div>
+        <div>Good luck,</div>
+        <div>~ Michael<br>
+        </div>
       </div>
     </div>
   </body>
