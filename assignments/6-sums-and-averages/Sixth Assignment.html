@@ -53,17 +53,25 @@
         variable called <span style="font-family:monospace">overall.</span></div>
       <div><br>
       </div>
-      <div><font size="4"><b><u>Enumeration:</u></b></font><br>
+      <div><font size="4"><b><u>Enumerations:</u></b></font><br>
       </div>
       <div><br>
       </div>
-      <div>There will only be one enumeration for this program: it will be called
+      <div>There will be two enumerations for this program: the first will be called
           <span style="font-family:monospace">loop_control</span>. This enumeration
           will represent the 2 states of our loop logic: one state being to
           <span style="font-family:monospace">CONTINUE</span> loop execution and the
           other state being to
           <span style="font-family:monospace">STOP</span> loop execution. These will be
           used in the do-while loop's condition.
+      </div>
+      <div><br>
+      </div>The second enumeration will be to represent
+          <span style="font-family:monospace">validaton_code</span>. The enumeration will have these
+          values: <span style="font-family:monospace">OK</span> which will represent validation passing;
+          <span style="font-family:monospace">NO_INPUT</span> which will represent end of user input;
+          and finally <span style="font-family:monospace">INPUT_ERROR</span>.
+      <div>
       </div>
       <div><br>
       </div>
@@ -83,42 +91,28 @@
       <div><u><b><font size="4"><span style="font-family:monospace">input_loop</span>:</font></b></u></div>
       <div><br>
       </div>
-      <div>This will have a return type of <span style="font-family:monospace">input_loop</span> and
+      <div>This will have a return type of <span style="font-family:monospace">loop_control</span> and
           will return an enum of <span
           style="font-family:monospace">CONTINUE</span> or <span
           style="font-family:monospace">STOP</span>: <span
           style="font-family:monospace">CONTINUE</span> representing
         continue the input loop and <span style="font-family:monospace">STOP</span>
         indicating to stop the program. This function will read the
-        user's input into a string: make sure it is pretty big; 256
-        characters should be sufficiently sized. Indicate to the user
-        that floating point or integers are acceptable; also indicate to
+        user's input into a string using <span style="font-family:monospace">fgets()</span>:
+        make sure it is pretty big; 256 characters should be sufficiently sized. Indicate to
+        the user that floating point or integers are acceptable; also indicate to
         only enter up to 10 numbers. The newline character will continue
         to be our sentinel.</div>
       <div><br>
       </div>
-      <div>First check for the sentinel: exit if it has been entered.
-        Then, utilize <span
-          style="font-family:monospace">sscanf</span> to read our string into a <span
-          style="font-family:monospace">double</span> array: this array
-        will hold up to 10 numbers. So, some context on <span
-          style="font-family:monospace">sscanf</span>: this function
-        reads a string into any number of variables on the pattern
-        provided, kind of like how <span style="font-family:monospace">scanf</span>
-        reads from the standard input stream; or how <span
-          style="font-family:monospace">printf</span> outputs data. The
-        first argument is a string, the second argument is the full
-        pattern to match on--in this case all 10 floating point
-        numbers--and the last arguments will be the address of each
-        array element we can possibly save into. The return value of <span
-          style="font-family:monospace">sscanf</span> is the number of
-        matches it had from the string. So, if the user input 5 things,
-        the return value would be 5.</div>
-      <div><br>
+      <div>Once we have our input, send this string to the
+          <span style="font-family:monospace">validate()</span> function. This will return some
+          validation codes. If it is <span style="font-family:monospace">OK</span> then we use
+          the parsed numbers and length. If it is <span style="font-family:monospace">NO_INPUT</span> then
+          the sentinel was entered and return from the <span style="font-family:monospace">input_loop</span>.
+          If <span style="font-family:monospace">INPUT_ERROR</span> was returned, then output an error
+          message and return appropriately.
       </div>
-      <div>This time around we won't have a validate function. Simply
-        validate the number of matches. If it fails to validate, return
-        <span style="font-family:monospace">CONTINUE</span>.</div>
       <div><br>
       </div>
       <div>Then declare and initialize our 3 <span
@@ -133,12 +127,41 @@
         before returning <span style="font-family:monospace">CONTINUE</span>.</div>
       <div><br>
       </div>
+      <div><font size="4"><b><u><span style="font-family:monospace">validate(char input[],
+                          double *parsed_numbers, unsigned int *numbers_len)</span>:</u></b></font></div>
+      <div><br>
+      </div>
+      <div>First check for the sentinel: return <span style="font-family:monospace">NO_INPUT</span>
+        if it has been entered.
+        Then, utilize <span
+          style="font-family:monospace">sscanf</span> to read our string into the <span
+          style="font-family:monospace">parsed_numbers</span> array: this array
+        will hold up to 10 numbers. So, some context on <span
+          style="font-family:monospace">sscanf</span>: this function
+        reads a string into any number of variables on the pattern
+        provided, kind of like how <span style="font-family:monospace">scanf</span>
+        reads from the standard input stream; or how <span
+          style="font-family:monospace">printf</span> outputs data. The
+        first argument is a string, the second argument is the full
+        pattern to match on--in this case all 10 floating point
+        numbers--and the last arguments will be the address of each
+        array element we can possibly save into. The return value of <span
+          style="font-family:monospace">sscanf</span> is the number of
+        matches it had from the string or an error code. So, if the user input 5 things,
+        the return value would be 5. If you get an error code, then return
+      <span style="font-family:monospace">INPUT_ERROR</span>; but if you don't then set the
+      <span style="font-family:monospace">numbers_len</span> to the
+      <span style="font-family:monospace">sscanf()</span> return value and return
+      <span style="font-family:monospace">OK</span>. Make sure to make the parameters as immutable
+      as possible.</div>
+      <div><br>
+      </div>
       <div><font size="4"><b><u><span style="font-family:monospace">sum_and_count(double
                 numbers[], unsigned int numbers_len, sums *sums, counts
                 *counts)</span>:</u></b></font></div>
       <div><br>
       </div>
-      <div>First off, make each argument as immutable as possible.
+      <div>First off, make each parameter as immutable as possible.
         Iterate over the <span style="font-family:monospace">numbers</span>
         array. For each element in the array, check if it is positive
         (greater than or equal to 0) or negative. If it is positive,
@@ -175,7 +198,7 @@
           </u></font></div>
       <div><br>
       </div>
-      <div>First off, make each argument as immutable as
+      <div>First off, make each parameter as immutable as
           possible. Output our data in a nice table like this:</div>
       <div><br>
       </div>
