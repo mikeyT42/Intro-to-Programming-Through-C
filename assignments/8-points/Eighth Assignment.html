@@ -30,6 +30,29 @@
         </div>
         <div dir="auto"><br>
         </div>
+      <div><font size="4"><b><u>Enumerations:</u></b></font><br>
+      </div>
+      <div><br>
+      </div>
+      <div>There will be two enumerations for this program: the first will be called
+          <span style="font-family:monospace">loop_control</span>. This enumeration
+          will represent the 2 states of our loop logic: one state being to
+          <span style="font-family:monospace">CONTINUE</span> loop execution and the
+          other state being to
+          <span style="font-family:monospace">STOP</span> loop execution. These will be
+          used in the do-while loop's condition.
+      </div>
+      <div><br>
+      </div>The second enumeration will be to represent
+          <span style="font-family:monospace">validaton_code</span>. The enumeration will have these
+          values: <span style="font-family:monospace">OK</span> which will represent validation passing;
+          <span style="font-family:monospace">NO_INPUT</span> which will represent end of user input;
+          <span style="font-family:monospace">NOT_ENOUGH</span> this will represent when there is less
+          than two numbers input; and finally <span style="font-family:monospace">INPUT_ERROR</span>.
+      <div>
+      </div>
+      <div><br>
+      </div>
         <div dir="auto"><font size="4"><b><u><span
                   style="font-family:monospace">main()</span>:</u></b></font></div>
         <div dir="auto"><br>
@@ -44,36 +67,47 @@
                   style="font-family:monospace">input_loop()</span>:</font></u></b></div>
         <div dir="auto"><b><u><br>
               </u></b></div>
-        <div>This function will collect the input of 2
+        <div>This function will collect the input of two
             integers from the user. Use <span
               style="font-family:monospace">fgets()</span> to read into
             a string with a length of <span
-              style="font-family:monospace">256</span>. Check for the <span
-              style="font-family:monospace">sentinel</span> and if it
-            was entered then exit the program. Then use <span
-              style="font-family:monospace">sscanf()</span> to read 2
-            integers from the <span style="font-family:monospace">input</span>
-            into 2 variables <span style="font-family:monospace">x</span>
-            and <span style="font-family:monospace">y</span>--in that
-            order. If less than 2 were entered--our validation--then
-            tell the user they did something wrong and then return <span
-              style="font-family:monospace">true</span> to continue
-            executing the input loop.<br>
+              style="font-family:monospace">256</span>. Then, pass <span
+              style="font-family:monospace">x</span> and <span
+              style="font-family:monospace">y</span> as pointers to the <span
+              style="font-family:monospace">validation()</span> function along with
+          your input string. After calling the validation function, use the returned codes
+          to print any needed errors. When any error occurs, return <span
+              style="font-family:monospace">CONTINUE</span> after the appropriate message.<br>
         </div>
         <div><br>
         </div>
         <div>Then call <span
               style="font-family:monospace">create_point()</span>: if
             this function returns <span style="font-family:monospace">NULL</span>,
-            then return <span style="font-family:monospace">true</span>;
+            then return <span style="font-family:monospace">STOP</span>;
             otherwise continue onwards. Call the <span
               style="font-family:monospace">to_string()</span> function:
             if this function returns <span
               style="font-family:monospace">NULL</span>, then return <span
-              style="font-family:monospace">true</span> and handle any
+              style="font-family:monospace">STOP</span> and handle any
             memory; otherwise continue onwards. Print the point string
             and then cleanup and return <span
-              style="font-family:monospace">true</span>.<br>
+              style="font-family:monospace">CONTINUE</span>.<br>
+        </div>
+        <div><br>
+        </div>
+        <div><font size="4"><b><u><span style="font-family:monospace">validate(char input[],
+                            int *x, int *y)</span>:</u></b></font></div>
+        <div><br>
+        </div>
+        <div>First check for the sentinel and return the <span style="font-family:monospace">NO_INPUT</span>
+          code in that case. Then read the string using <span style="font-family:monospace">sscanf()</span>
+          to read two integers from the <span style="font-family:monospace">input</span>
+            into two variables <span style="font-family:monospace">x</span> and
+            <span style="font-family:monospace">y</span>--in that order. If some error occurs, then return
+            <span style="font-family:monospace">INPUT_ERROR</span>. If the number of matches is less than two,
+            then return <span style="font-family:monospace">NOT_ENOUGH</span>. Finally, if all of that passes,
+            then return <span style="font-family:monospace">OK</span>.
         </div>
         <div><br>
         </div>
