@@ -16,7 +16,8 @@ void null_pointer(void);
 void constants_and_pointers(void);
 int *returning_pointers_to_local_variables(void);
 void pointer_arithmetic(void);
-void struct_pointers(olympic_team team, olympic_team *team_pointer);
+void struct_pointers(const olympic_team team,
+                     const olympic_team *const team_pointer);
 
 // -----------------------------------------------------------------------------
 int main(void) {
@@ -101,9 +102,6 @@ int main(void) {
   printf("womens_gymnastics_team.team_members address = %li\n",
          (long)womens_gymnastics_team.team_members);
   printf("womens_gymnastics_team.team_members:\n");
-  for (int i = 0; i < womens_gymnastics_team.how_many_members; i++)
-    printf("\twomens_gymnastics_team.team_members[%i] = %s\n", i,
-           womens_gymnastics_team.team_members[i]);
 
   return EXIT_SUCCESS;
 }
@@ -197,7 +195,7 @@ void pass_by_pointer(int *i, double *d) {
 }
 
 // -----------------------------------------------------------------------------
-void null_pointer(void) {
+void null_pointer() {
   puts("-----------------------------------------------------");
   puts("\t\tNULL Pointer.");
   puts("-----------------------------------------------------\n");
@@ -237,7 +235,7 @@ void null_pointer(void) {
 }
 
 // -----------------------------------------------------------------------------
-void constants_and_pointers(void) {
+void constants_and_pointers() {
   puts("-----------------------------------------------------");
   puts("\t\tConstants and Pointers.");
   puts("-----------------------------------------------------\n");
@@ -305,7 +303,7 @@ void constants_and_pointers(void) {
 }
 
 // -----------------------------------------------------------------------------
-int *returning_pointers_to_local_variables(void) {
+int *returning_pointers_to_local_variables() {
   puts("-----------------------------------------------------");
   puts("\tReturning Pointers to Local Variables.");
   puts("-----------------------------------------------------\n");
@@ -322,7 +320,7 @@ int *returning_pointers_to_local_variables(void) {
 }
 
 // -----------------------------------------------------------------------------
-void pointer_arithmetic(void) {
+void pointer_arithmetic() {
   puts("-----------------------------------------------------");
   puts("\t\tPointer Arithmetic.");
   puts("-----------------------------------------------------\n");
@@ -415,10 +413,24 @@ void pointer_arithmetic(void) {
 }
 
 // -----------------------------------------------------------------------------
-void struct_pointers(olympic_team team, olympic_team *team_pointer) {
+void struct_pointers(const olympic_team team,
+                     const olympic_team *const team_pointer) {
   puts("-----------------------------------------------------");
   puts("\t\tStruct Pointers.");
   puts("-----------------------------------------------------\n");
+
+  puts("Struct pointers have their own special data member access syntax.\n"
+       "This is done with the -> (arrow) operator. It looks like this:\n\n"
+       "\tteam_point->year;\n\n"
+       "This traverses the pointer and grabs the data member value. The\n"
+       "value can then be used as usual. If the data member was an array\n"
+       "then the access would be the same, and even the use would be the\n"
+       "same as usual. Basically, this operator is a shorthand for first\n"
+       "de-referencing the pointer and then using the dot-operator. This\n"
+       "is what it'd look like if you didn't use the arrow operator:\n\n"
+       "\t(*team_pointer).year;\n\n"
+       "This is much longer to type and more confusing. Don't access struct\n"
+       "pointer members like this.\n");
 
   puts("Passing structs to functions can have some strange quirks. Strings,\n"
        "and in general arrays, are a particular issue. Structs, when passed\n"
@@ -449,11 +461,6 @@ void struct_pointers(olympic_team team, olympic_team *team_pointer) {
   printf("team.how_many_members address = %li\n", (long)&team.how_many_members);
   printf("team.how_many_members = %i\n", team.how_many_members);
   printf("team.team_members address = %li\n", (long)team.team_members);
-  /*
-  printf("team.team_members:\n");
-  for (int i = 0; i < team.how_many_members; i++)
-    printf("\tteam.team_members[%i] = %s\n", i, team.team_members[i]);
-  */
   puts("");
 
   printf("team_pointer = %li\n", (long)team_pointer);
@@ -469,12 +476,6 @@ void struct_pointers(olympic_team team, olympic_team *team_pointer) {
          team_pointer->how_many_members);
   printf("team_pointer->team_members address = %li\n",
          (long)team_pointer->team_members);
-  /*
-  printf("team_pointer->team_members:\n");
-  for (int i = 0; i < team_pointer->how_many_members; i++)
-    printf("\tteam_pointer->team_members[%i] = %s\n", i,
-           team_pointer->team_members[i]);
-  */
   puts("");
 
   puts("For completion's sake, let's also see the orignal variable,\n"
