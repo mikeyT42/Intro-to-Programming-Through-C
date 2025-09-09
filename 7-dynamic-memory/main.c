@@ -16,9 +16,9 @@ void memory_leak_no_free(void);
 void memory_leak_lost_pointer(void);
 void memory_leak_realloc_failure(void);
 void memory_leak_nested_malloc_failure(void);
-void understanding_dangling_pointers(void);
-void understanding_freeing_freed_memory(void);
-void understanding_realloc_security_vulnerability(void);
+void dangling_pointers(void);
+void freeing_freed_memory(void);
+void realloc_security_vulnerability(void);
 
 // -----------------------------------------------------------------------------
 int main(void) {
@@ -71,9 +71,9 @@ int main(void) {
   free(string);
 
   understanding_memory_leaks();
-  understanding_dangling_pointers();
-  understanding_freeing_freed_memory();
-  understanding_realloc_security_vulnerability();
+  dangling_pointers();
+  freeing_freed_memory();
+  realloc_security_vulnerability();
 
   return EXIT_SUCCESS;
 }
@@ -811,7 +811,7 @@ void memory_leak_nested_malloc_failure() {
 }
 
 // -----------------------------------------------------------------------------
-void understanding_dangling_pointers() {
+void dangling_pointers() {
   puts("-----------------------------------------------------");
   puts("\tUnderstanding Dangling Pointers.");
   puts("-----------------------------------------------------\n");
@@ -890,7 +890,7 @@ void understanding_dangling_pointers() {
 }
 
 // -----------------------------------------------------------------------------
-void understanding_freeing_freed_memory() {
+void freeing_freed_memory() {
   puts("-----------------------------------------------------");
   puts("\tUnderstanding Freeing Freed Memory.");
   puts("-----------------------------------------------------\n");
@@ -922,7 +922,7 @@ void understanding_freeing_freed_memory() {
 }
 
 // -----------------------------------------------------------------------------
-void understanding_realloc_security_vulnerability() {
+void realloc_security_vulnerability() {
   puts("-----------------------------------------------------");
   puts("    Understanding realloc() Security Vulnerabilty.");
   puts("-----------------------------------------------------\n");
